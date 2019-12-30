@@ -32,12 +32,15 @@ public partial class EmailAddress { }
 This generator creates
 
 * The public constructor with a single parameter of the actual type
-* The implementation of `System.IComparable<T>`
-* The implementation of `System.IEquatable<T>`
-* The implementation of `Equals(object)`
-* The implementation of `GetHashCode()`
-* The implementation of the `equality operator`
-* The implementation of the `inequality operator`
+* The implementations of
+  * `System.IComparable<T>`
+  * `System.IEquatable<T>`
+  * `Equals(object)`
+  * `GetHashCode()`
+  * `equality operator`
+  * `inequality operator`
+  * `inequality operator`
+  * `explicit operator` for the actual type
 
 ```CSharp
 public partial class EmailAddress : global::System.IComparable<EmailAddress>, global::System.IEquatable<EmailAddress>
@@ -74,6 +77,11 @@ public partial class EmailAddress : global::System.IComparable<EmailAddress>, gl
     }
 
     public static bool operator !=(EmailAddress left, EmailAddress right)
+    {
+        // left out for readability
+    }
+
+    public static explicit operator string(EmailAddress t)
     {
         // left out for readability
     }

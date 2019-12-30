@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>Obviously.SemanticTypes.Generator</AssemblyName>
+    <RootNamespace>Obviously.SemanticTypes.Generator</RootNamespace>
+    <LangVersion>8.0</LangVersion>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="templates\StringSemanticType.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="templates\StringSemanticType.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CodeGeneration.Roslyn" Version="0.6.1" />
+  </ItemGroup>
+
+</Project>

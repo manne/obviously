@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <AssemblyName>Obviously.SemanticTypes.Attributes</AssemblyName>
+    <RootNamespace>Obviously.SemanticTypes.Attributes</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CodeGeneration.Roslyn.Attributes" Version="0.6.1" />
+  </ItemGroup>
+
+</Project>

@@ -66,7 +66,8 @@ namespace Obviously.SemanticTypes.Generator
             {
                 GenerateConstructorAndField,
                 GenerateComparable,
-                GenerateEquality
+                GenerateEquality,
+                GenerateExplicitOperator
             };
             var baseTypes = new List<SimpleBaseTypeSyntax>();
             var members = new List<MemberDeclarationSyntax>();

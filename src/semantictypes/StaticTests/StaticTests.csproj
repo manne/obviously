@@ -29,7 +29,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Attributes\Attributes.csproj" />
     <ProjectReference Include="..\Generator\Generator.csproj" />
     <DotNetCliToolReference Include="dotnet-codegen" Version="0.5.13" />
   </ItemGroup>

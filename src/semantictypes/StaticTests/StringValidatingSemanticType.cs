@@ -1,4 +1,4 @@
-﻿using Obviously.SemanticTypes.Attributes;
+﻿using Obviously.SemanticTypes.Generator;
 
 namespace Obviously.SemanticTypes.StaticTests
 {

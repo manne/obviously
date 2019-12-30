@@ -1,6 +1,6 @@
 using System;
 using FluentAssertions;
-using Obviously.SemanticTypes.Attributes;
+using Obviously.SemanticTypes.Generator;
 using Xunit;
 
 namespace Obviously.SemanticTypes.StaticTests

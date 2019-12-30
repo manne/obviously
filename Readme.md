@@ -6,9 +6,10 @@
 
 ### Installation
 
-1. Add the NuGet package to your project [CodeGeneration.Roslyn.Buildtime](https://www.nuget.org/packages/CodeGeneration.Roslyn.BuildTime/)
-2. Add the NuGet package to your project [dotnet-codegen](https://www.nuget.org/packages/dotnet-codegen/)
-3. Add the NuGet package of this repository. ToDo 😆
+The following NuGet packages have to be added to the project
+1. [CodeGeneration.Roslyn.Buildtime](https://www.nuget.org/packages/CodeGeneration.Roslyn.BuildTime/)
+2. [dotnet-codegen](https://www.nuget.org/packages/dotnet-codegen/)
+3. [Obviously.SemanticTypes](https://www.nuget.org/packages/Obviously.SemanticTypes) 
 
 ### Usage
 

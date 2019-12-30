@@ -6,6 +6,16 @@
     <RootNamespace>Obviously.SemanticTypes.Generator</RootNamespace>
     <LangVersion>8.0</LangVersion>
     <Nullable>enable</Nullable>
+    <Version>0.0.1-preview001</Version>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>Manuel Pfemeter</Authors>
+    <PackageLicenseFile></PackageLicenseFile>
+    <RepositoryUrl>https://github.com/manne/obviously</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/manne/obviously</PackageProjectUrl>
+    <PackageId>Obviously.SemanticTypes</PackageId>
+    <Product>Obviously.SemanticTypes</Product>
   </PropertyGroup>
 
   <ItemGroup>

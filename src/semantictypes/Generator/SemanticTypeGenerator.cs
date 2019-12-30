@@ -56,7 +56,7 @@ namespace Obviously.SemanticTypes.Generator
                 ClassDeclaration(applyToClass.Identifier.ValueText)
                     .WithBaseList(BaseList(SeparatedList<BaseTypeSyntax>(baseTypes)))
                     .WithModifiers(
-                        TokenList(Token(SyntaxKind.PublicKeyword), Token(SyntaxKind.SealedKeyword), Token(SyntaxKind.PartialKeyword)))
+                        TokenList(Token(SyntaxKind.PublicKeyword), Token(SyntaxKind.PartialKeyword)))
                     .WithMembers(
                         List(members)));
             var wrappedMembers = result.WrapWithAncestors(context.ProcessingNode);

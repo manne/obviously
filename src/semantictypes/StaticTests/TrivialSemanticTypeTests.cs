@@ -22,6 +22,13 @@ namespace Obviously.SemanticTypes.StaticTests
             var second = new TrivialInt32SemanticType(1);
             first.Should().Be(second);
         }
+
+        [Fact]
+        public void GivenOneSealedClass_WhenAugmented_TheResultingClass_ShouldStillBeSealed()
+        {
+            var sealedType = typeof(TrivialSealedInt32SemanticType);
+            sealedType.Should().BeSealed();
+        }
     }
 
     [SemanticType(typeof(Guid))]
@@ -29,4 +36,7 @@ namespace Obviously.SemanticTypes.StaticTests
 
     [SemanticType(typeof(int))]
     public partial class TrivialInt32SemanticType { }
+
+    [SemanticType(typeof(int))]
+    public sealed partial class TrivialSealedInt32SemanticType { }
 }

@@ -56,4 +56,15 @@ namespace Obviously.SemanticTypes.Generator.templates
 
         private readonly Guid _value;
     }
+
+    public class Int32EqualitySemanticType 
+    {
+        public Int32EqualitySemanticType(Int32 value)
+        {
+            if(!IsValid(value)) throw new ArgumentException("The parameter is invalid", "value");
+
+            _value = value;
+        }
+        private readonly Guid _value;
+    }
 }

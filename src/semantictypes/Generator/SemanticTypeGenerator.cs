@@ -3,6 +3,7 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.CodeAnalysis.CSharp;
@@ -14,6 +15,34 @@ namespace Obviously.SemanticTypes.Generator
     public sealed partial class SemanticTypeGenerator : IRichCodeGenerator
     {
         private readonly string _actualTypeFullName;
+
+        private class Input
+        {
+            public Input(string actualTypeFullName, string identifier, ClassDeclarationSyntax applyToClass)
+            {
+                ActualTypeFullName = actualTypeFullName;
+                Identifier = identifier;
+                ApplyToClass = applyToClass;
+            }
+
+            public string ActualTypeFullName { get;  }
+
+            public string Identifier { get; }
+
+            public ClassDeclarationSyntax ApplyToClass { get; }
+        }
+
+        private class Output
+        {
+            public Output(SimpleBaseTypeSyntax? baseType, IImmutableList<MemberDeclarationSyntax> members)
+            {
+                BaseType = baseType;
+                Members = members;
+            }
+
+            public SimpleBaseTypeSyntax? BaseType { get; }
+            public IImmutableList<MemberDeclarationSyntax> Members { get; }
+        }
 
         public SemanticTypeGenerator(AttributeData attributeData)
         {
@@ -41,15 +70,16 @@ namespace Obviously.SemanticTypes.Generator
             };
             var baseTypes = new List<SimpleBaseTypeSyntax>();
             var members = new List<MemberDeclarationSyntax>();
+            var input = new Input(_actualTypeFullName, idName, applyToClass);
             foreach (var generator in generators)
             {
-                var (compBaseType, compMembers) = generator(_actualTypeFullName, idName);
-                if (compBaseType != null)
+                var output = generator(input);
+                if (output.BaseType != null)
                 {
-                    baseTypes.Add(compBaseType);
+                    baseTypes.Add(output.BaseType);
                 }
 
-                members.AddRange(compMembers);
+                members.AddRange(output.Members);
             }
 
             var result = SingletonList<MemberDeclarationSyntax>(
@@ -67,6 +97,6 @@ namespace Obviously.SemanticTypes.Generator
             });
         }
 
-        private delegate (SimpleBaseTypeSyntax? baseType, IEnumerable<MemberDeclarationSyntax> members) Generate(string actualTypeFullName, string identifier);
+        private delegate Output Generate(Input input);
     }
 }

@@ -1,5 +1,5 @@
 ﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
-using System.Collections.Generic;
+using System.Collections.Immutable;
 using Microsoft.CodeAnalysis.CSharp;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
@@ -8,15 +8,15 @@ namespace Obviously.SemanticTypes.Generator
     // ReSharper disable once UnusedMember.Global, reason: utilized by the roslyn code generator
     public partial class SemanticTypeGenerator
     {
-        private static (SimpleBaseTypeSyntax? baseType, IEnumerable<MemberDeclarationSyntax> members) GenerateComparable(string actualTypeFullName, string identifier)
+        private static Output GenerateComparable(Input input)
         {
             var baseType = SimpleBaseType(
                                 GenericName(
-                                        Identifier("IComparable"))
+                                        Identifier("global::System.IComparable"))
                                     .WithTypeArgumentList(
                                         TypeArgumentList(
                                             SingletonSeparatedList<TypeSyntax>(
-                                                IdentifierName(identifier)))));
+                                                IdentifierName(input.Identifier)))));
             var members = 
                     List(
                         new MemberDeclarationSyntax[]
@@ -34,7 +34,7 @@ namespace Obviously.SemanticTypes.Generator
                                             Parameter(
                                                     Identifier("other"))
                                                 .WithType(
-                                                    IdentifierName(identifier)))))
+                                                    IdentifierName(input.Identifier)))))
                                 .WithBody(
                                     Block(
                                         SingletonList<StatementSyntax>(
@@ -53,7 +53,7 @@ namespace Obviously.SemanticTypes.Generator
                                                                         IdentifierName("other"),
                                                                         IdentifierName("_value"))))))))))
                         });
-            return (baseType, members);
+            return new Output(baseType, ImmutableList.CreateRange(members));
         }
     }
 }

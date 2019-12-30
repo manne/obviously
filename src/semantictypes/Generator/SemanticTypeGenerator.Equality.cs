@@ -1,5 +1,5 @@
 ﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
-using System.Collections.Generic;
+using System.Collections.Immutable;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
@@ -9,15 +9,15 @@ namespace Obviously.SemanticTypes.Generator
     // ReSharper disable once UnusedMember.Global, reason: utilized by the roslyn code generator
     public partial class SemanticTypeGenerator
     {
-        private static (SimpleBaseTypeSyntax? baseType, IEnumerable<MemberDeclarationSyntax> members) GenerateEquality(string actualTypeFullName, string identifier)
+        private static Output GenerateEquality(Input input)
         {
             var baseType = SimpleBaseType(
                 GenericName(
-                        Identifier("IEquatable"))
+                        Identifier("global::System.IEquatable"))
                     .WithTypeArgumentList(
                         TypeArgumentList(
                             SingletonSeparatedList<TypeSyntax>(
-                                IdentifierName(identifier)))));
+                                IdentifierName(input.Identifier)))));
             var members =
                 List(
                     new MemberDeclarationSyntax[]
@@ -35,7 +35,7 @@ namespace Obviously.SemanticTypes.Generator
                                         Parameter(
                                                 Identifier("other"))
                                             .WithType(
-                                                IdentifierName(identifier)))))
+                                                IdentifierName(input.Identifier)))))
                             .WithBody(
                                 Block(
                                     IfStatement(
@@ -138,7 +138,7 @@ namespace Obviously.SemanticTypes.Generator
                                                         SingletonSeparatedList(
                                                             Argument(
                                                                 CastExpression(
-                                                                    IdentifierName(identifier),
+                                                                    IdentifierName(input.Identifier),
                                                                     IdentifierName("obj")))))))))),
                         MethodDeclaration(
                                 PredefinedType(
@@ -179,12 +179,12 @@ namespace Obviously.SemanticTypes.Generator
                                             Parameter(
                                                     Identifier("left"))
                                                 .WithType(
-                                                    IdentifierName(identifier)),
+                                                    IdentifierName(input.Identifier)),
                                             Token(SyntaxKind.CommaToken),
                                             Parameter(
                                                     Identifier("right"))
                                                 .WithType(
-                                                    IdentifierName(identifier))
+                                                    IdentifierName(input.Identifier))
                                         })))
                             .WithBody(
                                 Block(
@@ -222,12 +222,12 @@ namespace Obviously.SemanticTypes.Generator
                                             Parameter(
                                                     Identifier("left"))
                                                 .WithType(
-                                                    IdentifierName(identifier)),
+                                                    IdentifierName(input.Identifier)),
                                             Token(SyntaxKind.CommaToken),
                                             Parameter(
                                                     Identifier("right"))
                                                 .WithType(
-                                                    IdentifierName(identifier))
+                                                    IdentifierName(input.Identifier))
                                         })))
                             .WithBody(
                                 Block(
@@ -249,7 +249,7 @@ namespace Obviously.SemanticTypes.Generator
                                                                         IdentifierName("right"))
                                                                 }))))))))
                     });
-            return (baseType, members);
+            return new Output(baseType, ImmutableList.CreateRange(members));
         }
     }
 }

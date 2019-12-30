@@ -11,6 +11,7 @@ namespace Obviously.SemanticTypes.StaticTests
         public void Creation_ShouldNotThrow_AnyException()
         {
             var valueToAssign = Guid.NewGuid();
+            // ReSharper disable once AssignmentIsFullyDiscarded
             Action creation = () => _ = new TrivialGuidSemanticType(valueToAssign);
             creation.Should().NotThrow();
         }
@@ -28,6 +29,22 @@ namespace Obviously.SemanticTypes.StaticTests
         {
             var sealedType = typeof(TrivialSealedInt32SemanticType);
             sealedType.Should().BeSealed();
+        }
+
+        [Fact]
+        public void GivenOneValidatingSemanticType_WhenTheValueIsInvalid_ThenTheConstructor_ShouldThrowOneArgumentException()
+        {
+            // ReSharper disable once AssignmentIsFullyDiscarded
+            Action construction = () => _ = new StringValidatingSemanticType("invalid");
+            construction.Should().Throw<ArgumentException>();
+        }
+
+        [Fact]
+        public void GivenOneValidatingSemanticType_WhenTheValueIsValid_ThenTheConstructor_ShouldNotThrowAnyException()
+        {
+            // ReSharper disable once AssignmentIsFullyDiscarded
+            Action construction = () => _ = new StringValidatingSemanticType("is valid");
+            construction.Should().NotThrow();
         }
     }
 

@@ -17,7 +17,7 @@ The following NuGet packages have to be added to the project
 
 The functionality can be easily used.
 Declare a partial class and add the attribute `SemanticType`.
-The only parameter of this attribute is the actual type of the semantic type. Here it is `System.Guid`.
+The only parameter of this attribute is the actual type of the semantic type. Here it is `string`.
 
 ```CSharp
 [SemanticType(typeof(string))]

@@ -14,6 +14,7 @@ namespace Obviously.SemanticTypes.Generator
     // ReSharper disable once UnusedMember.Global, reason: utilized by the roslyn code generator
     public sealed partial class SemanticTypeGenerator : IRichCodeGenerator
     {
+        private const string BackingFieldName = "_value";
         private readonly string _actualTypeFullName;
 
         private class Input
@@ -43,6 +44,8 @@ namespace Obviously.SemanticTypes.Generator
             public SimpleBaseTypeSyntax? BaseType { get; }
             public IImmutableList<MemberDeclarationSyntax> Members { get; }
         }
+
+        private delegate Output Generate(Input input);
 
         public SemanticTypeGenerator(AttributeData attributeData)
         {
@@ -98,7 +101,5 @@ namespace Obviously.SemanticTypes.Generator
                 Members = new SyntaxList<MemberDeclarationSyntax>(wrappedMembers)
             });
         }
-
-        private delegate Output Generate(Input input);
     }
 }

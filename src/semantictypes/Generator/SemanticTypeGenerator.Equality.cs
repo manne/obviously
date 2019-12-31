@@ -68,11 +68,11 @@ namespace Obviously.SemanticTypes.Generator
                                     ReturnStatement(
                                         BinaryExpression(
                                             SyntaxKind.EqualsExpression,
-                                            IdentifierName("_value"),
+                                            IdentifierName(BackingFieldName),
                                             MemberAccessExpression(
                                                 SyntaxKind.SimpleMemberAccessExpression,
                                                 IdentifierName("other"),
-                                                IdentifierName("_value")))))),
+                                                IdentifierName(BackingFieldName)))))),
                         MethodDeclaration(
                                 PredefinedType(
                                     Token(SyntaxKind.BoolKeyword)),
@@ -159,7 +159,7 @@ namespace Obviously.SemanticTypes.Generator
                                             InvocationExpression(
                                                 MemberAccessExpression(
                                                     SyntaxKind.SimpleMemberAccessExpression,
-                                                    IdentifierName("_value"),
+                                                    IdentifierName(BackingFieldName),
                                                     IdentifierName("GetHashCode"))))))),
                         OperatorDeclaration(
                                 PredefinedType(

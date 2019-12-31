@@ -43,7 +43,7 @@ namespace Obviously.SemanticTypes.Generator
                                                 InvocationExpression(
                                                         MemberAccessExpression(
                                                             SyntaxKind.SimpleMemberAccessExpression,
-                                                            IdentifierName("_value"),
+                                                            IdentifierName(BackingFieldName),
                                                             IdentifierName("CompareTo")))
                                                     .WithArgumentList(
                                                         ArgumentList(
@@ -52,7 +52,7 @@ namespace Obviously.SemanticTypes.Generator
                                                                     MemberAccessExpression(
                                                                         SyntaxKind.SimpleMemberAccessExpression,
                                                                         IdentifierName("other"),
-                                                                        IdentifierName("_value"))))))))))
+                                                                        IdentifierName(BackingFieldName))))))))))
                         });
             return new Output(baseType, ImmutableList.CreateRange(members));
         }

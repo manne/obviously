@@ -100,7 +100,7 @@ namespace Obviously.SemanticTypes.Generator
                             .WithVariables(
                                 SingletonSeparatedList(
                                     VariableDeclarator(
-                                        Identifier("_value")))))
+                                        Identifier(BackingFieldName)))))
                     .WithModifiers(
                         TokenList(
                             new[]
@@ -125,7 +125,7 @@ namespace Obviously.SemanticTypes.Generator
                             ExpressionStatement(
                                 AssignmentExpression(
                                     SyntaxKind.SimpleAssignmentExpression,
-                                    IdentifierName("_value"),
+                                    IdentifierName(BackingFieldName),
                                     IdentifierName("value")))))
 
             };

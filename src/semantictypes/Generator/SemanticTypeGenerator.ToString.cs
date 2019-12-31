@@ -31,7 +31,7 @@ namespace Obviously.SemanticTypes.Generator
                                                 InvocationExpression(
                                                     MemberAccessExpression(
                                                         SyntaxKind.SimpleMemberAccessExpression,
-                                                        IdentifierName("_value"),
+                                                        IdentifierName(BackingFieldName),
                                                         IdentifierName("ToString")))))))
 						});
             return new Output(null, ImmutableList.CreateRange(members));

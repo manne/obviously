@@ -6,7 +6,7 @@
     <RootNamespace>Obviously.SemanticTypes.Generator</RootNamespace>
     <LangVersion>8.0</LangVersion>
     <Nullable>enable</Nullable>
-    <Version>0.0.1-preview001</Version>
+    <Version>0.0.1-preview002</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Manuel Pfemeter</Authors>
     <PackageLicenseFile></PackageLicenseFile>
@@ -16,6 +16,9 @@
     <PackageProjectUrl>https://github.com/manne/obviously</PackageProjectUrl>
     <PackageId>Obviously.SemanticTypes</PackageId>
     <Product>Obviously.SemanticTypes</Product>
+    <Description>A code generator for semantic types.</Description>
+    <PackageTags>generator generation codegen codegenerator codegeneration semantic-types</PackageTags>
+    <Company />
   </PropertyGroup>
 
   <ItemGroup>
@@ -24,6 +27,13 @@
 
   <ItemGroup>
     <None Include="templates\StringSemanticType.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- nest the partial files -->
+    <Compile Update="SemanticTypeGenerator.*.cs">
+      <DependentUpon>SemanticTypeGenerator.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>

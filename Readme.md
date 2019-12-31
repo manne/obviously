@@ -2,14 +2,35 @@
 
 ## Semantic Types
 
+[![NuGet](https://img.shields.io/nuget/v/Obviously.SemanticTypes.svg)](https://www.nuget.org/packages/Obviously.SemanticTypes/)
+
 > Let's you easily create semantic types
 
 ### Installation
 
 The following NuGet packages have to be added to the project
-1. [CodeGeneration.Roslyn.Buildtime](https://www.nuget.org/packages/CodeGeneration.Roslyn.BuildTime/)
-2. [dotnet-codegen](https://www.nuget.org/packages/dotnet-codegen/)
-3. [Obviously.SemanticTypes](https://www.nuget.org/packages/Obviously.SemanticTypes) 
+1. [CodeGeneration.Roslyn.Buildtime](https://www.nuget.org/packages/CodeGeneration.Roslyn.BuildTime/) as a package reference
+2. [dotnet-codegen](https://www.nuget.org/packages/dotnet-codegen/) as .NET CLI tool reference
+3. [Obviously.SemanticTypes](https://www.nuget.org/packages/Obviously.SemanticTypes) as a package reference (this package)
+
+The project file should look like this
+
+```XML
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="CodeGeneration.Roslyn.BuildTime" Version="0.6.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Obviously.SemanticTypes" Version="0.0.1-preview001" />
+    <DotNetCliToolReference Include="dotnet-codegen" Version="0.5.13" />
+  </ItemGroup>
+</Project>
+```
 
 ### Usage
 
@@ -39,9 +60,12 @@ This generator creates
   * `GetHashCode()`
   * `equality operator`
   * `inequality operator`
-  * `inequality operator`
   * `explicit operator` for the actual type
+  * `ToString()`
 
+> ℹ This package and the others are compile-time dependencies. So the compiled assembly does __not__ contain any references on one of the NuGet packages. Even the `SemanticType` attribute is __not__ in the compiled assembly
+
+###### Example
 ```CSharp
 public partial class EmailAddress : global::System.IComparable<EmailAddress>, global::System.IEquatable<EmailAddress>
 {
@@ -85,6 +109,11 @@ public partial class EmailAddress : global::System.IComparable<EmailAddress>, gl
     {
         // left out for readability
     }
+    
+    public override string ToString()
+    {
+        // left out for readability
+    }
 ```
 
 #### Advanced
@@ -118,6 +147,7 @@ public partial class EmailAddress
 * For the inspiration [github.com/mperdeck/semantictypes](https://github.com/mperdeck/semantictypes)
 * For the code generator [github.com/AArnott/CodeGeneration.Roslyn](https://github.com/AArnott/CodeGeneration.Roslyn)
 * For the examples [github.com/andrewlock/StronglyTypedId](https://github.com/andrewlock/StronglyTypedId)
+* For making the creation of the generated code so easy [github.com/KirillOsenkov/RoslynQuoter](https://github.com/KirillOsenkov/RoslynQuoter)
 
 ## License
 Is licensed under [MIT](License).

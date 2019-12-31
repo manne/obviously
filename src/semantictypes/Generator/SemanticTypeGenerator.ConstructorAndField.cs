@@ -4,6 +4,7 @@ using System.Linq;
 using CodeGeneration.Roslyn;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
+
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 namespace Obviously.SemanticTypes.Generator

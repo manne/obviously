@@ -46,6 +46,13 @@ namespace Obviously.SemanticTypes.StaticTests
             Action construction = () => _ = new StringValidatingSemanticType("is valid");
             construction.Should().NotThrow();
         }
+
+        [Fact]
+        public void GivenOneInt32SemanticType_WhenInvokingToString_ThenTheToStringMethodOfTheActualValue_ShouldBeInvoked()
+        {
+            var cut = new TrivialInt32SemanticType(1337);
+            cut.ToString().Should().Be("1337");
+        }
     }
 
     [SemanticType(typeof(Guid))]

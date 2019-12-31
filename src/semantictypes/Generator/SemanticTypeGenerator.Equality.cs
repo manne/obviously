@@ -2,6 +2,7 @@
 using System.Collections.Immutable;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
+
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 namespace Obviously.SemanticTypes.Generator

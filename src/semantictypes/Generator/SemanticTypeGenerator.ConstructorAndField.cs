@@ -1,4 +1,5 @@
-﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
+﻿using System.Collections.Generic;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System.Collections.Immutable;
 using System.Linq;
 using CodeGeneration.Roslyn;
@@ -24,7 +25,6 @@ namespace Obviously.SemanticTypes.Generator
             }
 
             var validationMethod = validationMethods.FirstOrDefault();
-            StatementSyntax parameterValidation;
             bool hasValidValidation;
 
             if (validationMethod is null)
@@ -57,41 +57,48 @@ namespace Obviously.SemanticTypes.Generator
                 }
             }
 
+            var blockStatements = new List<StatementSyntax>();
+
             if (hasValidValidation)
             {
-                parameterValidation = IfStatement(
-                    PrefixUnaryExpression(
-                        SyntaxKind.LogicalNotExpression,
-                        InvocationExpression(
-                                IdentifierName("IsValid"))
-                            .WithArgumentList(
-                                ArgumentList(
-                                    SingletonSeparatedList(
-                                        Argument(
-                                            IdentifierName("value")))))),
-                    ThrowStatement(
-                        ObjectCreationExpression(
-                                IdentifierName("global::System.ArgumentException"))
-                            .WithArgumentList(
-                                ArgumentList(
-                                    SeparatedList<ArgumentSyntax>(
-                                        new SyntaxNodeOrToken[]
-                                        {
+                var parameterValidation =
+                    IfStatement(
+                        PrefixUnaryExpression(
+                            SyntaxKind.LogicalNotExpression,
+                            InvocationExpression(
+                                    IdentifierName("IsValid"))
+                                .WithArgumentList(
+                                    ArgumentList(
+                                        SingletonSeparatedList(
                                             Argument(
-                                                LiteralExpression(
-                                                    SyntaxKind.StringLiteralExpression,
-                                                    Literal("The parameter is invalid"))),
-                                            Token(SyntaxKind.CommaToken),
-                                            Argument(
-                                                LiteralExpression(
-                                                    SyntaxKind.StringLiteralExpression,
-                                                    Literal("value")))
-                                        })))));
+                                                IdentifierName("value")))))),
+                        ThrowStatement(
+                            ObjectCreationExpression(
+                                    IdentifierName("global::System.ArgumentException"))
+                                .WithArgumentList(
+                                    ArgumentList(
+                                        SeparatedList<ArgumentSyntax>(
+                                            new SyntaxNodeOrToken[]
+                                            {
+                                                Argument(
+                                                    LiteralExpression(
+                                                        SyntaxKind.StringLiteralExpression,
+                                                        Literal("The parameter is invalid"))),
+                                                Token(SyntaxKind.CommaToken),
+                                                Argument(
+                                                    LiteralExpression(
+                                                        SyntaxKind.StringLiteralExpression,
+                                                        Literal("value")))
+                                            })))));
+                blockStatements.Add(parameterValidation);
             }
-            else
-            {
-                parameterValidation = EmptyStatement();
-            }
+
+            var parameterAssignment = ExpressionStatement(
+                AssignmentExpression(
+                    SyntaxKind.SimpleAssignmentExpression,
+                    IdentifierName(BackingFieldName),
+                    IdentifierName("value")));
+            blockStatements.Add(parameterAssignment);
 
             var members = new MemberDeclarationSyntax[]
             {
@@ -120,14 +127,7 @@ namespace Obviously.SemanticTypes.Generator
                                         Identifier("value"))
                                     .WithType(IdentifierName(input.ActualTypeFullName)))))
                     .WithBody(
-                        Block(
-                            parameterValidation,
-                            ExpressionStatement(
-                                AssignmentExpression(
-                                    SyntaxKind.SimpleAssignmentExpression,
-                                    IdentifierName(BackingFieldName),
-                                    IdentifierName("value")))))
-
+                        Block(blockStatements))
             };
             return new Output(null, ImmutableList.CreateRange(members));
         }

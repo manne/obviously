@@ -1,5 +1,7 @@
 # Code Generation
 
+This document shows what is getting generated and what's inside the compiled assembly. The code is from the GitHub repository [manne/obviously.consumer](https://github.com/manne/obviously.consumer)
+
 ## Input
 
 File name: EmailAddressWithValidation.cs
@@ -25,7 +27,7 @@ namespace Obviously.SemanticTypes.Consumer.NetCoreConsole
 
 ### Code
 
-File name: StringValidatingSemanticType.kY04X8b+.generated.cs
+File name: EmailAddressWithValidation.kY04X8b+.generated.cs
 
 ```CSharp
 // ------------------------------------------------------------------------------

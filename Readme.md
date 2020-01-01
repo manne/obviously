@@ -63,62 +63,9 @@ This generator creates
 
 > ℹ This and the others packages are compile-time dependencies. So the compiled assembly does __not__ contain any references on one of the NuGet packages. Even the `SemanticType` attribute is __not__ in the compiled assembly
 
-<details>
- <summary>Generated code</summary>
-
 ###### Code Generation Example
 
-```CSharp
-public partial class EmailAddress : global::System.IComparable<EmailAddress>, global::System.IEquatable<EmailAddress>
-{
-    private readonly string _value;
-    public EmailAddress(string value)
-    {
-        _value = value;
-    }
-
-    public int CompareTo(EmailAddress other)
-    {
-        // left out for readability
-    }
-
-    public bool Equals(EmailAddress other)
-    {
-        // left out for readability
-    }
-
-    public override bool Equals(object obj)
-    {
-        // left out for readability
-    }
-
-    public override int GetHashCode()
-    {
-        // left out for readability
-    }
-
-    public static bool operator ==(EmailAddress left, EmailAddress right)
-    {
-        // left out for readability
-    }
-
-    public static bool operator !=(EmailAddress left, EmailAddress right)
-    {
-        // left out for readability
-    }
-
-    public static explicit operator string(EmailAddress t)
-    {
-        // left out for readability
-    }
-
-    public override string ToString()
-    {
-        // left out for readability
-    }
-```
-
-</details>
+For details what is getting generated, see [Docs/code_generation.md](Docs/code_generation.md)
 
 #### Advanced
 
@@ -132,7 +79,7 @@ If the value is __not__ valid, an instance of the semantic type cannot be create
 
 ###### Validation Example
 
-The example should the validation of an email address.
+The example shows the validation of an email address.
 
 ```CSharp
 [SemanticType(typeof(string))]

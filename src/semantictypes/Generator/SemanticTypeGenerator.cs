@@ -63,7 +63,8 @@ namespace Obviously.SemanticTypes.Generator
         public Task<RichGenerationResult> GenerateRichAsync(TransformationContext context, IProgress<Diagnostic> progress, CancellationToken cancellationToken)
         {
             var applyToClass = (ClassDeclarationSyntax)context.ProcessingNode;
-            var idName = applyToClass.Identifier.ValueText;
+            var classSymbol = context.SemanticModel.GetDeclaredSymbol(applyToClass);
+            var idName = classSymbol.Name;
 
             var generators = new Generate[]
             {
@@ -73,6 +74,7 @@ namespace Obviously.SemanticTypes.Generator
                 GenerateExplicitOperator,
                 GenerateToString
             };
+            var accessibility = classSymbol.DeclaredAccessibility;
             var baseTypes = new List<SimpleBaseTypeSyntax>();
             var members = new List<MemberDeclarationSyntax>();
             var input = new Input(_actualTypeFullName, idName, applyToClass);
@@ -91,7 +93,7 @@ namespace Obviously.SemanticTypes.Generator
                 ClassDeclaration(applyToClass.Identifier.ValueText)
                     .WithBaseList(BaseList(SeparatedList<BaseTypeSyntax>(baseTypes)))
                     .WithModifiers(
-                        TokenList(Token(SyntaxKind.PublicKeyword), Token(SyntaxKind.PartialKeyword)))
+                        TokenList( ParseToken(SyntaxFacts.GetText(accessibility)), Token(SyntaxKind.PartialKeyword)))
                     .WithMembers(
                         List(members)));
             var wrappedMembers = result.WrapWithAncestors(context.ProcessingNode);

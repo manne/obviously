@@ -63,4 +63,7 @@ namespace Obviously.SemanticTypes.StaticTests
 
     [SemanticType(typeof(int))]
     public sealed partial class TrivialSealedInt32SemanticType { }
+
+    [SemanticType(typeof(int))]
+    internal partial class InternalTrivialSealedInt32SemanticType { }
 }

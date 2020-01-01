@@ -9,6 +9,7 @@
 ### Installation
 
 The following NuGet packages have to be added to the project
+
 1. [CodeGeneration.Roslyn.Buildtime](https://www.nuget.org/packages/CodeGeneration.Roslyn.BuildTime/) as a package reference
 2. [dotnet-codegen](https://www.nuget.org/packages/dotnet-codegen/) as .NET CLI tool reference
 3. [Obviously.SemanticTypes](https://www.nuget.org/packages/Obviously.SemanticTypes) as a package reference (this package)
@@ -32,6 +33,7 @@ The following NuGet packages have to be added to the project
   </ItemGroup>
 </Project>
 ```
+
 </details>
 
 ### Usage
@@ -47,11 +49,11 @@ The only parameter of this attribute is the actual type of the semantic type. He
 public partial class EmailAddress { }
 ```
 
-> ⚠ The class must have the `partial` modifier
-
+> ⚠ The class must have the `partial` modifier  
 > ℹ The class can be `sealed`
 
 ##### What's getting generated
+
 This generator creates
 
 * The public constructor with a single parameter of the actual type
@@ -59,13 +61,13 @@ This generator creates
   * the `comparable` and  `equatable` pattern
   * `explicit operator` for the actual type.
 
-
 > ℹ This and the others packages are compile-time dependencies. So the compiled assembly does __not__ contain any references on one of the NuGet packages. Even the `SemanticType` attribute is __not__ in the compiled assembly
 
 <details>
  <summary>Generated code</summary>
 
-###### Example
+###### Code Generation Example
+
 ```CSharp
 public partial class EmailAddress : global::System.IComparable<EmailAddress>, global::System.IEquatable<EmailAddress>
 {
@@ -109,7 +111,7 @@ public partial class EmailAddress : global::System.IComparable<EmailAddress>, gl
     {
         // left out for readability
     }
-    
+
     public override string ToString()
     {
         // left out for readability
@@ -128,8 +130,7 @@ This method must only have a single parameter of the actual type and must have t
 
 If the value is __not__ valid, an instance of the semantic type cannot be created.
 
-
-###### Example
+###### Validation Example
 
 The example should the validation of an email address.
 

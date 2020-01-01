@@ -75,4 +75,33 @@ namespace Obviously.SemanticTypes.Generator.templates
         }
         private readonly Int32 _value;
     }
+
+    public class Int32ComparableSemanticType : IComparable<Int32ComparableSemanticType>
+    {
+        public int CompareTo(Int32ComparableSemanticType other)
+        {
+            return other is null ? 1 : _value.CompareTo(other._value);
+        }
+        public static bool operator <(Int32ComparableSemanticType left, Int32ComparableSemanticType right)
+        {
+            return left is null ? !(right is null) : left.CompareTo(right) < 0;
+        }
+
+        public static bool operator <=(Int32ComparableSemanticType left, Int32ComparableSemanticType right)
+        {
+            return left is null || left.CompareTo(right) <= 0;
+        }
+
+        public static bool operator >(Int32ComparableSemanticType left, Int32ComparableSemanticType right)
+        {
+            return !(left is null) && left.CompareTo(right) > 0;
+        }
+
+        public static bool operator >=(Int32ComparableSemanticType left, Int32ComparableSemanticType right)
+        {
+            return left is null ? right is null : left.CompareTo(right) >= 0;
+        }
+
+        private readonly int _value = 123;
+    }
 }

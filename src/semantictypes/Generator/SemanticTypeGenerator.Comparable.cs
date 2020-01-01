@@ -1,5 +1,6 @@
 ﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System.Collections.Immutable;
+using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
@@ -18,41 +19,244 @@ namespace Obviously.SemanticTypes.Generator
                                         TypeArgumentList(
                                             SingletonSeparatedList<TypeSyntax>(
                                                 IdentifierName(input.Identifier)))));
-            var members = 
+            var members =
                     List(
                         new MemberDeclarationSyntax[]
                         {
                             MethodDeclaration(
-                                    PredefinedType(
-                                        Token(SyntaxKind.IntKeyword)),
-                                    Identifier("CompareTo"))
-                                .WithModifiers(
-                                    TokenList(
-                                        Token(SyntaxKind.PublicKeyword)))
-                                .WithParameterList(
-                                    ParameterList(
-                                        SingletonSeparatedList(
+                            PredefinedType(
+                                Token(SyntaxKind.IntKeyword)),
+                            Identifier("CompareTo"))
+                        .WithModifiers(
+                            TokenList(
+                                Token(SyntaxKind.PublicKeyword)))
+                        .WithParameterList(
+                            ParameterList(
+                                SingletonSeparatedList(
+                                    Parameter(
+                                        Identifier("other"))
+                                    .WithType(
+                                        IdentifierName(input.Identifier)))))
+                        .WithBody(
+                            Block(
+                                SingletonList<StatementSyntax>(
+                                    ReturnStatement(
+                                        ConditionalExpression(
+                                            IsPatternExpression(
+                                                IdentifierName("other"),
+                                                ConstantPattern(
+                                                    LiteralExpression(
+                                                        SyntaxKind.NullLiteralExpression))),
+                                            LiteralExpression(
+                                                SyntaxKind.NumericLiteralExpression,
+                                                Literal(1)),
+                                            InvocationExpression(
+                                                MemberAccessExpression(
+                                                    SyntaxKind.SimpleMemberAccessExpression,
+                                                    IdentifierName("_value"),
+                                                    IdentifierName("CompareTo")))
+                                            .WithArgumentList(
+                                                ArgumentList(
+                                                    SingletonSeparatedList(
+                                                        Argument(
+                                                            MemberAccessExpression(
+                                                                SyntaxKind.SimpleMemberAccessExpression,
+                                                                IdentifierName("other"),
+                                                                IdentifierName("_value"))))))))))),
+                        OperatorDeclaration(
+                            PredefinedType(
+                                Token(SyntaxKind.BoolKeyword)),
+                            Token(SyntaxKind.LessThanToken))
+                            .WithModifiers(
+                                TokenList(Token(SyntaxKind.PublicKeyword), Token(SyntaxKind.StaticKeyword)))
+                            .WithParameterList(
+                                ParameterList(
+                                    SeparatedList<ParameterSyntax>(
+                                        new SyntaxNodeOrToken[]{
                                             Parameter(
-                                                    Identifier("other"))
-                                                .WithType(
-                                                    IdentifierName(input.Identifier)))))
-                                .WithBody(
-                                    Block(
-                                        SingletonList<StatementSyntax>(
-                                            ReturnStatement(
-                                                InvocationExpression(
+                                                Identifier("left"))
+                                            .WithType(
+                                                IdentifierName(input.Identifier)),
+                                            Token(SyntaxKind.CommaToken),
+                                            Parameter(
+                                                Identifier("right"))
+                                            .WithType(
+                                                IdentifierName(input.Identifier))})))
+                            .WithBody(
+                                Block(
+                                    SingletonList<StatementSyntax>(
+                                        ReturnStatement(
+                                            ConditionalExpression(
+                                                IsPatternExpression(
+                                                    IdentifierName("left"),
+                                                    ConstantPattern(
+                                                        LiteralExpression(
+                                                            SyntaxKind.NullLiteralExpression))),
+                                                PrefixUnaryExpression(
+                                                    SyntaxKind.LogicalNotExpression,
+                                                    ParenthesizedExpression(
+                                                        IsPatternExpression(
+                                                            IdentifierName("right"),
+                                                            ConstantPattern(
+                                                                LiteralExpression(
+                                                                    SyntaxKind.NullLiteralExpression))))),
+                                                BinaryExpression(
+                                                    SyntaxKind.LessThanExpression,
+                                                    InvocationExpression(
                                                         MemberAccessExpression(
                                                             SyntaxKind.SimpleMemberAccessExpression,
-                                                            IdentifierName(BackingFieldName),
+                                                            IdentifierName("left"),
                                                             IdentifierName("CompareTo")))
                                                     .WithArgumentList(
                                                         ArgumentList(
                                                             SingletonSeparatedList(
                                                                 Argument(
-                                                                    MemberAccessExpression(
-                                                                        SyntaxKind.SimpleMemberAccessExpression,
-                                                                        IdentifierName("other"),
-                                                                        IdentifierName(BackingFieldName))))))))))
+                                                                    IdentifierName("right"))))),
+                                                    LiteralExpression(
+                                                        SyntaxKind.NumericLiteralExpression,
+                                                        Literal(0)))))))),
+                        OperatorDeclaration(
+                            PredefinedType(
+                                Token(SyntaxKind.BoolKeyword)),
+                            Token(SyntaxKind.LessThanEqualsToken))
+                            .WithModifiers(
+                                TokenList(Token(SyntaxKind.PublicKeyword), Token(SyntaxKind.StaticKeyword)))
+                            .WithParameterList(
+                                ParameterList(
+                                    SeparatedList<ParameterSyntax>(
+                                        new SyntaxNodeOrToken[]{
+                                            Parameter(
+                                                Identifier("left"))
+                                            .WithType(
+                                                IdentifierName(input.Identifier)),
+                                            Token(SyntaxKind.CommaToken),
+                                            Parameter(
+                                                Identifier("right"))
+                                            .WithType(
+                                                IdentifierName(input.Identifier))})))
+                            .WithBody(
+                                Block(
+                                    SingletonList<StatementSyntax>(
+                                        ReturnStatement(
+                                            BinaryExpression(
+                                                SyntaxKind.LogicalOrExpression,
+                                                IsPatternExpression(
+                                                    IdentifierName("left"),
+                                                    ConstantPattern(
+                                                        LiteralExpression(
+                                                            SyntaxKind.NullLiteralExpression))),
+                                                BinaryExpression(
+                                                    SyntaxKind.LessThanOrEqualExpression,
+                                                    InvocationExpression(
+                                                        MemberAccessExpression(
+                                                            SyntaxKind.SimpleMemberAccessExpression,
+                                                            IdentifierName("left"),
+                                                            IdentifierName("CompareTo")))
+                                                    .WithArgumentList(
+                                                        ArgumentList(
+                                                            SingletonSeparatedList(
+                                                                Argument(
+                                                                    IdentifierName("right"))))),
+                                                    LiteralExpression(
+                                                        SyntaxKind.NumericLiteralExpression,
+                                                        Literal(0)))))))),
+                        OperatorDeclaration(
+                            PredefinedType(
+                                Token(SyntaxKind.BoolKeyword)),
+                            Token(SyntaxKind.GreaterThanToken))
+                            .WithModifiers(
+                                TokenList(Token(SyntaxKind.PublicKeyword), Token(SyntaxKind.StaticKeyword)))
+                            .WithParameterList(
+                                ParameterList(
+                                    SeparatedList<ParameterSyntax>(
+                                        new SyntaxNodeOrToken[]{
+                                            Parameter(
+                                                Identifier("left"))
+                                            .WithType(
+                                                IdentifierName(input.Identifier)),
+                                            Token(SyntaxKind.CommaToken),
+                                            Parameter(
+                                                Identifier("right"))
+                                            .WithType(
+                                                IdentifierName(input.Identifier))})))
+                            .WithBody(
+                                Block(
+                                    SingletonList<StatementSyntax>(
+                                        ReturnStatement(
+                                            BinaryExpression(
+                                                SyntaxKind.LogicalAndExpression,
+                                                PrefixUnaryExpression(
+                                                    SyntaxKind.LogicalNotExpression,
+                                                    ParenthesizedExpression(
+                                                        IsPatternExpression(
+                                                            IdentifierName("left"),
+                                                            ConstantPattern(
+                                                                LiteralExpression(
+                                                                    SyntaxKind.NullLiteralExpression))))),
+                                                BinaryExpression(
+                                                    SyntaxKind.GreaterThanExpression,
+                                                    InvocationExpression(
+                                                        MemberAccessExpression(
+                                                            SyntaxKind.SimpleMemberAccessExpression,
+                                                            IdentifierName("left"),
+                                                            IdentifierName("CompareTo")))
+                                                    .WithArgumentList(
+                                                        ArgumentList(
+                                                            SingletonSeparatedList(
+                                                                Argument(
+                                                                    IdentifierName("right"))))),
+                                                    LiteralExpression(
+                                                        SyntaxKind.NumericLiteralExpression,
+                                                        Literal(0)))))))),
+                        OperatorDeclaration(
+                            PredefinedType(
+                                Token(SyntaxKind.BoolKeyword)),
+                            Token(SyntaxKind.GreaterThanEqualsToken))
+                            .WithModifiers(
+                                TokenList(Token(SyntaxKind.PublicKeyword), Token(SyntaxKind.StaticKeyword)))
+                            .WithParameterList(
+                                ParameterList(
+                                    SeparatedList<ParameterSyntax>(
+                                        new SyntaxNodeOrToken[]{
+                                            Parameter(
+                                                Identifier("left"))
+                                            .WithType(
+                                                IdentifierName(input.Identifier)),
+                                            Token(SyntaxKind.CommaToken),
+                                            Parameter(
+                                                Identifier("right"))
+                                            .WithType(
+                                                IdentifierName(input.Identifier))})))
+                            .WithBody(
+                                Block(
+                                    SingletonList<StatementSyntax>(
+                                        ReturnStatement(
+                                            ConditionalExpression(
+                                                IsPatternExpression(
+                                                    IdentifierName("left"),
+                                                    ConstantPattern(
+                                                        LiteralExpression(
+                                                            SyntaxKind.NullLiteralExpression))),
+                                                IsPatternExpression(
+                                                    IdentifierName("right"),
+                                                    ConstantPattern(
+                                                        LiteralExpression(
+                                                            SyntaxKind.NullLiteralExpression))),
+                                                BinaryExpression(
+                                                    SyntaxKind.GreaterThanOrEqualExpression,
+                                                    InvocationExpression(
+                                                        MemberAccessExpression(
+                                                            SyntaxKind.SimpleMemberAccessExpression,
+                                                            IdentifierName("left"),
+                                                            IdentifierName("CompareTo")))
+                                                    .WithArgumentList(
+                                                        ArgumentList(
+                                                            SingletonSeparatedList(
+                                                                Argument(
+                                                                    IdentifierName("right"))))),
+                                                    LiteralExpression(
+                                                        SyntaxKind.NumericLiteralExpression,
+                                                        Literal(0))))))))
                         });
             return new Output(baseType, ImmutableList.CreateRange(members));
         }

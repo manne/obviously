@@ -16,8 +16,9 @@
     <PackageId>Obviously.SemanticTypes</PackageId>
     <Product>Obviously.SemanticTypes</Product>
     <Description>A code generator for semantic types.</Description>
-    <PackageTags>generator generation codegen codegenerator codegeneration semantic-types</PackageTags>
+    <PackageTags>codegenerator semantic-types</PackageTags>
     <Company />
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
   </PropertyGroup>
 
   <ItemGroup>
@@ -27,7 +28,7 @@
   <ItemGroup>
     <None Include="..\.editorconfig" Link=".editorconfig" />
     <None Include="templates\StringSemanticType.cs" />
-    <None Include="..\..\..\LICENSE" Pack="true" PackagePath=""/>
+    <None Include="..\..\..\LICENSE" Pack="true" PackagePath="" />
   </ItemGroup>
 
   <ItemGroup>

@@ -6,10 +6,9 @@
     <RootNamespace>Obviously.SemanticTypes.Generator</RootNamespace>
     <LangVersion>8.0</LangVersion>
     <Nullable>enable</Nullable>
-    <Version>0.0.1-preview002</Version>
+    <Version>0.0.1-preview003</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Manuel Pfemeter</Authors>
-    <PackageLicenseFile></PackageLicenseFile>
     <RepositoryUrl>https://github.com/manne/obviously</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -28,6 +27,7 @@
   <ItemGroup>
     <None Include="..\.editorconfig" Link=".editorconfig" />
     <None Include="templates\StringSemanticType.cs" />
+    <None Include="..\..\..\LICENSE" Pack="true" PackagePath=""/>
   </ItemGroup>
 
   <ItemGroup>

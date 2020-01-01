@@ -2,9 +2,9 @@
 
 ## Semantic Types
 
-[![NuGet](https://img.shields.io/nuget/v/Obviously.SemanticTypes.svg)](https://www.nuget.org/packages/Obviously.SemanticTypes/)
+[![NuGet](https://img.shields.io/nuget/v/Obviously.SemanticTypes.svg?color=blue&style=flat-square)](https://www.nuget.org/packages/Obviously.SemanticTypes/) [![GitHub license](https://img.shields.io/github/license/manne/obviously?color=blue&style=flat-square)](https://github.com/manne/obviously/blob/master/LICENSE)
 
-> Let's you easily create semantic types
+> Create semantic types in seconds
 
 ### Installation
 
@@ -13,7 +13,8 @@ The following NuGet packages have to be added to the project
 2. [dotnet-codegen](https://www.nuget.org/packages/dotnet-codegen/) as .NET CLI tool reference
 3. [Obviously.SemanticTypes](https://www.nuget.org/packages/Obviously.SemanticTypes) as a package reference (this package)
 
-The project file should look like this
+<details>
+  <summary>The project file should look like this</summary>
 
 ```XML
 <Project Sdk="Microsoft.NET.Sdk">
@@ -31,6 +32,7 @@ The project file should look like this
   </ItemGroup>
 </Project>
 ```
+</details>
 
 ### Usage
 
@@ -54,16 +56,14 @@ This generator creates
 
 * The public constructor with a single parameter of the actual type
 * The implementations of
-  * `System.IComparable<T>`
-  * `System.IEquatable<T>`
-  * `Equals(object)`
-  * `GetHashCode()`
-  * `equality operator`
-  * `inequality operator`
-  * `explicit operator` for the actual type
-  * `ToString()`
+  * the `comparable` and  `equatable` pattern
+  * `explicit operator` for the actual type.
 
-> ℹ This package and the others are compile-time dependencies. So the compiled assembly does __not__ contain any references on one of the NuGet packages. Even the `SemanticType` attribute is __not__ in the compiled assembly
+
+> ℹ This and the others packages are compile-time dependencies. So the compiled assembly does __not__ contain any references on one of the NuGet packages. Even the `SemanticType` attribute is __not__ in the compiled assembly
+
+<details>
+ <summary>Generated code</summary>
 
 ###### Example
 ```CSharp
@@ -116,6 +116,8 @@ public partial class EmailAddress : global::System.IComparable<EmailAddress>, gl
     }
 ```
 
+</details>
+
 #### Advanced
 
 ##### Validation
@@ -142,6 +144,12 @@ public partial class EmailAddress
 }
 ```
 
+## Contribution
+
+* Create a fork and make a Pull Request
+* Submit a bug
+* Submit an idea
+
 ## Credits
 
 * For the inspiration [github.com/mperdeck/semantictypes](https://github.com/mperdeck/semantictypes)
@@ -150,4 +158,5 @@ public partial class EmailAddress
 * For making the creation of the generated code so easy [github.com/KirillOsenkov/RoslynQuoter](https://github.com/KirillOsenkov/RoslynQuoter)
 
 ## License
-Is licensed under [MIT](License).
+
+This project is licensed under the MIT License - see the [MIT](License) file for details

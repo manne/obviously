@@ -59,11 +59,8 @@ namespace Obviously.SemanticTypes.StaticTests
     public partial class TrivialGuidSemanticType { }
 
     [SemanticType(typeof(int))]
-    public partial class TrivialInt32SemanticType { }
-
-    [SemanticType(typeof(int))]
     public sealed partial class TrivialSealedInt32SemanticType { }
 
     [SemanticType(typeof(int))]
-    internal partial class InternalTrivialSealedInt32SemanticType { }
+    public partial class TrivialInt32SemanticType { }
 }

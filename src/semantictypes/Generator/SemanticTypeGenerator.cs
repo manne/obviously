@@ -62,6 +62,8 @@ namespace Obviously.SemanticTypes.Generator
 
         public Task<RichGenerationResult> GenerateRichAsync(TransformationContext context, IProgress<Diagnostic> progress, CancellationToken cancellationToken)
         {
+            if (context is null) throw new ArgumentNullException(nameof(context));
+
             var applyToClass = (ClassDeclarationSyntax)context.ProcessingNode;
             var classSymbol = context.SemanticModel.GetDeclaredSymbol(applyToClass);
             var idName = classSymbol.Name;

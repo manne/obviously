@@ -56,7 +56,27 @@ namespace Obviously.SemanticTypes.Consumer.NetCoreConsole
 
         public int CompareTo(EmailAddressWithValidation other)
         {
-            return _value.CompareTo(other._value);
+            return other is null ? 1 : _value.CompareTo(other._value);
+        }
+
+        public static bool operator <(EmailAddressWithValidation left, EmailAddressWithValidation right)
+        {
+            return left is null ? !(right is null) : left.CompareTo(right) < 0;
+        }
+
+        public static bool operator <=(EmailAddressWithValidation left, EmailAddressWithValidation right)
+        {
+            return left is null || left.CompareTo(right) <= 0;
+        }
+
+        public static bool operator>(EmailAddressWithValidation left, EmailAddressWithValidation right)
+        {
+            return !(left is null) && left.CompareTo(right) > 0;
+        }
+
+        public static bool operator >=(EmailAddressWithValidation left, EmailAddressWithValidation right)
+        {
+            return left is null ? right is null : left.CompareTo(right) >= 0;
         }
 
         public bool Equals(EmailAddressWithValidation other)
@@ -68,13 +88,19 @@ namespace Obviously.SemanticTypes.Consumer.NetCoreConsole
             return _value == other._value;
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object other)
         {
-            if (obj is null)
-                return false;
-            if (ReferenceEquals(this, obj))
+            if (ReferenceEquals(this, other))
+            {
                 return true;
-            return obj.GetType() == GetType() && Equals((EmailAddressWithValidation)obj);
+            }
+
+            if (!(other is EmailAddressWithValidation other2))
+            {
+                return false;
+            }
+
+            return _value == other2._value;
         }
 
         public override int GetHashCode()

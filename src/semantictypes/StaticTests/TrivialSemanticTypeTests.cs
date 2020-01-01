@@ -53,6 +53,15 @@ namespace Obviously.SemanticTypes.StaticTests
             var cut = new TrivialInt32SemanticType(1337);
             cut.ToString().Should().Be("1337");
         }
+
+        [Fact]
+        public void GivenOneInt32SemanticType_WhenCheckingForBeingLower_ThenTheExpression_ShouldBeInvocable()
+        {
+            var first = new TrivialInt32SemanticType(1);
+            var second = new TrivialInt32SemanticType(2);
+            var comparison = first < second;
+            comparison.Should().BeTrue();
+        }
     }
 
     [SemanticType(typeof(Guid))]

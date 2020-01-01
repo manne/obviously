@@ -79,68 +79,59 @@ namespace Obviously.SemanticTypes.Generator
                                 Identifier("Equals"))
                             .WithModifiers(
                                 TokenList(
-                                    new[]
-                                    {
+                                    new []{
                                         Token(SyntaxKind.PublicKeyword),
-                                        Token(SyntaxKind.OverrideKeyword)
-                                    }))
+                                        Token(SyntaxKind.OverrideKeyword)}))
                             .WithParameterList(
                                 ParameterList(
-                                    SingletonSeparatedList(
+                                    SingletonSeparatedList<ParameterSyntax>(
                                         Parameter(
-                                                Identifier("obj"))
-                                            .WithType(
-                                                PredefinedType(
-                                                    Token(SyntaxKind.ObjectKeyword))))))
+                                            Identifier("other"))
+                                        .WithType(
+                                            PredefinedType(
+                                                Token(SyntaxKind.ObjectKeyword))))))
                             .WithBody(
                                 Block(
                                     IfStatement(
-                                        IsPatternExpression(
-                                            IdentifierName("obj"),
-                                            ConstantPattern(
-                                                LiteralExpression(
-                                                    SyntaxKind.NullLiteralExpression))),
-                                        ReturnStatement(
-                                            LiteralExpression(
-                                                SyntaxKind.FalseLiteralExpression))),
-                                    IfStatement(
                                         InvocationExpression(
-                                                IdentifierName("ReferenceEquals"))
-                                            .WithArgumentList(
-                                                ArgumentList(
-                                                    SeparatedList<ArgumentSyntax>(
-                                                        new SyntaxNodeOrToken[]
-                                                        {
-                                                            Argument(
-                                                                ThisExpression()),
-                                                            Token(SyntaxKind.CommaToken),
-                                                            Argument(
-                                                                IdentifierName("obj"))
-                                                        }))),
-                                        ReturnStatement(
-                                            LiteralExpression(
-                                                SyntaxKind.TrueLiteralExpression))),
+                                            IdentifierName("ReferenceEquals"))
+                                        .WithArgumentList(
+                                            ArgumentList(
+                                                SeparatedList<ArgumentSyntax>(
+                                                    new SyntaxNodeOrToken[]{
+                                                        Argument(
+                                                            ThisExpression()),
+                                                        Token(SyntaxKind.CommaToken),
+                                                        Argument(
+                                                            IdentifierName("other"))}))),
+                                        Block(
+                                            SingletonList<StatementSyntax>(
+                                                ReturnStatement(
+                                                    LiteralExpression(
+                                                        SyntaxKind.TrueLiteralExpression))))),
+                                    IfStatement(
+                                        PrefixUnaryExpression(
+                                            SyntaxKind.LogicalNotExpression,
+                                            ParenthesizedExpression(
+                                                IsPatternExpression(
+                                                    IdentifierName("other"),
+                                                    DeclarationPattern(
+                                                        IdentifierName(input.Identifier),
+                                                        SingleVariableDesignation(
+                                                            Identifier("other2")))))),
+                                        Block(
+                                            SingletonList<StatementSyntax>(
+                                                ReturnStatement(
+                                                    LiteralExpression(
+                                                        SyntaxKind.FalseLiteralExpression))))),
                                     ReturnStatement(
                                         BinaryExpression(
-                                            SyntaxKind.LogicalAndExpression,
-                                            BinaryExpression(
-                                                SyntaxKind.EqualsExpression,
-                                                InvocationExpression(
-                                                    MemberAccessExpression(
-                                                        SyntaxKind.SimpleMemberAccessExpression,
-                                                        IdentifierName("obj"),
-                                                        IdentifierName("GetType"))),
-                                                InvocationExpression(
-                                                    IdentifierName("GetType"))),
-                                            InvocationExpression(
-                                                    IdentifierName("Equals"))
-                                                .WithArgumentList(
-                                                    ArgumentList(
-                                                        SingletonSeparatedList(
-                                                            Argument(
-                                                                CastExpression(
-                                                                    IdentifierName(input.Identifier),
-                                                                    IdentifierName("obj")))))))))),
+                                            SyntaxKind.EqualsExpression,
+                                            IdentifierName("_value"),
+                                            MemberAccessExpression(
+                                                SyntaxKind.SimpleMemberAccessExpression,
+                                                IdentifierName("other2"),
+                                                IdentifierName("_value")))))),
                         MethodDeclaration(
                                 PredefinedType(
                                     Token(SyntaxKind.IntKeyword)),

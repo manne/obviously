@@ -32,11 +32,19 @@ namespace Obviously.SemanticTypes.Generator.templates
             return _value == other._value;
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object other)
         {
-            if (obj is null) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == GetType() && Equals((Int32EqualitySemanticType)obj);
+            if (ReferenceEquals(this, other))
+            {
+                return true;
+            }
+
+            if (!(other is Int32EqualitySemanticType other2))
+            {
+                return false;
+            }
+
+            return _value == other2._value;
         }
 
         public override int GetHashCode()
@@ -54,7 +62,7 @@ namespace Obviously.SemanticTypes.Generator.templates
             return !Equals(left, right);
         }
 
-        private readonly Guid _value;
+        private readonly Int32 _value;
     }
 
     public class Int32EqualitySemanticType 
@@ -65,6 +73,6 @@ namespace Obviously.SemanticTypes.Generator.templates
 
             _value = value;
         }
-        private readonly Guid _value;
+        private readonly Int32 _value;
     }
 }

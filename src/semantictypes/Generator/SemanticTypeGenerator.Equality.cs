@@ -7,7 +7,6 @@ using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 namespace Obviously.SemanticTypes.Generator
 {
-    // ReSharper disable once UnusedMember.Global, reason: utilized by the roslyn code generator
     public partial class SemanticTypeGenerator
     {
         private static Output GenerateEquality(Input input)
@@ -84,7 +83,7 @@ namespace Obviously.SemanticTypes.Generator
                                         Token(SyntaxKind.OverrideKeyword)}))
                             .WithParameterList(
                                 ParameterList(
-                                    SingletonSeparatedList<ParameterSyntax>(
+                                    SingletonSeparatedList(
                                         Parameter(
                                             Identifier("other"))
                                         .WithType(

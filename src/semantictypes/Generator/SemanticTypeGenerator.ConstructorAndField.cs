@@ -10,7 +10,6 @@ using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 namespace Obviously.SemanticTypes.Generator
 {
-    // ReSharper disable once UnusedMember.Global, reason: utilized by the roslyn code generator
     public partial class SemanticTypeGenerator
     {
         private static Output GenerateConstructorAndField(Input input)
@@ -109,12 +108,7 @@ namespace Obviously.SemanticTypes.Generator
                                     VariableDeclarator(
                                         Identifier(BackingFieldName)))))
                     .WithModifiers(
-                        TokenList(
-                            new[]
-                            {
-                                Token(SyntaxKind.PrivateKeyword),
-                                Token(SyntaxKind.ReadOnlyKeyword)
-                            })),
+                        TokenList(Token(SyntaxKind.PrivateKeyword), Token(SyntaxKind.ReadOnlyKeyword))),
                 ConstructorDeclaration(
                         Identifier(input.Identifier))
                     .WithModifiers(
@@ -129,7 +123,7 @@ namespace Obviously.SemanticTypes.Generator
                     .WithBody(
                         Block(blockStatements))
             };
-            return new Output(null, ImmutableList.CreateRange(members));
+            return new Output((BaseListSyntax)null!, ImmutableList.CreateRange(members));
         }
     }
 }

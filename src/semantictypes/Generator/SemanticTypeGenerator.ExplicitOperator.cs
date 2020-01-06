@@ -6,7 +6,6 @@ using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 namespace Obviously.SemanticTypes.Generator
 {
-    // ReSharper disable once UnusedMember.Global, reason: utilized by the roslyn code generator
     public partial class SemanticTypeGenerator
     {
         private static Output GenerateExplicitOperator(Input input)
@@ -26,7 +25,7 @@ namespace Obviously.SemanticTypes.Generator
                             }))
                     .WithParameterList(
                         ParameterList(
-                            SingletonSeparatedList<ParameterSyntax>(
+                            SingletonSeparatedList(
                                 Parameter(
                                         Identifier("t"))
                                     .WithType(
@@ -39,7 +38,7 @@ namespace Obviously.SemanticTypes.Generator
                                         SyntaxKind.SimpleMemberAccessExpression,
                                         IdentifierName("t"),
                                         IdentifierName(BackingFieldName))))))});
-            return new Output(null, ImmutableList.CreateRange(members));
+            return new Output(ImmutableList.CreateRange(members));
         }
     }
 }

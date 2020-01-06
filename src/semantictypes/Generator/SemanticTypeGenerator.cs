@@ -7,11 +7,11 @@ using System.Collections.Immutable;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.CodeAnalysis.CSharp;
+
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 namespace Obviously.SemanticTypes.Generator
 {
-    // ReSharper disable once UnusedMember.Global, reason: utilized by the roslyn code generator
     public sealed partial class SemanticTypeGenerator : IRichCodeGenerator
     {
         private const string BackingFieldName = "_value";
@@ -35,13 +35,26 @@ namespace Obviously.SemanticTypes.Generator
 
         private class Output
         {
-            public Output(SimpleBaseTypeSyntax? baseType, IImmutableList<MemberDeclarationSyntax> members)
+            public Output(BaseListSyntax baseListTypes, IImmutableList<MemberDeclarationSyntax> members)
             {
-                BaseType = baseType;
+                BaseListTypes = baseListTypes;
                 Members = members;
             }
 
-            public SimpleBaseTypeSyntax? BaseType { get; }
+            public Output(IImmutableList<MemberDeclarationSyntax> members)
+                : this((SimpleBaseTypeSyntax) null!, members)
+            {
+                // nothing to do here
+            }
+
+            public Output(SimpleBaseTypeSyntax? baseType, IImmutableList<MemberDeclarationSyntax> members)
+                : this(baseType is null ? null! : BaseList(SeparatedList<BaseTypeSyntax>(new [] { baseType })), members)
+            {
+                // nothing to do here
+            }
+
+            public BaseListSyntax BaseListTypes { get; }
+
             public IImmutableList<MemberDeclarationSyntax> Members { get; }
         }
 
@@ -77,15 +90,15 @@ namespace Obviously.SemanticTypes.Generator
                 GenerateToString
             };
             var accessibility = classSymbol.DeclaredAccessibility;
-            var baseTypes = new List<SimpleBaseTypeSyntax>();
+            var baseTypes = new List<BaseTypeSyntax>();
             var members = new List<MemberDeclarationSyntax>();
             var input = new Input(_actualTypeFullName, idName, applyToClass);
             foreach (var generator in generators)
             {
                 var output = generator(input);
-                if (output.BaseType != null)
+                if (output.BaseListTypes != null)
                 {
-                    baseTypes.Add(output.BaseType);
+                    baseTypes.AddRange(output.BaseListTypes.Types);
                 }
 
                 members.AddRange(output.Members);
@@ -93,11 +106,9 @@ namespace Obviously.SemanticTypes.Generator
 
             var result = SingletonList<MemberDeclarationSyntax>(
                 ClassDeclaration(applyToClass.Identifier.ValueText)
-                    .WithBaseList(BaseList(SeparatedList<BaseTypeSyntax>(baseTypes)))
-                    .WithModifiers(
-                        TokenList( ParseToken(SyntaxFacts.GetText(accessibility)), Token(SyntaxKind.PartialKeyword)))
-                    .WithMembers(
-                        List(members)));
+                    .WithBaseList(BaseList(SeparatedList(baseTypes)))
+                    .WithModifiers(TokenList( ParseToken(SyntaxFacts.GetText(accessibility)), Token(SyntaxKind.PartialKeyword)))
+                    .WithMembers(List(members)));
             var wrappedMembers = result.WrapWithAncestors(context.ProcessingNode);
 
             return Task.FromResult(new RichGenerationResult

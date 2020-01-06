@@ -23,11 +23,12 @@
 
   <ItemGroup>
     <Compile Remove="templates\StringSemanticType.cs" />
+    <Compile Remove="templates\Int32ComparableSemanticType.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="..\.editorconfig" Link=".editorconfig" />
-    <None Include="templates\StringSemanticType.cs" />
+    <None Include="templates\*.cs" />
     <None Include="..\..\..\LICENSE" Pack="true" PackagePath="" />
   </ItemGroup>
 

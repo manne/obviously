@@ -13,12 +13,13 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B57438A4-0950-406D-95D5-8CA48B59AA71}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		..\..\CHANGELOG.md = ..\..\CHANGELOG.md
 		..\..\Readme.md = ..\..\Readme.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Generator.Templates.AspNetCore", "Generator.Templates.AspNetCore\Generator.Templates.AspNetCore.csproj", "{1EAA0057-2B19-42FC-A4BC-D18290063F08}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Generator.Templates.AspNetCore.Tests", "Generator.Templates.AspNetCore.Tests\Generator.Templates.AspNetCore.Tests.csproj", "{BC2A09FA-6D89-485B-987C-4D8661ADCCD5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Generator.Templates.AspNetCore.Tests", "Generator.Templates.AspNetCore.Tests\Generator.Templates.AspNetCore.Tests.csproj", "{BC2A09FA-6D89-485B-987C-4D8661ADCCD5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

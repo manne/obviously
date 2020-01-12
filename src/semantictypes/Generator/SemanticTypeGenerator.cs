@@ -7,6 +7,7 @@ using System.Collections.Immutable;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.CodeAnalysis.CSharp;
+using Obviously.SemanticTypes.Generator.Modules;
 
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
@@ -17,7 +18,7 @@ namespace Obviously.SemanticTypes.Generator
         private const string BackingFieldName = "_value";
         private readonly TypedConstant _actualType;
 
-        private class Input
+        private sealed class Input
         {
             public Input(string actualTypeFullName, string identifier, ClassDeclarationSyntax applyToClass)
             {
@@ -33,7 +34,7 @@ namespace Obviously.SemanticTypes.Generator
             public ClassDeclarationSyntax ApplyToClass { get; }
         }
 
-        private class Output
+        private sealed class Output
         {
             public Output(BaseListSyntax baseListTypes, IImmutableList<MemberDeclarationSyntax> members)
             {
@@ -102,6 +103,8 @@ namespace Obviously.SemanticTypes.Generator
 
                 members.AddRange(output.Members);
             }
+
+            members.AddRange(AspNetCoreModelBinding.Generate(_actualType, context, input.Identifier));
 
             var result = SingletonList<MemberDeclarationSyntax>(
                 ClassDeclaration(applyToClass.Identifier.ValueText)

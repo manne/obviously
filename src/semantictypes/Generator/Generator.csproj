@@ -19,6 +19,7 @@
     <PackageTags>codegenerator semantic-types</PackageTags>
     <Company />
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <Nullable>Enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
@@ -36,6 +37,9 @@
     <!-- nest the partial files -->
     <Compile Update="SemanticTypeGenerator.*.cs">
       <DependentUpon>SemanticTypeGenerator.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Modules\AspNetCoreModelBinding.*.cs">
+      <DependentUpon>Modules\AspNetCoreModelBinding.cs</DependentUpon>
     </Compile>
   </ItemGroup>
 

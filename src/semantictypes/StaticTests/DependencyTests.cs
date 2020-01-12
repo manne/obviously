@@ -13,7 +13,7 @@ namespace Obviously.SemanticTypes.StaticTests
             var notReferencedAssemblyNames = new[]
             {
                 typeof(SemanticTypeGenerator).Assembly.GetName(),
-                typeof(IRichCodeGenerator).Assembly.GetName(),
+                typeof(IRichCodeGenerator).Assembly.GetName()
             };
             typeof(DependencyTests).Assembly.GetReferencedAssemblies().Should().NotContain(notReferencedAssemblyNames);
         }

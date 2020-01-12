@@ -5,7 +5,7 @@
     <AssemblyName>Obviously.SemanticTypes.Generator</AssemblyName>
     <RootNamespace>Obviously.SemanticTypes.Generator</RootNamespace>
     <LangVersion>8.0</LangVersion>
-    <Version>0.0.1-preview.4</Version>
+    <Version>0.0.1-preview.5</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Manuel Pfemeter</Authors>
     <RepositoryUrl>https://github.com/manne/obviously</RepositoryUrl>

@@ -28,7 +28,7 @@ The following NuGet packages have to be added to the project
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Obviously.SemanticTypes" Version="0.0.1-preview001" />
+    <PackageReference Include="Obviously.SemanticTypes" Version="0.0.1-preview.4" />
     <DotNetCliToolReference Include="dotnet-codegen" Version="0.5.13" />
   </ItemGroup>
 </Project>

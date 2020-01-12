@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-namespace Generator.Templates.AspNetCore
+namespace Obviously.SemanticTypes.Generator.Templates.AspNetCore
 {
     public class Program
     {

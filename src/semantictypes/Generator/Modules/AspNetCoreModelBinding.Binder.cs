@@ -10,7 +10,8 @@ namespace Obviously.SemanticTypes.Generator.Modules
     {
         private static ClassDeclarationSyntax ConstructBinder(TypedConstant actualType, string identifierName)
         {
-            var modelBinder = ClassDeclaration(identifierName + "ModelBinder")
+            var className = identifierName + "ModelBinder";
+            var modelBinder = ClassDeclaration(className)
                 .WithModifiers(
                     TokenList(Token(SyntaxKind.PublicKeyword), Token(SyntaxKind.SealedKeyword)))
                 .WithBaseList(
@@ -30,27 +31,59 @@ namespace Obviously.SemanticTypes.Generator.Modules
                                         IdentifierName("ModelBinding")),
                                     IdentifierName("IModelBinder"))))))
                 .WithMembers(
-                    SingletonList<MemberDeclarationSyntax>(
-                        MethodDeclaration(
-                                QualifiedName(
+                    List(
+                        new MemberDeclarationSyntax[]{
+                            FieldDeclaration(
+                                VariableDeclaration(
                                     QualifiedName(
                                         QualifiedName(
-                                            AliasQualifiedName(
-                                                IdentifierName(
-                                                    Token(SyntaxKind.GlobalKeyword)),
-                                                IdentifierName("System")),
-                                            IdentifierName("Threading")),
-                                        IdentifierName("Tasks")),
-                                    IdentifierName("Task")),
-                                Identifier("BindModelAsync"))
+                                            QualifiedName(
+                                                QualifiedName(
+                                                    AliasQualifiedName(
+                                                        IdentifierName(
+                                                            Token(SyntaxKind.GlobalKeyword)),
+                                                        IdentifierName("Microsoft")),
+                                                    IdentifierName("AspNetCore")),
+                                                IdentifierName("Mvc")),
+                                            IdentifierName("ModelBinding")),
+                                        IdentifierName("ModelMetadata")))
+                                .WithVariables(
+                                    SingletonSeparatedList(
+                                        VariableDeclarator(
+                                            Identifier("_metadataForType")))))
+                            .WithModifiers(
+                                TokenList(Token(SyntaxKind.PrivateKeyword), Token(SyntaxKind.ReadOnlyKeyword))),
+                            FieldDeclaration(
+                                VariableDeclaration(
+                                    QualifiedName(
+                                        QualifiedName(
+                                            QualifiedName(
+                                                QualifiedName(
+                                                    AliasQualifiedName(
+                                                        IdentifierName(
+                                                            Token(SyntaxKind.GlobalKeyword)),
+                                                        IdentifierName("Microsoft")),
+                                                    IdentifierName("AspNetCore")),
+                                                IdentifierName("Mvc")),
+                                            IdentifierName("ModelBinding")),
+                                        IdentifierName("IModelBinder")))
+                                .WithVariables(
+                                    SingletonSeparatedList(
+                                        VariableDeclarator(
+                                            Identifier("_specificBinder")))))
+                            .WithModifiers(
+                                TokenList(Token(SyntaxKind.PrivateKeyword), Token(SyntaxKind.ReadOnlyKeyword))),
+                            ConstructorDeclaration(
+                                Identifier(className))
                             .WithModifiers(
                                 TokenList(
                                     Token(SyntaxKind.PublicKeyword)))
                             .WithParameterList(
                                 ParameterList(
-                                    SingletonSeparatedList(
-                                        Parameter(
-                                                Identifier("bindingContext"))
+                                    SeparatedList<ParameterSyntax>(
+                                        new SyntaxNodeOrToken[]{
+                                            Parameter(
+                                                Identifier("metadataForType"))
                                             .WithType(
                                                 QualifiedName(
                                                     QualifiedName(
@@ -63,111 +96,250 @@ namespace Obviously.SemanticTypes.Generator.Modules
                                                                 IdentifierName("AspNetCore")),
                                                             IdentifierName("Mvc")),
                                                         IdentifierName("ModelBinding")),
-                                                    IdentifierName("ModelBindingContext"))))))
+                                                    IdentifierName("ModelMetadata"))),
+                                            Token(SyntaxKind.CommaToken),
+                                            Parameter(
+                                                Identifier("specificBinder"))
+                                            .WithType(
+                                                QualifiedName(
+                                                    QualifiedName(
+                                                        QualifiedName(
+                                                            QualifiedName(
+                                                                AliasQualifiedName(
+                                                                    IdentifierName(
+                                                                        Token(SyntaxKind.GlobalKeyword)),
+                                                                    IdentifierName("Microsoft")),
+                                                                IdentifierName("AspNetCore")),
+                                                            IdentifierName("Mvc")),
+                                                        IdentifierName("ModelBinding")),
+                                                    IdentifierName("IModelBinder")))})))
+                            .WithBody(
+                                Block(
+                                    ExpressionStatement(
+                                        AssignmentExpression(
+                                            SyntaxKind.SimpleAssignmentExpression,
+                                            IdentifierName("_metadataForType"),
+                                            IdentifierName("metadataForType"))),
+                                    ExpressionStatement(
+                                        AssignmentExpression(
+                                            SyntaxKind.SimpleAssignmentExpression,
+                                            IdentifierName("_specificBinder"),
+                                            IdentifierName("specificBinder"))))),
+                            MethodDeclaration(
+                                QualifiedName(
+                                    QualifiedName(
+                                        QualifiedName(
+                                            AliasQualifiedName(
+                                                IdentifierName(
+                                                    Token(SyntaxKind.GlobalKeyword)),
+                                                IdentifierName("System")),
+                                            IdentifierName("Threading")),
+                                        IdentifierName("Tasks")),
+                                    IdentifierName("Task")),
+                                Identifier("BindModelAsync"))
+                            .WithModifiers(
+                                TokenList(Token(SyntaxKind.PublicKeyword), Token(SyntaxKind.AsyncKeyword)))
+                            .WithParameterList(
+                                ParameterList(
+                                    SingletonSeparatedList(
+                                        Parameter(
+                                            Identifier("bindingContext"))
+                                        .WithType(
+                                            QualifiedName(
+                                                QualifiedName(
+                                                    QualifiedName(
+                                                        QualifiedName(
+                                                            AliasQualifiedName(
+                                                                IdentifierName(
+                                                                    Token(SyntaxKind.GlobalKeyword)),
+                                                                IdentifierName("Microsoft")),
+                                                            IdentifierName("AspNetCore")),
+                                                        IdentifierName("Mvc")),
+                                                    IdentifierName("ModelBinding")),
+                                                IdentifierName("ModelBindingContext"))))))
                             .WithBody(
                                 Block(
                                     LocalDeclarationStatement(
                                         VariableDeclaration(
-                                                IdentifierName("var"))
-                                            .WithVariables(
-                                                SingletonSeparatedList(
-                                                    VariableDeclarator(
-                                                            Identifier("value"))
+                                            IdentifierName("var"))
+                                        .WithVariables(
+                                            SingletonSeparatedList(
+                                                VariableDeclarator(
+                                                    Identifier("value"))
+                                                .WithInitializer(
+                                                    EqualsValueClause(
+                                                        InvocationExpression(
+                                                            MemberAccessExpression(
+                                                                SyntaxKind.SimpleMemberAccessExpression,
+                                                                MemberAccessExpression(
+                                                                    SyntaxKind.SimpleMemberAccessExpression,
+                                                                    IdentifierName("bindingContext"),
+                                                                    IdentifierName("ValueProvider")),
+                                                                IdentifierName("GetValue")))
+                                                        .WithArgumentList(
+                                                            ArgumentList(
+                                                                SingletonSeparatedList(
+                                                                    Argument(
+                                                                        MemberAccessExpression(
+                                                                            SyntaxKind.SimpleMemberAccessExpression,
+                                                                            IdentifierName("bindingContext"),
+                                                                            IdentifierName("ModelName"))))))))))),
+                                    LocalDeclarationStatement(
+                                        VariableDeclaration(
+                                            IdentifierName("var"))
+                                        .WithVariables(
+                                            SingletonSeparatedList(
+                                                VariableDeclarator(
+                                                    Identifier("actualValue"))
+                                                .WithInitializer(
+                                                    EqualsValueClause(
+                                                        MemberAccessExpression(
+                                                            SyntaxKind.SimpleMemberAccessExpression,
+                                                            IdentifierName("value"),
+                                                            IdentifierName("FirstValue"))))))),
+                                    LocalDeclarationStatement(
+                                        VariableDeclaration(
+                                            IdentifierName(actualType.Value.ToString()))
+                                        .WithVariables(
+                                            SingletonSeparatedList(
+                                                VariableDeclarator(
+                                                    Identifier("modelBindingResult"))))),
+                                    UsingStatement(
+                                        Block(
+                                            LocalDeclarationStatement(
+                                                VariableDeclaration(
+                                                    IdentifierName("var"))
+                                                .WithVariables(
+                                                    SingletonSeparatedList(
+                                                        VariableDeclarator(
+                                                            Identifier("newBindingContext"))
                                                         .WithInitializer(
                                                             EqualsValueClause(
                                                                 InvocationExpression(
+                                                                    MemberAccessExpression(
+                                                                        SyntaxKind.SimpleMemberAccessExpression,
                                                                         MemberAccessExpression(
                                                                             SyntaxKind.SimpleMemberAccessExpression,
                                                                             MemberAccessExpression(
                                                                                 SyntaxKind.SimpleMemberAccessExpression,
-                                                                                IdentifierName("bindingContext"),
-                                                                                IdentifierName("ValueProvider")),
-                                                                            IdentifierName("GetValue")))
-                                                                    .WithArgumentList(
-                                                                        ArgumentList(
-                                                                            SingletonSeparatedList(
+                                                                                MemberAccessExpression(
+                                                                                    SyntaxKind.SimpleMemberAccessExpression,
+                                                                                    MemberAccessExpression(
+                                                                                        SyntaxKind.SimpleMemberAccessExpression,
+                                                                                        AliasQualifiedName(
+                                                                                            IdentifierName(
+                                                                                                Token(SyntaxKind.GlobalKeyword)),
+                                                                                            IdentifierName("Microsoft")),
+                                                                                        IdentifierName("AspNetCore")),
+                                                                                    IdentifierName("Mvc")),
+                                                                                IdentifierName("ModelBinding")),
+                                                                            IdentifierName("DefaultModelBindingContext")),
+                                                                        IdentifierName("CreateBindingContext")))
+                                                                .WithArgumentList(
+                                                                    ArgumentList(
+                                                                        SeparatedList<ArgumentSyntax>(
+                                                                            new SyntaxNodeOrToken[]{
                                                                                 Argument(
                                                                                     MemberAccessExpression(
-                                                                                        SyntaxKind
-                                                                                            .SimpleMemberAccessExpression,
-                                                                                        MemberAccessExpression(
-                                                                                            SyntaxKind
-                                                                                                .SimpleMemberAccessExpression,
-                                                                                            IdentifierName(
-                                                                                                "bindingContext"),
-                                                                                            IdentifierName(
-                                                                                                "ModelMetadata")),
-                                                                                        IdentifierName(
-                                                                                            "Name"))))))))))),
-                                    LocalDeclarationStatement(
-                                        VariableDeclaration(
-                                                IdentifierName("var"))
-                                            .WithVariables(
-                                                SingletonSeparatedList(
-                                                    VariableDeclarator(
-                                                            Identifier("actualValue"))
-                                                        .WithInitializer(
-                                                            EqualsValueClause(
+                                                                                        SyntaxKind.SimpleMemberAccessExpression,
+                                                                                        IdentifierName("bindingContext"),
+                                                                                        IdentifierName("ActionContext"))),
+                                                                                Token(SyntaxKind.CommaToken),
+                                                                                Argument(
+                                                                                    MemberAccessExpression(
+                                                                                        SyntaxKind.SimpleMemberAccessExpression,
+                                                                                        IdentifierName("bindingContext"),
+                                                                                        IdentifierName("ValueProvider"))),
+                                                                                Token(SyntaxKind.CommaToken),
+                                                                                Argument(
+                                                                                    IdentifierName("_metadataForType")),
+                                                                                Token(SyntaxKind.CommaToken),
+                                                                                Argument(
+                                                                                    LiteralExpression(
+                                                                                        SyntaxKind.NullLiteralExpression)),
+                                                                                Token(SyntaxKind.CommaToken),
+                                                                                Argument(
+                                                                                    MemberAccessExpression(
+                                                                                        SyntaxKind.SimpleMemberAccessExpression,
+                                                                                        IdentifierName("bindingContext"),
+                                                                                        IdentifierName("ModelName")))})))))))),
+                                            ExpressionStatement(
+                                                AwaitExpression(
+                                                    InvocationExpression(
+                                                        MemberAccessExpression(
+                                                            SyntaxKind.SimpleMemberAccessExpression,
+                                                            InvocationExpression(
                                                                 MemberAccessExpression(
                                                                     SyntaxKind.SimpleMemberAccessExpression,
-                                                                    IdentifierName("value"),
-                                                                    IdentifierName("FirstValue"))))))),
+                                                                    IdentifierName("_specificBinder"),
+                                                                    IdentifierName("BindModelAsync")))
+                                                            .WithArgumentList(
+                                                                ArgumentList(
+                                                                    SingletonSeparatedList(
+                                                                        Argument(
+                                                                            IdentifierName("newBindingContext"))))),
+                                                            IdentifierName("ConfigureAwait")))
+                                                    .WithArgumentList(
+                                                        ArgumentList(
+                                                            SingletonSeparatedList(
+                                                                Argument(
+                                                                    LiteralExpression(
+                                                                        SyntaxKind.FalseLiteralExpression))))))),
+                                            ExpressionStatement(
+                                                AssignmentExpression(
+                                                    SyntaxKind.SimpleAssignmentExpression,
+                                                    IdentifierName("modelBindingResult"),
+                                                    CastExpression(
+                                                        IdentifierName(actualType.Value.ToString()),
+                                                        MemberAccessExpression(
+                                                            SyntaxKind.SimpleMemberAccessExpression,
+                                                            MemberAccessExpression(
+                                                                SyntaxKind.SimpleMemberAccessExpression,
+                                                                IdentifierName("newBindingContext"),
+                                                                IdentifierName("Result")),
+                                                            IdentifierName("Model")))))))
+                                    .WithExpression(
+                                        InvocationExpression(
+                                            MemberAccessExpression(
+                                                SyntaxKind.SimpleMemberAccessExpression,
+                                                IdentifierName("bindingContext"),
+                                                IdentifierName("EnterNestedScope")))
+                                        .WithArgumentList(
+                                            ArgumentList(
+                                                SeparatedList<ArgumentSyntax>(
+                                                    new SyntaxNodeOrToken[]{
+                                                        Argument(
+                                                            IdentifierName("_metadataForType")),
+                                                        Token(SyntaxKind.CommaToken),
+                                                        Argument(
+                                                            LiteralExpression(
+                                                                SyntaxKind.StringLiteralExpression,
+                                                                Literal("Value"))),
+                                                        Token(SyntaxKind.CommaToken),
+                                                        Argument(
+                                                            MemberAccessExpression(
+                                                                SyntaxKind.SimpleMemberAccessExpression,
+                                                                IdentifierName("bindingContext"),
+                                                                IdentifierName("ModelName"))),
+                                                        Token(SyntaxKind.CommaToken),
+                                                        Argument(
+                                                            IdentifierName("actualValue"))})))),
                                     LocalDeclarationStatement(
                                         VariableDeclaration(
-                                                IdentifierName("var"))
-                                            .WithVariables(
-                                                SingletonSeparatedList(
-                                                    VariableDeclarator(
-                                                            Identifier("concreteValue"))
-                                                        .WithInitializer(
-                                                            EqualsValueClause(
-                                                                CastExpression(
-                                                                    IdentifierName(actualType.Value.ToString()),
-                                                                    InvocationExpression(
-                                                                            MemberAccessExpression(
-                                                                                SyntaxKind.SimpleMemberAccessExpression,
-                                                                                MemberAccessExpression(
-                                                                                    SyntaxKind
-                                                                                        .SimpleMemberAccessExpression,
-                                                                                    AliasQualifiedName(
-                                                                                        IdentifierName(
-                                                                                            Token(SyntaxKind
-                                                                                                .GlobalKeyword)),
-                                                                                        IdentifierName("System")),
-                                                                                    IdentifierName("Convert")),
-                                                                                IdentifierName("ChangeType")))
-                                                                        .WithArgumentList(
-                                                                            ArgumentList(
-                                                                                SeparatedList<ArgumentSyntax>(
-                                                                                    new SyntaxNodeOrToken[]
-                                                                                    {
-                                                                                        Argument(
-                                                                                            IdentifierName(
-                                                                                                "actualValue")),
-                                                                                        Token(SyntaxKind.CommaToken),
-                                                                                        Argument(
-                                                                                            TypeOfExpression(
-                                                                                                PredefinedType(
-                                                                                                    Token(SyntaxKind
-                                                                                                        .IntKeyword))))
-                                                                                    }))))))))),
-                                    LocalDeclarationStatement(
-                                        VariableDeclaration(
-                                                IdentifierName("var"))
-                                            .WithVariables(
-                                                SingletonSeparatedList(
-                                                    VariableDeclarator(
-                                                            Identifier("modelInstance"))
-                                                        .WithInitializer(
-                                                            EqualsValueClause(
-                                                                ObjectCreationExpression(
-                                                                        IdentifierName(identifierName))
-                                                                    .WithArgumentList(
-                                                                        ArgumentList(
-                                                                            SingletonSeparatedList(
-                                                                                Argument(
-                                                                                    IdentifierName(
-                                                                                        "concreteValue")))))))))),
+                                            IdentifierName("var"))
+                                        .WithVariables(
+                                            SingletonSeparatedList(
+                                                VariableDeclarator(
+                                                    Identifier("modelInstance"))
+                                                .WithInitializer(
+                                                    EqualsValueClause(
+                                                        ObjectCreationExpression(
+                                                            IdentifierName(identifierName))
+                                                        .WithArgumentList(
+                                                            ArgumentList(
+                                                                SingletonSeparatedList(
+                                                                    Argument(
+                                                                        IdentifierName("modelBindingResult")))))))))),
                                     ExpressionStatement(
                                         AssignmentExpression(
                                             SyntaxKind.SimpleAssignmentExpression,
@@ -176,6 +348,8 @@ namespace Obviously.SemanticTypes.Generator.Modules
                                                 IdentifierName("bindingContext"),
                                                 IdentifierName("Result")),
                                             InvocationExpression(
+                                                MemberAccessExpression(
+                                                    SyntaxKind.SimpleMemberAccessExpression,
                                                     MemberAccessExpression(
                                                         SyntaxKind.SimpleMemberAccessExpression,
                                                         MemberAccessExpression(
@@ -184,39 +358,20 @@ namespace Obviously.SemanticTypes.Generator.Modules
                                                                 SyntaxKind.SimpleMemberAccessExpression,
                                                                 MemberAccessExpression(
                                                                     SyntaxKind.SimpleMemberAccessExpression,
-                                                                    MemberAccessExpression(
-                                                                        SyntaxKind.SimpleMemberAccessExpression,
-                                                                        AliasQualifiedName(
-                                                                            IdentifierName(
-                                                                                Token(SyntaxKind.GlobalKeyword)),
-                                                                            IdentifierName("Microsoft")),
-                                                                        IdentifierName("AspNetCore")),
-                                                                    IdentifierName("Mvc")),
-                                                                IdentifierName("ModelBinding")),
-                                                            IdentifierName("ModelBindingResult")),
-                                                        IdentifierName("Success")))
-                                                .WithArgumentList(
-                                                    ArgumentList(
-                                                        SingletonSeparatedList(
-                                                            Argument(
-                                                                IdentifierName("modelInstance"))))))),
-                                    ReturnStatement(
-                                        MemberAccessExpression(
-                                            SyntaxKind.SimpleMemberAccessExpression,
-                                            MemberAccessExpression(
-                                                SyntaxKind.SimpleMemberAccessExpression,
-                                                MemberAccessExpression(
-                                                    SyntaxKind.SimpleMemberAccessExpression,
-                                                    MemberAccessExpression(
-                                                        SyntaxKind.SimpleMemberAccessExpression,
-                                                        AliasQualifiedName(
-                                                            IdentifierName(
-                                                                Token(SyntaxKind.GlobalKeyword)),
-                                                            IdentifierName("System")),
-                                                        IdentifierName("Threading")),
-                                                    IdentifierName("Tasks")),
-                                                IdentifierName("Task")),
-                                            IdentifierName("CompletedTask")))))));
+                                                                    AliasQualifiedName(
+                                                                        IdentifierName(
+                                                                            Token(SyntaxKind.GlobalKeyword)),
+                                                                        IdentifierName("Microsoft")),
+                                                                    IdentifierName("AspNetCore")),
+                                                                IdentifierName("Mvc")),
+                                                            IdentifierName("ModelBinding")),
+                                                        IdentifierName("ModelBindingResult")),
+                                                    IdentifierName("Success")))
+                                            .WithArgumentList(
+                                                ArgumentList(
+                                                    SingletonSeparatedList(
+                                                        Argument(
+                                                            IdentifierName("modelInstance")))))))))}));
             return modelBinder;
         }
     }

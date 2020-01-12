@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+    <AssemblyName>Obviously.SemanticTypes.Generator.Templates.AspNetCore.Tests</AssemblyName>
+    <RootNamespace>Obviously.SemanticTypes.Generator.Templates.AspNetCore.Tests</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\.editorconfig" Link=".editorconfig" />
+    <PackageReference Include="FluentAssertions" Version="5.10.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="3.1.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.2.0" />
+    <PackageReference Include="xunit" Version="2.4.0" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0" />
+    <PackageReference Include="coverlet.collector" Version="1.0.1" />
+    <PackageReference Include="CodeGeneration.Roslyn.Buildtime" Version="0.6.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <ProjectReference Include="..\Generator.Templates.AspNetCore\Generator.Templates.AspNetCore.csproj" />
+    <ProjectReference Include="..\Generator\Generator.csproj" />
+    <DotNetCliToolReference Include="dotnet-codegen" Version="0.5.13" />
+  </ItemGroup>
+
+</Project>

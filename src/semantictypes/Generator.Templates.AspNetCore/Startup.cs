@@ -1,11 +1,11 @@
-using Generator.Templates.AspNetCore.ModelBinding;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Obviously.SemanticTypes.Generator.Templates.AspNetCore.ModelBinding;
 
-namespace Generator.Templates.AspNetCore
+namespace Obviously.SemanticTypes.Generator.Templates.AspNetCore
 {
     public class Startup
     {
@@ -20,7 +20,13 @@ namespace Generator.Templates.AspNetCore
         public void ConfigureServices(IServiceCollection services)
         {
             services
-                .AddControllers(options => { options.ModelBinderProviders.Insert(0, new AwesomeSemanticTypeModelBinderProvider()); });
+                .AddControllers(options =>
+                {
+                    options.ModelBinderProviders.Insert(0, new AwesomeInt32SemanticType.AwesomeInt32SemanticTypeModelBinderProvider());
+                    options.ModelBinderProviders.Insert(1, new AwesomeStringSemanticType.AwesomeStringSemanticTypeModelBinderProvider());
+                    options.ModelBinderProviders.Insert(2, new ManualGuidSemanticTypeModelBinderProvider());
+                    options.ModelBinderProviders.Insert(3, new AwesomeGuidSemanticType.AwesomeGuidSemanticTypeModelBinderProvider());
+                });
             services.AddMvcCore(options =>
                 {
                     options.EnableEndpointRouting = false;

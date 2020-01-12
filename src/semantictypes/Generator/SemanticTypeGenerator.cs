@@ -15,7 +15,7 @@ namespace Obviously.SemanticTypes.Generator
     public sealed partial class SemanticTypeGenerator : IRichCodeGenerator
     {
         private const string BackingFieldName = "_value";
-        private readonly string _actualTypeFullName;
+        private readonly TypedConstant _actualType;
 
         private class Input
         {
@@ -64,8 +64,7 @@ namespace Obviously.SemanticTypes.Generator
         {
             if (attributeData is null) throw new ArgumentNullException(nameof(attributeData));
 
-            var ca = attributeData.ConstructorArguments[0];
-            _actualTypeFullName = ca.Value.ToString();
+            _actualType = attributeData.ConstructorArguments[0];
         }
 
         public Task<SyntaxList<MemberDeclarationSyntax>> GenerateAsync(TransformationContext context, IProgress<Diagnostic> progress, CancellationToken cancellationToken)
@@ -92,7 +91,7 @@ namespace Obviously.SemanticTypes.Generator
             var accessibility = classSymbol.DeclaredAccessibility;
             var baseTypes = new List<BaseTypeSyntax>();
             var members = new List<MemberDeclarationSyntax>();
-            var input = new Input(_actualTypeFullName, idName, applyToClass);
+            var input = new Input(_actualType.Value.ToString(), idName, applyToClass);
             foreach (var generator in generators)
             {
                 var output = generator(input);

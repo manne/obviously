@@ -22,10 +22,10 @@ namespace Obviously.SemanticTypes.Generator.Templates.AspNetCore
             services
                 .AddControllers(options =>
                 {
-                    options.ModelBinderProviders.Insert(0, new AwesomeInt32SemanticType.AwesomeInt32SemanticTypeModelBinderProvider());
-                    options.ModelBinderProviders.Insert(1, new AwesomeStringSemanticType.AwesomeStringSemanticTypeModelBinderProvider());
+                    options.ModelBinderProviders.Insert(0, new AwesomeGuidSemanticType.AspNetCoreMvcModelBinderProvider());
+                    options.ModelBinderProviders.Insert(1, new AwesomeStringSemanticType.AspNetCoreMvcModelBinderProvider());
                     options.ModelBinderProviders.Insert(2, new ManualGuidSemanticTypeModelBinderProvider());
-                    options.ModelBinderProviders.Insert(3, new AwesomeGuidSemanticType.AwesomeGuidSemanticTypeModelBinderProvider());
+                    options.ModelBinderProviders.Insert(3, new AwesomeGuidSemanticType.AspNetCoreMvcModelBinderProvider());
                 });
             services.AddMvcCore(options =>
                 {

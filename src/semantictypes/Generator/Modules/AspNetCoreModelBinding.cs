@@ -12,6 +12,7 @@ namespace Obviously.SemanticTypes.Generator.Modules
 {
     public static partial class AspNetCoreModelBinding
     {
+        private const string PrefixForSubClasses = "AspNetCoreMvc";
         public static ImmutableArray<ClassDeclarationSyntax> Generate(TypedConstant actualType, TransformationContext context, string identifierName)
         {
             if (context is null) throw new ArgumentNullException(nameof(context));

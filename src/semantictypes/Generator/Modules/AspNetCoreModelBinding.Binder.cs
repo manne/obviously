@@ -10,7 +10,7 @@ namespace Obviously.SemanticTypes.Generator.Modules
     {
         private static ClassDeclarationSyntax ConstructBinder(TypedConstant actualType, string identifierName)
         {
-            var className = identifierName + "ModelBinder";
+            var className = PrefixForSubClasses + "ModelBinder";
             var modelBinder = ClassDeclaration(className)
                 .WithModifiers(
                     TokenList(Token(SyntaxKind.PublicKeyword), Token(SyntaxKind.SealedKeyword)))

@@ -38,8 +38,8 @@
     <Compile Update="SemanticTypeGenerator.*.cs">
       <DependentUpon>SemanticTypeGenerator.cs</DependentUpon>
     </Compile>
-    <Compile Update="Modules\AspNetCoreModelBinding.*.cs">
-      <DependentUpon>Modules\AspNetCoreModelBinding.cs</DependentUpon>
+    <Compile Update=".\Modules\AspNetCoreModelBinding.*.cs">
+      <DependentUpon>.\Modules\AspNetCoreModelBinding.cs</DependentUpon>
     </Compile>
   </ItemGroup>
 

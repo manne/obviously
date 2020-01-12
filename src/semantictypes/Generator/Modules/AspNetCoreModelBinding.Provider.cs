@@ -10,8 +10,8 @@ namespace Obviously.SemanticTypes.Generator.Modules
     {
         private static ClassDeclarationSyntax ConstructProvider(string identifierName)
         {
-            var className = identifierName + "ModelBinderProvider";
-            var binderClassName = identifierName + "ModelBinder";
+            var className = PrefixForSubClasses + "ModelBinderProvider";
+            var binderClassName = PrefixForSubClasses + "ModelBinder";
             var binderProvider = ClassDeclaration(className)
                 .WithModifiers(
 	                TokenList(Token(SyntaxKind.PublicKeyword), Token(SyntaxKind.SealedKeyword)))

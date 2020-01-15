@@ -59,7 +59,8 @@ namespace Obviously.System.Text.Json
                 }
 
                 var jsonPropName = reader.GetString();
-                if (!namedPropertiesMapping.TryGetValue(jsonPropName, out var obProp))
+                var normalizedPropName = ConvertAndNormalizeName(jsonPropName, options);
+                if (!namedPropertiesMapping.TryGetValue(normalizedPropName, out var obProp))
                 {
                     reader.Read();
                 }
@@ -97,23 +98,38 @@ namespace Obviously.System.Text.Json
             return typeToConvert.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
         }
 
-        private static IReadOnlyDictionary<string, PropertyInfo> GetNamedProperties(JsonSerializerOptions options, PropertyInfo[] properties)
+        private static IReadOnlyDictionary<string, PropertyInfo> GetNamedProperties(JsonSerializerOptions options, IEnumerable<PropertyInfo> properties)
         {
             var result = new Dictionary<string, PropertyInfo>();
             foreach (var property in properties)
             {
+                string name;
                 var nameAttribute = property.GetCustomAttribute<JsonPropertyNameAttribute>();
                 if (nameAttribute != null)
                 {
-                    result.Add(nameAttribute.Name, property);
+                    name = nameAttribute.Name;
                 }
                 else
                 {
-                    result.Add(options.PropertyNamingPolicy?.ConvertName(property.Name) ?? property.Name, property);
+                    name = options.PropertyNamingPolicy?.ConvertName(property.Name) ?? property.Name;
                 }
+
+                var normalizedName = NormalizeName(name, options);
+                result.Add(normalizedName, property);
             }
 
             return result;
+        }
+
+        private static string ConvertAndNormalizeName(string name, JsonSerializerOptions options)
+        {
+            var convertedName = options.PropertyNamingPolicy?.ConvertName(name) ?? name;
+            return options.PropertyNameCaseInsensitive ? convertedName.ToLowerInvariant() : convertedName;
+        }
+
+        private static string NormalizeName(string name, JsonSerializerOptions options)
+        {
+            return options.PropertyNameCaseInsensitive ? name.ToLowerInvariant() : name;
         }
     }
 

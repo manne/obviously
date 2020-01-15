@@ -24,5 +24,15 @@ namespace Obviously.System.Text.Json.Tests
                 // nothing to do here
             }
         }
+
+        public sealed class TypeWithOneInt32Property
+        {
+            public TypeWithOneInt32Property(int dummy)
+            {
+                Dummy = dummy;
+            }
+
+            public int Dummy { get; }
+        }
     }
 }

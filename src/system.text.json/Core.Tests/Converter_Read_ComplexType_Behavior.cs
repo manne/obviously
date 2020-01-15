@@ -48,5 +48,35 @@ namespace Obviously.System.Text.Json.Tests
             deserializeObject.Foo.Should().Be("bar");
             deserializeObject.Xyz.Should().Be("bla");
         }
+
+        [Theory]
+        [InlineData(@"{ ""Bar"": [""bar"", ""bar2""], ""Cool"": ""Cooler"", ""NotInteresting"": ""__""}")]
+        [InlineData(@"{ ""Cool"": ""Cooler"", ""NotInteresting"": ""__"", ""Foo"": ""bar"", ""Bar"": [""bar"", ""bar2""]}")]
+        public void GivenOneValidTypeWithTwoProperties_AndOneJsonWithAnAdditionalProperty_WhenDeserializing_ThenTheObject_ShouldContainTheCorrectPropertyValues2(string json)
+        {
+            var deserializeObject = JsonSerializer.Deserialize<TestingTypeComplexMatchingTypes.WithTwoProperties>(json, Settings);
+            using var _ = new AssertionScope();
+            deserializeObject.Bar.Should().ContainInOrder("bar", "bar2");
+            deserializeObject.Cool.Should().Be("Cooler");
+        }
+
+        [Fact]
+        public void GivenOneValidTypeWithTwoPropertiesOneOfItIsOneGuid_AndOneJsonWithAnAdditionalProperty_WhenDeserializing_ThenTheObject_ShouldContainTheCorrectPropertyValues()
+        {
+            const string json = @"{ ""Bar"": ""5AFF9859-A08C-4B3D-BD8D-57D01D6B795B"", ""Cool"": ""Cooler""}";
+            var deserializeObject = JsonSerializer.Deserialize<TestingTypeComplexMatchingTypes.WithTwoProperties2>(json, Settings);
+            using var _ = new AssertionScope();
+            deserializeObject.Bar.Should().Be("5AFF9859-A08C-4B3D-BD8D-57D01D6B795B");
+            deserializeObject.Cool.Should().Be("Cooler");
+        }
+
+        [Fact]
+        public void GivenOneValidTypeWithOneGenericProperty_WhenDeserializing_ThenTheObject_ShouldContainTheCorrectPropertyValues()
+        {
+            const string json = @"{ ""Cool"": ""Cooler""}";
+            var deserializeObject = JsonSerializer.Deserialize<TestingTypeComplexMatchingTypes.WithOneGenericProperties<string>>(json, Settings);
+            using var _ = new AssertionScope();
+            deserializeObject.Cool.Should().Be("Cooler");
+        }
     }
 }

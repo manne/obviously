@@ -57,5 +57,15 @@ namespace Obviously.System.Text.Json.Tests
             const string json = @"{ ""foO"": ""bar""}";
             JsonSerializer.Deserialize<TestingTypeMatchingTypes.Basic>(json, options).Foo.Should().Be("bar");
         }
+
+        [Fact]
+        public void GivenOneValidTypeWithInt32Property_WhenDeserializing_ThenTheObject_ShouldContainTheCorrectPropertyValues()
+        {
+            var options = new JsonSerializerOptions();
+            options.Converters.Add(new ImmutableConverter());
+            options.PropertyNameCaseInsensitive = true;
+            const string json = @"{ ""Dummy"": 123}";
+            JsonSerializer.Deserialize<TestingBasicTypes.TypeWithOneInt32Property>(json, options).Dummy.Should().Be(123);
+        }
     }
 }

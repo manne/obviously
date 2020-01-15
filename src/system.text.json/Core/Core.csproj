@@ -14,6 +14,7 @@
     <RepositoryUrl>https://github.com/manne/obviously</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>System.Text.Json immutable</PackageTags>
+    <Description>Deserializes types with a single constructor containing parameters.</Description>
   </PropertyGroup>
 
   <ItemGroup>

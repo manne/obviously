@@ -2,25 +2,18 @@
 using FluentAssertions;
 using FluentAssertions.Execution;
 using Xunit;
+using static Obviously.System.Text.Json.Tests.DefaultJsonSerializerOptions;
 
 namespace Obviously.System.Text.Json.Tests
 {
     public class Converter_Read_ComplexType_Behavior
     {
-        private static readonly JsonSerializerOptions Settings;
-
-        static Converter_Read_ComplexType_Behavior()
-        {
-            Settings = new JsonSerializerOptions();
-            Settings.Converters.Add(new ImmutableConverter());
-        }
-
         [Theory]
         [InlineData(@"{ ""Foo"": ""bar"", ""Xyz"": ""bla""}")]
         [InlineData(@"{ ""Xyz"": ""bla"", ""Foo"": ""bar""}")]
         public void GivenOneValidTypeWithTwoProperties_WhenDeserializing_ThenTheObject_ShouldContainTheCorrectPropertyValues(string json)
         {
-            var deserializeObject = JsonSerializer.Deserialize<TestingTypeComplexMatchingTypes.Basic>(json, Settings);
+            var deserializeObject = JsonSerializer.Deserialize<TestingTypeComplexMatchingTypes.Basic>(json, DefaultSettings);
             using var _ = new AssertionScope();
             deserializeObject.Foo.Should().Be("bar");
             deserializeObject.Xyz.Should().Be("bla");
@@ -32,7 +25,7 @@ namespace Obviously.System.Text.Json.Tests
         [InlineData(@"{ ""Foo"": ""notbar"", ""Foo"": ""bar"", ""Xyz"": ""bla""}")]
         public void GivenOneValidTypeWithTwoProperties_AndOneJsonContainingOnePropertyTwice_WhenDeserializing_ThenTheCorrespondingPropertyOfTheObject_ShouldContainTheCorrectValue(string json)
         {
-            var deserializeObject = JsonSerializer.Deserialize<TestingTypeComplexMatchingTypes.Basic>(json, Settings);
+            var deserializeObject = JsonSerializer.Deserialize<TestingTypeComplexMatchingTypes.Basic>(json, DefaultSettings);
             using var _ = new AssertionScope();
             deserializeObject.Foo.Should().Be("bar");
             deserializeObject.Xyz.Should().Be("bla");
@@ -43,7 +36,7 @@ namespace Obviously.System.Text.Json.Tests
         [InlineData(@"{ ""NotInteresting"": ""__"", ""Foo"": ""bar"", ""Xyz"": ""bla""}")]
         public void GivenOneValidTypeWithTwoProperties_AndOneJsonWithAnAdditionalProperty_WhenDeserializing_ThenTheObject_ShouldContainTheCorrectPropertyValues(string json)
         {
-            var deserializeObject = JsonSerializer.Deserialize<TestingTypeComplexMatchingTypes.Basic>(json, Settings);
+            var deserializeObject = JsonSerializer.Deserialize<TestingTypeComplexMatchingTypes.Basic>(json, DefaultSettings);
             using var _ = new AssertionScope();
             deserializeObject.Foo.Should().Be("bar");
             deserializeObject.Xyz.Should().Be("bla");
@@ -54,7 +47,7 @@ namespace Obviously.System.Text.Json.Tests
         [InlineData(@"{ ""Cool"": ""Cooler"", ""NotInteresting"": ""__"", ""Foo"": ""bar"", ""Bar"": [""bar"", ""bar2""]}")]
         public void GivenOneValidTypeWithTwoProperties_AndOneJsonWithAnAdditionalProperty_WhenDeserializing_ThenTheObject_ShouldContainTheCorrectPropertyValues2(string json)
         {
-            var deserializeObject = JsonSerializer.Deserialize<TestingTypeComplexMatchingTypes.WithTwoProperties>(json, Settings);
+            var deserializeObject = JsonSerializer.Deserialize<TestingTypeComplexMatchingTypes.WithTwoProperties>(json, DefaultSettings);
             using var _ = new AssertionScope();
             deserializeObject.Bar.Should().ContainInOrder("bar", "bar2");
             deserializeObject.Cool.Should().Be("Cooler");
@@ -64,7 +57,7 @@ namespace Obviously.System.Text.Json.Tests
         public void GivenOneValidTypeWithTwoPropertiesOneOfItIsOneGuid_AndOneJsonWithAnAdditionalProperty_WhenDeserializing_ThenTheObject_ShouldContainTheCorrectPropertyValues()
         {
             const string json = @"{ ""Bar"": ""5AFF9859-A08C-4B3D-BD8D-57D01D6B795B"", ""Cool"": ""Cooler""}";
-            var deserializeObject = JsonSerializer.Deserialize<TestingTypeComplexMatchingTypes.WithTwoProperties2>(json, Settings);
+            var deserializeObject = JsonSerializer.Deserialize<TestingTypeComplexMatchingTypes.WithTwoProperties2>(json, DefaultSettings);
             using var _ = new AssertionScope();
             deserializeObject.Bar.Should().Be("5AFF9859-A08C-4B3D-BD8D-57D01D6B795B");
             deserializeObject.Cool.Should().Be("Cooler");
@@ -74,7 +67,7 @@ namespace Obviously.System.Text.Json.Tests
         public void GivenOneValidTypeWithOneGenericProperty_WhenDeserializing_ThenTheObject_ShouldContainTheCorrectPropertyValues()
         {
             const string json = @"{ ""Cool"": ""Cooler""}";
-            var deserializeObject = JsonSerializer.Deserialize<TestingTypeComplexMatchingTypes.WithOneGenericProperties<string>>(json, Settings);
+            var deserializeObject = JsonSerializer.Deserialize<TestingTypeComplexMatchingTypes.WithOneGenericProperties<string>>(json, DefaultSettings);
             using var _ = new AssertionScope();
             deserializeObject.Cool.Should().Be("Cooler");
         }

@@ -1,9 +1,19 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>Obviously.System.Text.Json</AssemblyName>
     <RootNamespace>Obviously.System.Text.Json</RootNamespace>
+    <Version>0.0.1-preview.1</Version>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Company />
+    <Authors>Manuel Pfemeter</Authors>
+    <PackageProjectUrl>https://github.com/manne/obviously</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/manne/obviously</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>System.Text.Json immutable</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>

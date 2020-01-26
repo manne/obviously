@@ -7,3 +7,6 @@ dotnet_diagnostic.CA1303.severity = none
 
 # CA1707: Identifiers should not contain underscores
 dotnet_diagnostic.CA1707.severity = none
+
+# IDE0001: Simplify Names
+dotnet_diagnostic.IDE0001.severity = silent

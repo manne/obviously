@@ -15,7 +15,7 @@ namespace Obviously.SemanticTypes.Generator
 {
     public sealed partial class SemanticTypeGenerator : IRichCodeGenerator
     {
-        private const string BackingFieldName = "_value";
+        public const string BackingFieldName = "_value";
         private readonly TypedConstant _actualType;
 
         private sealed class Input
@@ -105,6 +105,7 @@ namespace Obviously.SemanticTypes.Generator
             }
 
             members.AddRange(AspNetCoreModelBinding.Generate(_actualType, context, input.Identifier));
+            members.AddRange(JsonNetConverter.Generate(_actualType, context, input.Identifier));
 
             var result = SingletonList<MemberDeclarationSyntax>(
                 ClassDeclaration(applyToClass.Identifier.ValueText)

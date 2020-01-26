@@ -106,6 +106,7 @@ namespace Obviously.SemanticTypes.Generator
 
             members.AddRange(AspNetCoreModelBinding.Generate(_actualType, context, input.Identifier));
             members.AddRange(JsonNetConverter.Generate(_actualType, context, input.Identifier));
+            members.AddRange(SystemTextJsonConverter.Generate(_actualType, context, input.Identifier));
 
             var result = SingletonList<MemberDeclarationSyntax>(
                 ClassDeclaration(applyToClass.Identifier.ValueText)

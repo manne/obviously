@@ -12,8 +12,7 @@ namespace Obviously.SemanticTypes.Generator.Modules
 {
     internal static class JsonNetConverter
     {
-        private const string Prefix = "JsonNet";
-        private const string Postfix = "Converter";
+        private const string ConverterName = "JsonNetConverter";
 
         internal static ImmutableArray<ClassDeclarationSyntax> Generate(TypedConstant actualType, TransformationContext context, string identifierName)
         {
@@ -26,7 +25,7 @@ namespace Obviously.SemanticTypes.Generator.Modules
                 return ImmutableArray<ClassDeclarationSyntax>.Empty;
             }
 
-            var @class = ClassDeclaration(Prefix + identifierName + Postfix)
+            var @class = ClassDeclaration(ConverterName)
                 .WithModifiers(
                     TokenList(Token(SyntaxKind.PublicKeyword), Token(SyntaxKind.SealedKeyword)))
                 .WithBaseList(

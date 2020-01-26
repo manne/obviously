@@ -67,8 +67,11 @@ namespace Obviously.SemanticTypes.StaticTests
 
     [SemanticType(typeof(string))]
     public sealed partial class SystemTextJsonPackageIdentifier
-    { 
+    {
 #pragma warning disable CA1034 // Nested types should not be visible
+#pragma warning disable IDE0001 // Name can be simplified
+#pragma warning disable IDE0002 // Name can be simplified
+        // ReSharper disable RedundantNameQualifier
         public sealed class SystemTextJsonNuGetPackageConverter : global::System.Text.Json.Serialization.JsonConverter<SystemTextJsonPackageIdentifier>
         {
             public override SystemTextJsonPackageIdentifier Read(ref global::System.Text.Json.Utf8JsonReader reader, global::System.Type typeToConvert, global::System.Text.Json.JsonSerializerOptions options)

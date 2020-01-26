@@ -92,25 +92,99 @@ namespace Obviously.SemanticTypes.Generator.Modules
                                             })))
                                 .WithBody(
                                     Block(
-                                        SingletonList<StatementSyntax>(
-                                            ExpressionStatement(
-                                                InvocationExpression(
-                                                        MemberAccessExpression(
-                                                            SyntaxKind.SimpleMemberAccessExpression,
-                                                            IdentifierName("serializer"),
-                                                            IdentifierName("Serialize")))
-                                                    .WithArgumentList(
-                                                        ArgumentList(
-                                                            SeparatedList<ArgumentSyntax>(
-                                                                new SyntaxNodeOrToken[]{
+                                        IfStatement(
+                                    IsPatternExpression(
+                                        IdentifierName("writer"),
+                                        ConstantPattern(
+                                            LiteralExpression(
+                                                SyntaxKind.NullLiteralExpression))),
+                                    ThrowStatement(
+                                        ObjectCreationExpression(
+                                            QualifiedName(
+                                                AliasQualifiedName(
+                                                    IdentifierName(
+                                                        Token(SyntaxKind.GlobalKeyword)),
+                                                    IdentifierName("System")),
+                                                IdentifierName("ArgumentNullException")))
+                                        .WithArgumentList(
+                                            ArgumentList(
+                                                SingletonSeparatedList(
+                                                    Argument(
+                                                        InvocationExpression(
+                                                            IdentifierName("nameof"))
+                                                        .WithArgumentList(
+                                                            ArgumentList(
+                                                                SingletonSeparatedList(
                                                                     Argument(
-                                                                        IdentifierName("writer")),
-                                                                    Token(SyntaxKind.CommaToken),
+                                                                        IdentifierName("writer"))))))))))),
+                                IfStatement(
+                                    IsPatternExpression(
+                                        IdentifierName("value"),
+                                        ConstantPattern(
+                                            LiteralExpression(
+                                                SyntaxKind.NullLiteralExpression))),
+                                    ThrowStatement(
+                                        ObjectCreationExpression(
+                                            QualifiedName(
+                                                AliasQualifiedName(
+                                                    IdentifierName(
+                                                        Token(SyntaxKind.GlobalKeyword)),
+                                                    IdentifierName("System")),
+                                                IdentifierName("ArgumentNullException")))
+                                        .WithArgumentList(
+                                            ArgumentList(
+                                                SingletonSeparatedList(
+                                                    Argument(
+                                                        InvocationExpression(
+                                                            IdentifierName("nameof"))
+                                                        .WithArgumentList(
+                                                            ArgumentList(
+                                                                SingletonSeparatedList(
                                                                     Argument(
-                                                                        MemberAccessExpression(
-                                                                            SyntaxKind.SimpleMemberAccessExpression,
-                                                                            IdentifierName("value"),
-                                                                            IdentifierName("_value")))}))))))),
+                                                                        IdentifierName("value"))))))))))),
+                                IfStatement(
+                                    IsPatternExpression(
+                                        IdentifierName("serializer"),
+                                        ConstantPattern(
+                                            LiteralExpression(
+                                                SyntaxKind.NullLiteralExpression))),
+                                    ThrowStatement(
+                                        ObjectCreationExpression(
+                                            QualifiedName(
+                                                AliasQualifiedName(
+                                                    IdentifierName(
+                                                        Token(SyntaxKind.GlobalKeyword)),
+                                                    IdentifierName("System")),
+                                                IdentifierName("ArgumentNullException")))
+                                        .WithArgumentList(
+                                            ArgumentList(
+                                                SingletonSeparatedList(
+                                                    Argument(
+                                                        InvocationExpression(
+                                                            IdentifierName("nameof"))
+                                                        .WithArgumentList(
+                                                            ArgumentList(
+                                                                SingletonSeparatedList(
+                                                                    Argument(
+                                                                        IdentifierName("serializer"))))))))))),
+                                                                        ExpressionStatement(
+                                                                            InvocationExpression(
+                                                                                    MemberAccessExpression(
+                                                                                        SyntaxKind.SimpleMemberAccessExpression,
+                                                                                        IdentifierName("serializer"),
+                                                                                        IdentifierName("Serialize")))
+                                                                                .WithArgumentList(
+                                                                                    ArgumentList(
+                                                                                        SeparatedList<ArgumentSyntax>(
+                                                                                            new SyntaxNodeOrToken[]{
+                                                                                                Argument(
+                                                                                                    IdentifierName("writer")),
+                                                                                                Token(SyntaxKind.CommaToken),
+                                                                                                Argument(
+                                                                                                    MemberAccessExpression(
+                                                                                                        SyntaxKind.SimpleMemberAccessExpression,
+                                                                                                        IdentifierName("value"),
+                                                                                                        IdentifierName("_value")))})))))),
                             MethodDeclaration(
                                     IdentifierName(identifierName),
                                     Identifier("ReadJson"))
@@ -168,6 +242,31 @@ namespace Obviously.SemanticTypes.Generator.Modules
                                             })))
                                 .WithBody(
                                     Block(
+                                        IfStatement(
+                                            IsPatternExpression(
+                                                IdentifierName("serializer"),
+                                                ConstantPattern(
+                                                    LiteralExpression(
+                                                        SyntaxKind.NullLiteralExpression))),
+                                            ThrowStatement(
+                                                ObjectCreationExpression(
+                                                        QualifiedName(
+                                                            AliasQualifiedName(
+                                                                IdentifierName(
+                                                                    Token(SyntaxKind.GlobalKeyword)),
+                                                                IdentifierName("System")),
+                                                            IdentifierName("ArgumentNullException")))
+                                                    .WithArgumentList(
+                                                        ArgumentList(
+                                                            SingletonSeparatedList(
+                                                                Argument(
+                                                                    InvocationExpression(
+                                                                            IdentifierName("nameof"))
+                                                                        .WithArgumentList(
+                                                                            ArgumentList(
+                                                                                SingletonSeparatedList(
+                                                                                    Argument(
+                                                                                        IdentifierName("serializer"))))))))))),
                                         LocalDeclarationStatement(
                                             VariableDeclaration(
                                                     IdentifierName("var"))
@@ -201,7 +300,7 @@ namespace Obviously.SemanticTypes.Generator.Modules
                                                             Argument(
                                                                 IdentifierName("deserialize"))))))))
                         }));
-            return ImmutableArray.CreateRange(new [] { @class });
+            return ImmutableArray.CreateRange(new[] { @class });
         }
     }
 }

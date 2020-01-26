@@ -7,8 +7,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Added
 
-* Support for Json.NET. An Converter is generated as a nested class.
-* Support for System.Text.Json. An Converter is generated as a nested class.
+* Support for Json.NET. A converter named `JsonNetConverter` is generated as a nested class.
+* Support for System.Text.Json. A converter `SystemTextJsonConverter` is generated as a nested class.
 
 ## 0.0.1-preview.4 - 2020-01-12 <a name="0.0.1-preview.4"> </a>
 

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
-using System.IO;
-using System.Linq;
 
 using CodeGeneration.Roslyn;
 using Microsoft.CodeAnalysis;
@@ -19,11 +17,8 @@ namespace Obviously.SemanticTypes.Generator.Modules
             if (context is null) throw new ArgumentNullException(nameof(context));
             if (identifierName is null) throw new ArgumentNullException(nameof(identifierName));
 
-            var hasAspNetCoreMvcReference = context.SemanticModel.Compilation.ExternalReferences
-                .Select(er => er.Display)
-                .Select(Path.GetFileNameWithoutExtension)
-                .FirstOrDefault(assemblyName => assemblyName == "Microsoft.AspNetCore.Mvc");
-            if (hasAspNetCoreMvcReference is null)
+            var hasNotAspNetCoreMvcReference = !context.SemanticModel.Compilation.HasExternalReference("Microsoft.AspNetCore.Mvc");
+            if (hasNotAspNetCoreMvcReference)
             {
                 return ImmutableArray<ClassDeclarationSyntax>.Empty;
             }

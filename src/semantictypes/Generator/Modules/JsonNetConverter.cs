@@ -1,6 +1,4 @@
 ﻿using System.Collections.Immutable;
-using System.IO;
-using System.Linq;
 using CodeGeneration.Roslyn;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis;
@@ -16,11 +14,8 @@ namespace Obviously.SemanticTypes.Generator.Modules
 
         internal static ImmutableArray<ClassDeclarationSyntax> Generate(TypedConstant actualType, TransformationContext context, string identifierName)
         {
-            var hasNewtonsoftJson = context.SemanticModel.Compilation.ExternalReferences
-                .Select(er => er.Display)
-                .Select(Path.GetFileNameWithoutExtension)
-                .FirstOrDefault(assemblyName => assemblyName == "Newtonsoft.Json");
-            if (hasNewtonsoftJson is null)
+            var hasNotNewtonsoftJson = !context.SemanticModel.Compilation.HasExternalReference("Newtonsoft.Json");
+            if (hasNotNewtonsoftJson)
             {
                 return ImmutableArray<ClassDeclarationSyntax>.Empty;
             }

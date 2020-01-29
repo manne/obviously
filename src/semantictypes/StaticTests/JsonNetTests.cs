@@ -36,7 +36,7 @@ namespace Obviously.SemanticTypes.StaticTests
                     ""PackageId"": ""Newtonsoft.Json"",
                ""Version"": ""10.0.4""
                 }";
-            var cut = new PackageIdentifier.JsonNetPackageIdentifierConverter();
+            var cut = new PackageIdentifier.JsonNetConverter();
             var actualResult = JsonConvert.DeserializeObject<NuGetPackage>(json, cut);
             ((string)actualResult.PackageId).Should().Be("Newtonsoft.Json");
         }
@@ -45,7 +45,7 @@ namespace Obviously.SemanticTypes.StaticTests
         public void ActualConverter_ShouldSerialize()
         {
             var package = new NuGetPackage { PackageId = new PackageIdentifier("foo") };
-            var cut = new PackageIdentifier.JsonNetPackageIdentifierConverter();
+            var cut = new PackageIdentifier.JsonNetConverter();
             Func<string> serialization = () => JsonConvert.SerializeObject(package, cut);
             serialization.Should().NotThrow().Subject.Should().Contain("\"foo\"");
         }

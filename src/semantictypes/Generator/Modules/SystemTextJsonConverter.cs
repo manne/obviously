@@ -14,20 +14,15 @@ namespace Obviously.SemanticTypes.Generator.Modules
 
         internal static ImmutableArray<ClassDeclarationSyntax> Generate(TypedConstant actualType, TransformationContext context, string identifierName)
         {
-            var hasNotSystemTextJson = !context.SemanticModel.Compilation.HasExternalReference("System.Text.Json");
-            if (hasNotSystemTextJson)
+            var hasSystemTextJson = context.SemanticModel.Compilation.HasType("System.Text.Json.JsonSerializer");
+            if (!hasSystemTextJson)
             {
                 return ImmutableArray<ClassDeclarationSyntax>.Empty;
             }
 
             var @class = ClassDeclaration(ConverterName)
                 .WithModifiers(
-                    TokenList(
-                        new[]
-                        {
-                            Token(SyntaxKind.PublicKeyword),
-                            Token(SyntaxKind.SealedKeyword)
-                        }))
+                    TokenList(Token(SyntaxKind.PublicKeyword), Token(SyntaxKind.SealedKeyword)))
                 .WithBaseList(
                     BaseList(
                         SingletonSeparatedList<BaseTypeSyntax>(
@@ -57,12 +52,7 @@ namespace Obviously.SemanticTypes.Generator.Modules
                                     IdentifierName(identifierName),
                                     Identifier("Read"))
                                 .WithModifiers(
-                                    TokenList(
-                                        new[]
-                                        {
-                                            Token(SyntaxKind.PublicKeyword),
-                                            Token(SyntaxKind.OverrideKeyword)
-                                        }))
+                                    TokenList(Token(SyntaxKind.PublicKeyword), Token(SyntaxKind.OverrideKeyword)))
                                 .WithParameterList(
                                     ParameterList(
                                         SeparatedList<ParameterSyntax>(
@@ -170,12 +160,7 @@ namespace Obviously.SemanticTypes.Generator.Modules
                                         Token(SyntaxKind.VoidKeyword)),
                                     Identifier("Write"))
                                 .WithModifiers(
-                                    TokenList(
-                                        new[]
-                                        {
-                                            Token(SyntaxKind.PublicKeyword),
-                                            Token(SyntaxKind.OverrideKeyword)
-                                        }))
+                                    TokenList(Token(SyntaxKind.PublicKeyword), Token(SyntaxKind.OverrideKeyword)))
                                 .WithParameterList(
                                     ParameterList(
                                         SeparatedList<ParameterSyntax>(
@@ -232,13 +217,13 @@ namespace Obviously.SemanticTypes.Generator.Modules
                                                             IdentifierName("ArgumentNullException")))
                                                     .WithArgumentList(
                                                         ArgumentList(
-                                                            SingletonSeparatedList<ArgumentSyntax>(
+                                                            SingletonSeparatedList(
                                                                 Argument(
                                                                     InvocationExpression(
                                                                             IdentifierName("nameof"))
                                                                         .WithArgumentList(
                                                                             ArgumentList(
-                                                                                SingletonSeparatedList<ArgumentSyntax>(
+                                                                                SingletonSeparatedList(
                                                                                     Argument(
                                                                                         IdentifierName("value"))))))))))),
                                             ExpressionStatement(

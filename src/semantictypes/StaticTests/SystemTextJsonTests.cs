@@ -18,7 +18,7 @@ namespace Obviously.SemanticTypes.StaticTests
             var options = new JsonSerializerOptions();
             options.Converters.Add(cut);
             JsonSerializer.Serialize(nuGetPackage, typeof(NuGetPackage), options).Should().Contain("\"bla\"");
-        }
+        } 
 
         [Fact]
         public void ShouldDeSerialize()
@@ -29,7 +29,7 @@ namespace Obviously.SemanticTypes.StaticTests
             options.Converters.Add(cut);
             var actualResult = (string)JsonSerializer.Deserialize<NuGetPackage>(json, options).PackageId;
             actualResult.Should().Be("bla");
-        }
+        } 
 
         [Fact]
         public void ActualConverter_ShouldSerialize()
@@ -38,7 +38,7 @@ namespace Obviously.SemanticTypes.StaticTests
             {
                 PackageId = new SystemTextJsonPackageIdentifier("bla")
             };
-            var cut = new SystemTextJsonPackageIdentifier.SystemTextJsonSystemTextJsonPackageIdentifierConverter();
+            var cut = new SystemTextJsonPackageIdentifier.SystemTextJsonConverter();
             var options = new JsonSerializerOptions();
             options.Converters.Add(cut);
             JsonSerializer.Serialize(nuGetPackage, typeof(NuGetPackage), options).Should().Contain("\"bla\"");
@@ -48,7 +48,7 @@ namespace Obviously.SemanticTypes.StaticTests
         public void ActualConverter_ShouldDeSerialize()
         {
             const string json = @"{""PackageId"": ""bla""}";
-            var cut = new SystemTextJsonPackageIdentifier.SystemTextJsonSystemTextJsonPackageIdentifierConverter();
+            var cut = new SystemTextJsonPackageIdentifier.SystemTextJsonConverter();
             var options = new JsonSerializerOptions();
             options.Converters.Add(cut);
             var actualResult = (string)JsonSerializer.Deserialize<NuGetPackage>(json, options).PackageId;
@@ -61,7 +61,7 @@ namespace Obviously.SemanticTypes.StaticTests
         }
     }
 
-    [SemanticType(typeof(string))]
+    [SemanticType(typeof(string))]   
     public sealed partial class SystemTextJsonPackageIdentifier
     {
 #pragma warning disable CA1034 // Nested types should not be visible

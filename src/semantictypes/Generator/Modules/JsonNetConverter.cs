@@ -14,8 +14,8 @@ namespace Obviously.SemanticTypes.Generator.Modules
 
         internal static ImmutableArray<ClassDeclarationSyntax> Generate(TypedConstant actualType, TransformationContext context, string identifierName)
         {
-            var hasNotNewtonsoftJson = !context.SemanticModel.Compilation.HasExternalReference("Newtonsoft.Json");
-            if (hasNotNewtonsoftJson)
+            var hasNewtonsoftJson = context.SemanticModel.Compilation.HasType("Newtonsoft.Json.JsonConverter`1");
+            if (!hasNewtonsoftJson)
             {
                 return ImmutableArray<ClassDeclarationSyntax>.Empty;
             }

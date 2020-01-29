@@ -17,8 +17,8 @@ namespace Obviously.SemanticTypes.Generator.Modules
             if (context is null) throw new ArgumentNullException(nameof(context));
             if (identifierName is null) throw new ArgumentNullException(nameof(identifierName));
 
-            var hasNotAspNetCoreMvcReference = !context.SemanticModel.Compilation.HasExternalReference("Microsoft.AspNetCore.Mvc");
-            if (hasNotAspNetCoreMvcReference)
+            var hasAspNetCoreMvc = context.SemanticModel.Compilation.HasType("Microsoft.AspNetCore.Mvc.ModelBinding.IModelBinderProvider");
+            if (!hasAspNetCoreMvc)
             {
                 return ImmutableArray<ClassDeclarationSyntax>.Empty;
             }

@@ -77,10 +77,7 @@ namespace Obviously.SemanticTypes.Generator
                                     Token(SyntaxKind.BoolKeyword)),
                                 Identifier("Equals"))
                             .WithModifiers(
-                                TokenList(
-                                    new []{
-                                        Token(SyntaxKind.PublicKeyword),
-                                        Token(SyntaxKind.OverrideKeyword)}))
+                                TokenList(Token(SyntaxKind.PublicKeyword), Token(SyntaxKind.OverrideKeyword)))
                             .WithParameterList(
                                 ParameterList(
                                     SingletonSeparatedList(
@@ -136,12 +133,7 @@ namespace Obviously.SemanticTypes.Generator
                                     Token(SyntaxKind.IntKeyword)),
                                 Identifier("GetHashCode"))
                             .WithModifiers(
-                                TokenList(
-                                    new[]
-                                    {
-                                        Token(SyntaxKind.PublicKeyword),
-                                        Token(SyntaxKind.OverrideKeyword)
-                                    }))
+                                TokenList(Token(SyntaxKind.PublicKeyword), Token(SyntaxKind.OverrideKeyword)))
                             .WithBody(
                                 Block(
                                     SingletonList<StatementSyntax>(
@@ -156,12 +148,7 @@ namespace Obviously.SemanticTypes.Generator
                                     Token(SyntaxKind.BoolKeyword)),
                                 Token(SyntaxKind.EqualsEqualsToken))
                             .WithModifiers(
-                                TokenList(
-                                    new[]
-                                    {
-                                        Token(SyntaxKind.PublicKeyword),
-                                        Token(SyntaxKind.StaticKeyword)
-                                    }))
+                                TokenList(Token(SyntaxKind.PublicKeyword), Token(SyntaxKind.StaticKeyword)))
                             .WithParameterList(
                                 ParameterList(
                                     SeparatedList<ParameterSyntax>(
@@ -199,12 +186,7 @@ namespace Obviously.SemanticTypes.Generator
                                     Token(SyntaxKind.BoolKeyword)),
                                 Token(SyntaxKind.ExclamationEqualsToken))
                             .WithModifiers(
-                                TokenList(
-                                    new[]
-                                    {
-                                        Token(SyntaxKind.PublicKeyword),
-                                        Token(SyntaxKind.StaticKeyword)
-                                    }))
+                                TokenList(Token(SyntaxKind.PublicKeyword), Token(SyntaxKind.StaticKeyword)))
                             .WithParameterList(
                                 ParameterList(
                                     SeparatedList<ParameterSyntax>(

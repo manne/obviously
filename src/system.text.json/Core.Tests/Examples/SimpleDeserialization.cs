@@ -23,6 +23,16 @@ namespace Obviously.System.Text.Json.Tests.Examples
             public string AdminPassword { get; }
         }
 
+        public sealed class WrappedSettings
+        {
+            public WrappedSettings(ProgramSettings test)
+            {
+                Test = test;
+            }
+
+            public ProgramSettings Test { get; }
+        }
+
         [Fact]
         [SuppressMessage("ReSharper", "UnusedVariable")]
         [SuppressMessage("Style", "IDE0059:Unnecessary assignment of a value", Justification = "For documentation")]
@@ -36,6 +46,18 @@ namespace Obviously.System.Text.Json.Tests.Examples
             var baseUrl = programSettings.BaseUrl; // https://example.com:8999
             var adminName = programSettings.AdminName; // admin
             var adminPassword = programSettings.AdminPassword; // topsecret
+        }
+
+        [Fact]
+        [SuppressMessage("ReSharper", "UnusedVariable")]
+        [SuppressMessage("Style", "IDE0059:Unnecessary assignment of a value", Justification = "For documentation")]
+        public void DeserializeSettings2()
+        {
+            const string settingsJson = @"{ ""Test"": {""BaseUrl"": ""https://example.com:8999"", ""AdminName"": ""admin"", ""AdminPassword"": ""topsecret""}}";
+            var options = new JsonSerializerOptions();
+            options.Converters.Add(new ImmutableConverter());
+
+            var programSettings = JsonSerializer.Deserialize<WrappedSettings>(settingsJson, options);
         }
     }
 }

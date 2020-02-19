@@ -20,11 +20,12 @@ namespace Obviously.SemanticTypes.Generator
 
         private sealed class Input
         {
-            public Input(string actualTypeFullName, string identifier, ClassDeclarationSyntax applyToClass)
+            public Input(string actualTypeFullName, string identifier, ClassDeclarationSyntax applyToClass, bool isNullableEnabled)
             {
                 ActualTypeFullName = actualTypeFullName;
                 Identifier = identifier;
                 ApplyToClass = applyToClass;
+                IsNullableEnabled = isNullableEnabled;
             }
 
             public string ActualTypeFullName { get;  }
@@ -32,6 +33,8 @@ namespace Obviously.SemanticTypes.Generator
             public string Identifier { get; }
 
             public ClassDeclarationSyntax ApplyToClass { get; }
+
+            public bool IsNullableEnabled { get; }
         }
 
         private sealed class Output
@@ -81,6 +84,9 @@ namespace Obviously.SemanticTypes.Generator
             var classSymbol = context.SemanticModel.GetDeclaredSymbol(applyToClass);
             var idName = classSymbol.Name;
 
+            var nullableContext = context.SemanticModel.GetNullableContext(applyToClass.SpanStart);
+            var isNullableEnabled = nullableContext == NullableContext.Enabled;
+
             var generators = new Generate[]
             {
                 GenerateConstructorAndField,
@@ -92,7 +98,7 @@ namespace Obviously.SemanticTypes.Generator
             var accessibility = classSymbol.DeclaredAccessibility;
             var baseTypes = new List<BaseTypeSyntax>();
             var members = new List<MemberDeclarationSyntax>();
-            var input = new Input(_actualType.Value.ToString(), idName, applyToClass);
+            var input = new Input(_actualType.Value!.ToString(), idName, applyToClass, isNullableEnabled);
             foreach (var generator in generators)
             {
                 var output = generator(input);
@@ -108,11 +114,16 @@ namespace Obviously.SemanticTypes.Generator
             members.AddRange(JsonNetConverter.Generate(_actualType, context, input.Identifier));
             members.AddRange(SystemTextJsonConverter.Generate(_actualType, context, input.Identifier));
 
+            var leading = isNullableEnabled ? TriviaList(Trivia(NullableDirectiveTrivia(Token(SyntaxKind.EnableKeyword), true))) : SyntaxTriviaList.Empty;
+            var trailing = isNullableEnabled ? TriviaList(Trivia(NullableDirectiveTrivia(Token(SyntaxKind.RestoreKeyword), true))) : SyntaxTriviaList.Empty;
+
             var result = SingletonList<MemberDeclarationSyntax>(
                 ClassDeclaration(applyToClass.Identifier.ValueText)
                     .WithBaseList(BaseList(SeparatedList(baseTypes)))
                     .WithModifiers(TokenList( ParseToken(SyntaxFacts.GetText(accessibility)), Token(SyntaxKind.PartialKeyword)))
-                    .WithMembers(List(members)));
+                    .WithLeadingTrivia(leading)
+                    .WithMembers(List(members))
+                    .WithTrailingTrivia(trailing));
             var wrappedMembers = result.WrapWithAncestors(context.ProcessingNode);
 
             return Task.FromResult(new RichGenerationResult

@@ -131,7 +131,7 @@ namespace Obviously.SemanticTypes.Generator.Modules
                                                                                     .WithTypeArgumentList(
                                                                                         TypeArgumentList(
                                                                                             SingletonSeparatedList<TypeSyntax>(
-                                                                                                IdentifierName(actualType.Value.ToString()))))))
+                                                                                                IdentifierName(actualType.Value!.ToString()))))))
                                                                         .WithArgumentList(
                                                                             ArgumentList(
                                                                                 SeparatedList<ArgumentSyntax>(

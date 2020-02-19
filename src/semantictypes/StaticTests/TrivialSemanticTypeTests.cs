@@ -72,4 +72,9 @@ namespace Obviously.SemanticTypes.StaticTests
 
     [SemanticType(typeof(int))]
     public partial class TrivialInt32SemanticType { }
+
+#nullable enable
+    [SemanticType(typeof(string))]
+    public partial class StringNullableEnabledSemanticType { }
+#nullable restore
 }

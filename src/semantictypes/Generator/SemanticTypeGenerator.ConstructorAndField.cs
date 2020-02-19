@@ -47,7 +47,7 @@ namespace Obviously.SemanticTypes.Generator
                 else
                 {
                     var parameter = parameters[0];
-                    var parameterTypeName = parameter.Type.ToFullString().Trim();
+                    var parameterTypeName = parameter.Type!.ToFullString().Trim();
                     var actualTypeName = input.ActualTypeFullName;
                     if (parameterTypeName != actualTypeName)
                     {

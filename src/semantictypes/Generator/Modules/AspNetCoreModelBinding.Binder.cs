@@ -199,7 +199,7 @@ namespace Obviously.SemanticTypes.Generator.Modules
                                                             IdentifierName("FirstValue"))))))),
                                     LocalDeclarationStatement(
                                         VariableDeclaration(
-                                            IdentifierName(actualType.Value.ToString()))
+                                            IdentifierName(actualType.Value!.ToString()))
                                         .WithVariables(
                                             SingletonSeparatedList(
                                                 VariableDeclarator(

@@ -21,7 +21,7 @@ namespace Obviously.SemanticTypes.Generator
                                 .WithTypeArgumentList(
                                     TypeArgumentList(
                                         SingletonSeparatedList<TypeSyntax>(
-                                            IdentifierName(input.Identifier))))),
+                                            IdentifierName(input.Identifier).MakeNullableIfEnabled(input.IsNullableEnabled))))),
                         Token(SyntaxKind.CommaToken),
                         SimpleBaseType(
                             IdentifierName("global::System.IComparable"))}));
@@ -40,9 +40,7 @@ namespace Obviously.SemanticTypes.Generator
                                 SingletonSeparatedList(
                                     Parameter(
                                             Identifier("other"))
-                                        .WithType(
-                                            NullableType(
-                                                IdentifierName(input.Identifier))))))
+                                        .WithType(IdentifierName(input.Identifier).MakeNullableIfEnabled(input.IsNullableEnabled)))))
                         .WithBody(
                             Block(
                                 IfStatement(
@@ -100,9 +98,8 @@ namespace Obviously.SemanticTypes.Generator
                                     Parameter(
                                             Identifier("obj"))
                                         .WithType(
-                                            NullableType(
                                                 PredefinedType(
-                                                    Token(SyntaxKind.ObjectKeyword)))))))
+                                                    Token(SyntaxKind.ObjectKeyword)).MakeNullableIfEnabled(input.IsNullableEnabled)))))
                         .WithBody(
                             Block(
                                 IfStatement(
@@ -173,14 +170,12 @@ namespace Obviously.SemanticTypes.Generator
                                         Parameter(
                                                 Identifier("left"))
                                             .WithType(
-                                                NullableType(
-                                                    IdentifierName(input.Identifier))),
+                                                    IdentifierName(input.Identifier).MakeNullableIfEnabled(input.IsNullableEnabled)),
                                         Token(SyntaxKind.CommaToken),
                                         Parameter(
                                                 Identifier("right"))
                                             .WithType(
-                                                NullableType(
-                                                    IdentifierName(input.Identifier)))
+                                                    IdentifierName(input.Identifier).MakeNullableIfEnabled(input.IsNullableEnabled))
                                     })))
                     .WithBody(
                             Block(
@@ -229,14 +224,12 @@ namespace Obviously.SemanticTypes.Generator
                                         Parameter(
                                                 Identifier("left"))
                                             .WithType(
-                                                NullableType(
-                                                    IdentifierName(input.Identifier))),
+                                                    IdentifierName(input.Identifier).MakeNullableIfEnabled(input.IsNullableEnabled)),
                                         Token(SyntaxKind.CommaToken),
                                         Parameter(
                                                 Identifier("right"))
                                             .WithType(
-                                                NullableType(
-                                                    IdentifierName(input.Identifier)))
+                                                    IdentifierName(input.Identifier).MakeNullableIfEnabled(input.IsNullableEnabled))
                                     }))).WithBody(Block(ReturnStatement(
                             LiteralExpression(
                                 SyntaxKind.TrueLiteralExpression))))
@@ -286,14 +279,12 @@ namespace Obviously.SemanticTypes.Generator
                                     Parameter(
                                             Identifier("left"))
                                         .WithType(
-                                            NullableType(
-                                                IdentifierName(input.Identifier))),
+                                                IdentifierName(input.Identifier).MakeNullableIfEnabled(input.IsNullableEnabled)),
                                     Token(SyntaxKind.CommaToken),
                                     Parameter(
                                             Identifier("right"))
                                         .WithType(
-                                            NullableType(
-                                                IdentifierName(input.Identifier)))
+                                                IdentifierName(input.Identifier).MakeNullableIfEnabled(input.IsNullableEnabled))
                                 })))
                     .WithBody(
                         Block(
@@ -341,14 +332,12 @@ namespace Obviously.SemanticTypes.Generator
                                     Parameter(
                                             Identifier("left"))
                                         .WithType(
-                                            NullableType(
-                                                IdentifierName(input.Identifier))),
+                                                IdentifierName(input.Identifier).MakeNullableIfEnabled(input.IsNullableEnabled)),
                                     Token(SyntaxKind.CommaToken),
                                     Parameter(
                                             Identifier("right"))
                                         .WithType(
-                                            NullableType(
-                                                IdentifierName(input.Identifier)))
+                                                IdentifierName(input.Identifier).MakeNullableIfEnabled(input.IsNullableEnabled))
                                 })))
                     .WithBody(
                         Block(

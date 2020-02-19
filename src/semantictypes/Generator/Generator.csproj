@@ -23,13 +23,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="templates\StringSemanticType.cs" />
-    <Compile Remove="templates\Int32ComparableSemanticType.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="..\.editorconfig" Link=".editorconfig" />
-    <None Include="templates\*.cs" />
     <None Include="..\..\..\LICENSE" Pack="true" PackagePath="" />
   </ItemGroup>
 
@@ -38,8 +32,8 @@
     <Compile Update="SemanticTypeGenerator.*.cs">
       <DependentUpon>SemanticTypeGenerator.cs</DependentUpon>
     </Compile>
-    <Compile Update=".\Modules\AspNetCoreModelBinding.*.cs">
-      <DependentUpon>.\Modules\AspNetCoreModelBinding.cs</DependentUpon>
+    <Compile Update="Modules\AspNetCoreModelBinding.*.cs">
+      <DependentUpon>Modules\AspNetCoreModelBinding.cs</DependentUpon>
     </Compile>
   </ItemGroup>
 

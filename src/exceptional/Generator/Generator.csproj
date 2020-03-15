@@ -7,6 +7,7 @@
     <AssemblyName>Obviously.Exceptional.Generator</AssemblyName>
     <RootNamespace>Obviously.Exceptional.Generator</RootNamespace>
     <LangVersion>8.0</LangVersion>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>

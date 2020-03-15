@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <Sdk Name="CodeGeneration.Roslyn.Plugin.Sdk" Version="0.7.5-alpha"/>
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <AssemblyName>Obviously.Exceptional.Generator</AssemblyName>
+    <RootNamespace>Obviously.Exceptional.Generator</RootNamespace>
+    <LangVersion>8.0</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CodeGeneration.Roslyn" Version="0.7.5-alpha" />
+  </ItemGroup>
+</Project>

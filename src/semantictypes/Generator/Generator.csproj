@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <System_PullRequest_SourceCommitId Condition="'$(System_PullRequest_SourceCommitId)' == ''"></System_PullRequest_SourceCommitId> 
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <AssemblyName>Obviously.SemanticTypes.Generator</AssemblyName>
     <RootNamespace>Obviously.SemanticTypes.Generator</RootNamespace>
@@ -10,6 +11,7 @@
     <Authors>Manuel Pfemeter</Authors>
     <RepositoryUrl>https://github.com/manne/obviously</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
+    <RepositoryCommit>$(System_PullRequest_SourceCommitId)</RepositoryCommit>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/manne/obviously</PackageProjectUrl>
     <PackageId>Obviously.SemanticTypes</PackageId>
@@ -24,7 +26,7 @@
   </PropertyGroup>
 
 
-  <Sdk Name="CodeGeneration.Roslyn.Plugin.Sdk" Version="0.7.5-alpha"/>
+  <Sdk Name="CodeGeneration.Roslyn.Plugin.Sdk" Version="0.7.57-alpha" />
 
   <ItemGroup>
     <None Include="..\.editorconfig" Link=".editorconfig" />
@@ -42,7 +44,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <!--<PackageReference Include="CodeGeneration.Roslyn" Version="0.7.5-alpha" />-->
+    <PackageReference Include="CodeGeneration.Roslyn" Version="0.7.57-alpha" />
     <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="2.9.8">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

@@ -1,6 +1,5 @@
-﻿using CodeGeneration.Roslyn;
+﻿using System;
 using FluentAssertions;
-using Obviously.SemanticTypes.Generator;
 using Xunit;
 
 namespace Obviously.SemanticTypes.StaticTests
@@ -10,12 +9,10 @@ namespace Obviously.SemanticTypes.StaticTests
         [Fact]
         public void GivenTheCompiledAssembly_WhenCheckingItsDependencies_ThenThese_ShouldNotContainTheGeneratorAssemblies()
         {
-            var notReferencedAssemblyNames = new[]
-            {
-                typeof(SemanticTypeGenerator).Assembly.GetName(),
-                typeof(IRichCodeGenerator).Assembly.GetName()
-            };
-            typeof(DependencyTests).Assembly.GetReferencedAssemblies().Should().NotContain(notReferencedAssemblyNames);
+            typeof(DependencyTests).Assembly.GetReferencedAssemblies()
+                .Should()
+                .NotContain(an => string.Equals(an.Name, "CodeGeneration.Roslyn", StringComparison.Ordinal))
+                .And.NotContain(an => string.Equals(an.Name, "Obviously.SemanticTypes.Generator", StringComparison.Ordinal));
         }
     }
 }

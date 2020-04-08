@@ -4,7 +4,7 @@ using CodeGeneration.Roslyn;
 
 namespace Obviously.SemanticTypes.Generator
 {
-    [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = false)]
+    [AttributeUsage(AttributeTargets.Class, Inherited = false)]
     [CodeGenerationAttribute(typeof(SemanticTypeGenerator))]
     [Conditional("CodeGeneration")]
     public sealed class SemanticTypeAttribute : Attribute
@@ -14,6 +14,20 @@ namespace Obviously.SemanticTypes.Generator
             ActualType = actualType;
         }
 
+        /// <summary>
+        /// Gets or sets the actual semantic type.
+        /// </summary>
         public Type ActualType { get; set; }
+
+        /// <summary>
+        /// Indicates whether the <see cref="ActualType"/> is <c>nullable</c>.
+        /// </summary>
+        /// <remarks>
+        /// The nullable context should be <c>enable</c>d.
+        /// </remarks>
+        /// <remarks>
+        /// This property is needed, because this <c>typeof(string?)</c> is not valid.
+        /// </remarks>
+        public bool IsNullableType { get; set; }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Immutable;
-
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -20,8 +19,8 @@ namespace Obviously.SemanticTypes.Generator
                                     Identifier("global::System.IComparable"))
                                 .WithTypeArgumentList(
                                     TypeArgumentList(
-                                        SingletonSeparatedList<TypeSyntax>(
-                                            IdentifierName(input.Identifier).MakeNullableIfEnabled(input.IsNullableEnabled))))),
+                                        SingletonSeparatedList(
+                                            IdentifierName(input.Identifier).MakeNullableIfEnabled(input))))),
                         Token(SyntaxKind.CommaToken),
                         SimpleBaseType(
                             IdentifierName("global::System.IComparable"))}));
@@ -40,9 +39,10 @@ namespace Obviously.SemanticTypes.Generator
                                 SingletonSeparatedList(
                                     Parameter(
                                             Identifier("other"))
-                                        .WithType(IdentifierName(input.Identifier).MakeNullableIfEnabled(input.IsNullableEnabled)))))
+                                        .WithType(IdentifierName(input.Identifier).MakeNullableIfEnabled(input)))))
                         .WithBody(
                             Block(
+                                List(new StatementSyntax[]{
                                 IfStatement(
                                     InvocationExpression(
                                             IdentifierName("ReferenceEquals"))
@@ -70,21 +70,8 @@ namespace Obviously.SemanticTypes.Generator
                                     ReturnStatement(
                                         LiteralExpression(
                                             SyntaxKind.NumericLiteralExpression,
-                                            Literal(1)))),
-                                ReturnStatement(
-                                    InvocationExpression(
-                                            MemberAccessExpression(
-                                                SyntaxKind.SimpleMemberAccessExpression,
-                                                IdentifierName("_value"),
-                                                IdentifierName("CompareTo")))
-                                        .WithArgumentList(
-                                            ArgumentList(
-                                                SingletonSeparatedList(
-                                                    Argument(
-                                                        MemberAccessExpression(
-                                                            SyntaxKind.SimpleMemberAccessExpression,
-                                                            IdentifierName("other"),
-                                                            IdentifierName("_value"))))))))),
+                                            Literal(1))))}).AddRange(CreateComparisonForOptionalOrNotOptionalValues(input.IsOptionalStruct))
+                                )),
                     MethodDeclaration(
                             PredefinedType(
                                 Token(SyntaxKind.IntKeyword)),
@@ -99,7 +86,7 @@ namespace Obviously.SemanticTypes.Generator
                                             Identifier("obj"))
                                         .WithType(
                                                 PredefinedType(
-                                                    Token(SyntaxKind.ObjectKeyword)).MakeNullableIfEnabled(input.IsNullableEnabled)))))
+                                                    Token(SyntaxKind.ObjectKeyword)).MakeNullableIfEnabled(input)))))
                         .WithBody(
                             Block(
                                 IfStatement(
@@ -170,12 +157,12 @@ namespace Obviously.SemanticTypes.Generator
                                         Parameter(
                                                 Identifier("left"))
                                             .WithType(
-                                                    IdentifierName(input.Identifier).MakeNullableIfEnabled(input.IsNullableEnabled)),
+                                                IdentifierName(input.Identifier).MakeNullableIfEnabled(input)),
                                         Token(SyntaxKind.CommaToken),
                                         Parameter(
                                                 Identifier("right"))
                                             .WithType(
-                                                    IdentifierName(input.Identifier).MakeNullableIfEnabled(input.IsNullableEnabled))
+                                                IdentifierName(input.Identifier).MakeNullableIfEnabled(input))
                                     })))
                     .WithBody(
                             Block(
@@ -208,8 +195,7 @@ namespace Obviously.SemanticTypes.Generator
                                                             }))),
                                             LiteralExpression(
                                                 SyntaxKind.NumericLiteralExpression,
-                                                Literal(0)))))))
-                       ,
+                                                Literal(0))))))),
                     OperatorDeclaration(
                             PredefinedType(
                                 Token(SyntaxKind.BoolKeyword)),
@@ -224,12 +210,12 @@ namespace Obviously.SemanticTypes.Generator
                                         Parameter(
                                                 Identifier("left"))
                                             .WithType(
-                                                    IdentifierName(input.Identifier).MakeNullableIfEnabled(input.IsNullableEnabled)),
+                                                IdentifierName(input.Identifier).MakeNullableIfEnabled(input)),
                                         Token(SyntaxKind.CommaToken),
                                         Parameter(
                                                 Identifier("right"))
                                             .WithType(
-                                                    IdentifierName(input.Identifier).MakeNullableIfEnabled(input.IsNullableEnabled))
+                                                IdentifierName(input.Identifier).MakeNullableIfEnabled(input))
                                     }))).WithBody(Block(ReturnStatement(
                             LiteralExpression(
                                 SyntaxKind.TrueLiteralExpression))))
@@ -279,12 +265,12 @@ namespace Obviously.SemanticTypes.Generator
                                     Parameter(
                                             Identifier("left"))
                                         .WithType(
-                                                IdentifierName(input.Identifier).MakeNullableIfEnabled(input.IsNullableEnabled)),
+                                            IdentifierName(input.Identifier).MakeNullableIfEnabled(input)),
                                     Token(SyntaxKind.CommaToken),
                                     Parameter(
                                             Identifier("right"))
                                         .WithType(
-                                                IdentifierName(input.Identifier).MakeNullableIfEnabled(input.IsNullableEnabled))
+                                            IdentifierName(input.Identifier).MakeNullableIfEnabled(input))
                                 })))
                     .WithBody(
                         Block(
@@ -332,12 +318,12 @@ namespace Obviously.SemanticTypes.Generator
                                     Parameter(
                                             Identifier("left"))
                                         .WithType(
-                                                IdentifierName(input.Identifier).MakeNullableIfEnabled(input.IsNullableEnabled)),
+                                            IdentifierName(input.Identifier).MakeNullableIfEnabled(input)),
                                     Token(SyntaxKind.CommaToken),
                                     Parameter(
                                             Identifier("right"))
                                         .WithType(
-                                                IdentifierName(input.Identifier).MakeNullableIfEnabled(input.IsNullableEnabled))
+                                            IdentifierName(input.Identifier).MakeNullableIfEnabled(input))
                                 })))
                     .WithBody(
                         Block(
@@ -373,7 +359,60 @@ namespace Obviously.SemanticTypes.Generator
                                             Literal(0)))))))
                 });
 
-			return new Output(baseType, ImmutableList.CreateRange(members));
+            return new Output(baseType, ImmutableList.CreateRange(members));
+        }
+
+        private static SyntaxList<StatementSyntax> CreateComparisonForOptionalOrNotOptionalValues(bool isOptional)
+        {
+            SyntaxList<StatementSyntax> result;
+            if (isOptional)
+            {
+                result = List(new StatementSyntax[] {
+                    IfStatement(
+                    MemberAccessExpression(
+                        SyntaxKind.SimpleMemberAccessExpression,
+                        IdentifierName("_value"),
+                        IdentifierName("HasValue")),
+                    Block(
+                        SingletonList<StatementSyntax>(
+                            ReturnStatement(
+                                InvocationExpression(
+                                        MemberAccessExpression(
+                                            SyntaxKind.SimpleMemberAccessExpression,
+                                            MemberAccessExpression(
+                                                SyntaxKind.SimpleMemberAccessExpression,
+                                                IdentifierName("_value"),
+                                                IdentifierName("Value")),
+                                            IdentifierName("CompareTo")))
+                                    .WithArgumentList(
+                                        ArgumentList(
+                                            SingletonSeparatedList(
+                                                Argument(
+                                                    IdentifierName("other"))))))))),
+                    ReturnStatement(
+                        LiteralExpression(
+                            SyntaxKind.NumericLiteralExpression,
+                            Literal(1)))});
+            }
+            else
+            {
+                result = SingletonList((StatementSyntax)ReturnStatement(
+                    InvocationExpression(
+                            MemberAccessExpression(
+                                SyntaxKind.SimpleMemberAccessExpression,
+                                IdentifierName("_value"),
+                                IdentifierName("CompareTo")))
+                        .WithArgumentList(
+                            ArgumentList(
+                                SingletonSeparatedList(
+                                    Argument(
+                                        MemberAccessExpression(
+                                            SyntaxKind.SimpleMemberAccessExpression,
+                                            IdentifierName("other"),
+                                            IdentifierName("_value"))))))));
+            }
+
+            return result;
         }
     }
 }

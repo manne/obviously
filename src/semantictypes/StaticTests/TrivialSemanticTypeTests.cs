@@ -77,4 +77,7 @@ namespace Obviously.SemanticTypes.StaticTests
     [SemanticType(typeof(string))]
     public partial class StringNullableEnabledSemanticType { }
 #nullable restore
+
+    [SemanticType(typeof(int), IsNullableType = true)]
+    public partial class IntNullableSemanticType { }
 }

@@ -10,9 +10,15 @@ namespace Obviously.SemanticTypes.Generator
         public static bool HasType(this Compilation compilation, string fullyQualifiedMetadataName) =>
              compilation.GetTypeByMetadataName(fullyQualifiedMetadataName) != null;
 
-        public static TypeSyntax MakeNullableIfEnabled(this TypeSyntax typeSyntax, bool isEnabled)
+        public static TypeSyntax MakeNullableIfEnabled(this TypeSyntax typeSyntax, SemanticTypeGenerator.Input input)
         {
-            return isEnabled ? NullableType(typeSyntax) : typeSyntax;
+            return input.IsNullableEnabled ? NullableType(typeSyntax) : typeSyntax;
+        }
+
+        public static TypeSyntax MakeNullableIfEnabledButNotIfStruct(this TypeSyntax typeSyntax, SemanticTypeGenerator.Input input)
+        {
+            var result = input.IsValueType ? typeSyntax : MakeNullableIfEnabled(typeSyntax, input);
+            return result;
         }
     }
 }

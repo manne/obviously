@@ -7,7 +7,7 @@
     <RootNamespace>Obviously.SemanticTypes.Generator</RootNamespace>
     <LangVersion>8.0</LangVersion>
     <Version>0.0.1-preview.5</Version>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <Authors>Manuel Pfemeter</Authors>
     <RepositoryUrl>https://github.com/manne/obviously</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
@@ -20,11 +20,10 @@
     <PackageTags>codegenerator semantic-types</PackageTags>
     <Company />
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Nullable>Enable</Nullable>
+    <Nullable>enable</Nullable>
     <MinClientVersion>4.3.0</MinClientVersion>
     <MSBuildWarningsAsMessages>$(MSBuildWarningsAsMessages);NU5105</MSBuildWarningsAsMessages>
   </PropertyGroup>
-
 
   <Sdk Name="CodeGeneration.Roslyn.Plugin.Sdk" Version="0.7.63" />
 

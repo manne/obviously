@@ -4,6 +4,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.CodeAnalysis.CSharp;
@@ -17,15 +18,21 @@ namespace Obviously.SemanticTypes.Generator
     {
         public const string BackingFieldName = "_value";
         private readonly TypedConstant _actualType;
+        private readonly bool _allowNullable;
+        private readonly bool _isOptionalStruct;
 
-        private sealed class Input
+        internal sealed class Input
         {
-            public Input(string actualTypeFullName, string identifier, ClassDeclarationSyntax applyToClass, bool isNullableEnabled)
+            public Input(string actualTypeFullName, string identifier, ClassDeclarationSyntax applyToClass, bool isNullableEnabled, bool isNullableType,
+                bool isValueType, bool isOptionalStruct)
             {
                 ActualTypeFullName = actualTypeFullName;
                 Identifier = identifier;
                 ApplyToClass = applyToClass;
                 IsNullableEnabled = isNullableEnabled;
+                IsNullableType = isNullableType;
+                IsValueType = isValueType;
+                IsOptionalStruct = isOptionalStruct;
             }
 
             public string ActualTypeFullName { get;  }
@@ -35,6 +42,12 @@ namespace Obviously.SemanticTypes.Generator
             public ClassDeclarationSyntax ApplyToClass { get; }
 
             public bool IsNullableEnabled { get; }
+
+            public bool IsNullableType { get; }
+
+            public bool IsValueType { get; }
+
+            public bool IsOptionalStruct { get; }
         }
 
         private sealed class Output
@@ -69,6 +82,26 @@ namespace Obviously.SemanticTypes.Generator
             if (attributeData is null) throw new ArgumentNullException(nameof(attributeData));
 
             _actualType = attributeData.ConstructorArguments[0];
+
+            // set optional state for value types
+            if (_actualType.Value is INamedTypeSymbol namedType)
+            {
+                if (namedType.IsValueType && namedType.MetadataName == "Nullable`1")
+                {
+                    _isOptionalStruct = true;
+                }
+            }
+            var (_, typedConstant) = attributeData.NamedArguments.FirstOrDefault(na => na.Key == nameof(SemanticTypeAttribute.IsNullableType));
+            if (typedConstant.Value != null)
+            {
+                _allowNullable = (bool)typedConstant.Value;
+            }
+            else
+            {
+                _allowNullable = false;
+            }
+
+            //Debugger.Launch();
         }
 
         public Task<SyntaxList<MemberDeclarationSyntax>> GenerateAsync(TransformationContext context, IProgress<Diagnostic> progress, CancellationToken cancellationToken)
@@ -98,7 +131,9 @@ namespace Obviously.SemanticTypes.Generator
             var accessibility = classSymbol.DeclaredAccessibility;
             var baseTypes = new List<BaseTypeSyntax>();
             var members = new List<MemberDeclarationSyntax>();
-            var input = new Input(_actualType.Value!.ToString(), idName, applyToClass, isNullableEnabled);
+            var isValueType = _actualType.Value is ITypeSymbol ts && ts.IsValueType;
+
+            var input = new Input(_actualType.Value!.ToString(), idName, applyToClass, isNullableEnabled, _allowNullable, isValueType, _isOptionalStruct);
             foreach (var generator in generators)
             {
                 var output = generator(input);
@@ -111,7 +146,7 @@ namespace Obviously.SemanticTypes.Generator
             }
 
             members.AddRange(AspNetCoreModelBinding.Generate(_actualType, context, input.Identifier));
-            members.AddRange(JsonNetConverter.Generate(_actualType, context, input.Identifier));
+            members.AddRange(JsonNetConverter.Generate(_actualType, context, input));
             members.AddRange(SystemTextJsonConverter.Generate(_actualType, context, input.Identifier));
 
             var leading = isNullableEnabled ? TriviaList(Trivia(NullableDirectiveTrivia(Token(SyntaxKind.EnableKeyword), true))) : SyntaxTriviaList.Empty;

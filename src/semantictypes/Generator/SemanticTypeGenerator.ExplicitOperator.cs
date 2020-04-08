@@ -17,12 +17,7 @@ namespace Obviously.SemanticTypes.Generator
                     Token(SyntaxKind.ExplicitKeyword),
                     IdentifierName(input.ActualTypeFullName))
                     .WithModifiers(
-                        TokenList(
-                            new[]
-                            {
-                                Token(SyntaxKind.PublicKeyword),
-                                Token(SyntaxKind.StaticKeyword)
-                            }))
+                        TokenList(Token(SyntaxKind.PublicKeyword), Token(SyntaxKind.StaticKeyword)))
                     .WithParameterList(
                         ParameterList(
                             SingletonSeparatedList(
@@ -36,7 +31,7 @@ namespace Obviously.SemanticTypes.Generator
                                 ReturnStatement(
                                     MemberAccessExpression(
                                         SyntaxKind.SimpleMemberAccessExpression,
-                                        IdentifierName("t"),
+                                    IdentifierName("t"),
                                         IdentifierName(BackingFieldName))))))});
             return new Output(ImmutableList.CreateRange(members));
         }

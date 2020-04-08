@@ -16,8 +16,8 @@ namespace Obviously.SemanticTypes.Generator
                         Identifier("global::System.IEquatable"))
                     .WithTypeArgumentList(
                         TypeArgumentList(
-                            SingletonSeparatedList<TypeSyntax>(
-                                IdentifierName(input.Identifier).MakeNullableIfEnabled(input.IsNullableEnabled)))));
+                            SingletonSeparatedList(
+                                IdentifierName(input.Identifier).MakeNullableIfEnabled(input)))));
             var members =
                 List(
                     new MemberDeclarationSyntax[]
@@ -35,7 +35,7 @@ namespace Obviously.SemanticTypes.Generator
                                         Parameter(
                                                 Identifier("other"))
                                             .WithType(
-                                                IdentifierName(input.Identifier).MakeNullableIfEnabled(input.IsNullableEnabled)))))
+                                                IdentifierName(input.Identifier).MakeNullableIfEnabled(input)))))
                             .WithBody(
                                 Block(
                                     IfStatement(
@@ -85,7 +85,7 @@ namespace Obviously.SemanticTypes.Generator
                                             Identifier("other"))
                                         .WithType(
                                             PredefinedType(
-                                                Token(SyntaxKind.ObjectKeyword)).MakeNullableIfEnabled(input.IsNullableEnabled)))))
+                                                Token(SyntaxKind.ObjectKeyword)).MakeNullableIfEnabled(input)))))
                             .WithBody(
                                 Block(
                                     IfStatement(
@@ -157,12 +157,12 @@ namespace Obviously.SemanticTypes.Generator
                                             Parameter(
                                                     Identifier("left"))
                                                 .WithType(
-                                                    IdentifierName(input.Identifier).MakeNullableIfEnabled(input.IsNullableEnabled)),
+                                                    IdentifierName(input.Identifier).MakeNullableIfEnabled(input)),
                                             Token(SyntaxKind.CommaToken),
                                             Parameter(
                                                     Identifier("right"))
                                                 .WithType(
-                                                    IdentifierName(input.Identifier).MakeNullableIfEnabled(input.IsNullableEnabled))
+                                                    IdentifierName(input.Identifier).MakeNullableIfEnabled(input))
                                         })))
                             .WithBody(
                                 Block(
@@ -195,12 +195,12 @@ namespace Obviously.SemanticTypes.Generator
                                             Parameter(
                                                     Identifier("left"))
                                                 .WithType(
-                                                    IdentifierName(input.Identifier).MakeNullableIfEnabled(input.IsNullableEnabled)),
+                                                    IdentifierName(input.Identifier).MakeNullableIfEnabled(input)),
                                             Token(SyntaxKind.CommaToken),
                                             Parameter(
                                                     Identifier("right"))
                                                 .WithType(
-                                                    IdentifierName(input.Identifier).MakeNullableIfEnabled(input.IsNullableEnabled))
+                                                    IdentifierName(input.Identifier).MakeNullableIfEnabled(input))
                                         })))
                             .WithBody(
                                 Block(

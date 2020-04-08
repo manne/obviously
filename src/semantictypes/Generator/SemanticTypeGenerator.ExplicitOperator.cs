@@ -15,7 +15,7 @@ namespace Obviously.SemanticTypes.Generator
                 {
                     ConversionOperatorDeclaration(
                     Token(SyntaxKind.ExplicitKeyword),
-                    IdentifierName(input.ActualTypeFullName))
+                    IdentifierName(input.CreateFullNameWithNullableIfEnable()))
                     .WithModifiers(
                         TokenList(Token(SyntaxKind.PublicKeyword), Token(SyntaxKind.StaticKeyword)))
                     .WithParameterList(

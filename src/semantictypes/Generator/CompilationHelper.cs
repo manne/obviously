@@ -17,7 +17,26 @@ namespace Obviously.SemanticTypes.Generator
 
         public static TypeSyntax MakeNullableIfEnabledButNotIfStruct(this TypeSyntax typeSyntax, SemanticTypeGenerator.Input input)
         {
-            var result = input.IsValueType ? typeSyntax : MakeNullableIfEnabled(typeSyntax, input);
+            var result = input.IsValueType ? typeSyntax : (input.IsNullableType ? NullableType(typeSyntax) : typeSyntax);
+            return result;
+        }
+
+        public static string CreateFullNameWithNullableIfEnable(this SemanticTypeGenerator.Input input)
+        {
+            string result;
+            if (!input.IsValueType)
+            {
+                result = input.ActualTypeFullName;
+                if (input.IsNullableType)
+                {
+                    result += "?";
+                }
+            }
+            else
+            {
+                result = input.ActualTypeFullName;
+            }
+
             return result;
         }
     }

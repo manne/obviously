@@ -102,7 +102,7 @@ namespace Obviously.SemanticTypes.Generator
             var members = new MemberDeclarationSyntax[]
             {
                 FieldDeclaration(
-                        VariableDeclaration(IdentifierName(input.ActualTypeFullName).MakeNullableIfEnabled(input))
+                        VariableDeclaration(IdentifierName(input.ActualTypeFullName).MakeNullableIfEnabledButNotIfStruct(input))
                             .WithVariables(
                                 SingletonSeparatedList(
                                     VariableDeclarator(

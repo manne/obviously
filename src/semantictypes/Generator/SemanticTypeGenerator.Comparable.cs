@@ -70,7 +70,7 @@ namespace Obviously.SemanticTypes.Generator
                                     ReturnStatement(
                                         LiteralExpression(
                                             SyntaxKind.NumericLiteralExpression,
-                                            Literal(1))))}).AddRange(CreateComparisonForOptionalOrNotOptionalValues(input.IsOptionalStruct))
+                                            Literal(1))))}).AddRange(CreateComparisonForOptionalOrNotOptionalValues(input))
                                 )),
                     MethodDeclaration(
                             PredefinedType(
@@ -362,10 +362,10 @@ namespace Obviously.SemanticTypes.Generator
             return new Output(baseType, ImmutableList.CreateRange(members));
         }
 
-        private static SyntaxList<StatementSyntax> CreateComparisonForOptionalOrNotOptionalValues(bool isOptional)
+        private static SyntaxList<StatementSyntax> CreateComparisonForOptionalOrNotOptionalValues(Input input)
         {
             SyntaxList<StatementSyntax> result;
-            if (isOptional)
+            if (input.IsOptionalStruct)
             {
                 result = List(new StatementSyntax[] {
                     IfStatement(
@@ -396,20 +396,47 @@ namespace Obviously.SemanticTypes.Generator
             }
             else
             {
-                result = SingletonList((StatementSyntax)ReturnStatement(
-                    InvocationExpression(
-                            MemberAccessExpression(
-                                SyntaxKind.SimpleMemberAccessExpression,
+                if (input.IsRelevantForNullability())
+                {
+                    result = SingletonList((StatementSyntax)ReturnStatement(
+                        BinaryExpression(
+                            SyntaxKind.CoalesceExpression,
+                            ConditionalAccessExpression(
                                 IdentifierName("_value"),
-                                IdentifierName("CompareTo")))
-                        .WithArgumentList(
-                            ArgumentList(
-                                SingletonSeparatedList(
-                                    Argument(
-                                        MemberAccessExpression(
-                                            SyntaxKind.SimpleMemberAccessExpression,
-                                            IdentifierName("other"),
-                                            IdentifierName("_value"))))))));
+                                InvocationExpression(
+                                        MemberBindingExpression(
+                                            IdentifierName("CompareTo")))
+                                    .WithArgumentList(
+                                        ArgumentList(
+                                            SingletonSeparatedList<ArgumentSyntax>(
+                                                Argument(
+                                                    MemberAccessExpression(
+                                                        SyntaxKind.SimpleMemberAccessExpression,
+                                                        IdentifierName("other"),
+                                                        IdentifierName("_value"))))))),
+                            PrefixUnaryExpression(
+                                SyntaxKind.UnaryMinusExpression,
+                                LiteralExpression(
+                                    SyntaxKind.NumericLiteralExpression,
+                                    Literal(1))))));
+                }
+                else
+                {
+                    result = SingletonList((StatementSyntax)ReturnStatement(
+                        InvocationExpression(
+                                MemberAccessExpression(
+                                    SyntaxKind.SimpleMemberAccessExpression,
+                                    IdentifierName("_value"),
+                                    IdentifierName("CompareTo")))
+                            .WithArgumentList(
+                                ArgumentList(
+                                    SingletonSeparatedList(
+                                        Argument(
+                                            MemberAccessExpression(
+                                                SyntaxKind.SimpleMemberAccessExpression,
+                                                IdentifierName("other"),
+                                                IdentifierName("_value"))))))));
+                }
             }
 
             return result;

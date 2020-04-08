@@ -11,6 +11,33 @@ namespace Obviously.SemanticTypes.Generator
     {
         private static Output GenerateEquality(Input input)
         {
+            static ExpressionSyntax CreateGetHashCode(Input i)
+            {
+                ExpressionSyntax r;
+                if (i.IsRelevantForNullability())
+                {
+                    r = BinaryExpression(
+                        SyntaxKind.CoalesceExpression,
+                        ConditionalAccessExpression(
+                            IdentifierName(BackingFieldName),
+                            InvocationExpression(
+                                MemberBindingExpression(
+                                    IdentifierName("GetHashCode")))),
+                        LiteralExpression(
+                            SyntaxKind.NumericLiteralExpression,
+                            Literal(0)));
+                }
+                else
+                {
+                    r = InvocationExpression(
+                        MemberAccessExpression(
+                            SyntaxKind.SimpleMemberAccessExpression,
+                            IdentifierName(BackingFieldName),
+                            IdentifierName("GetHashCode")));
+                }
+
+                return r;
+            }
             var baseType = SimpleBaseType(
                 GenericName(
                         Identifier("global::System.IEquatable"))
@@ -137,12 +164,8 @@ namespace Obviously.SemanticTypes.Generator
                             .WithBody(
                                 Block(
                                     SingletonList<StatementSyntax>(
-                                        ReturnStatement(
-                                            InvocationExpression(
-                                                MemberAccessExpression(
-                                                    SyntaxKind.SimpleMemberAccessExpression,
-                                                    IdentifierName(BackingFieldName),
-                                                    IdentifierName("GetHashCode"))))))),
+                                        ReturnStatement(CreateGetHashCode(input)
+                                            )))),
                         OperatorDeclaration(
                                 PredefinedType(
                                     Token(SyntaxKind.BoolKeyword)),

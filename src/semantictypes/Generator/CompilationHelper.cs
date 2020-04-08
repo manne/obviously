@@ -7,6 +7,7 @@ namespace Obviously.SemanticTypes.Generator
 {
     internal static class CompilationHelper
     {
+        public static bool IsRelevantForNullability(this SemanticTypeGenerator.Input input) => !input.IsValueType && input.IsNullableType;
         public static bool HasType(this Compilation compilation, string fullyQualifiedMetadataName) =>
              compilation.GetTypeByMetadataName(fullyQualifiedMetadataName) != null;
 

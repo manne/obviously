@@ -253,9 +253,10 @@ namespace Obviously.SemanticTypes.Generator.Modules
                                                                         IdentifierName("writer")),
                                                                     Token(SyntaxKind.CommaToken),
                                                                     Argument(
-                                                                        CastExpression(
-                                                                            IdentifierName(actualType.Value.ToString()),
-                                                                            IdentifierName("value"))),
+                                                                        MemberAccessExpression(
+                                                                            SyntaxKind.SimpleMemberAccessExpression,
+                                                                            IdentifierName("value"),
+                                                                            IdentifierName("_value"))),
                                                                     Token(SyntaxKind.CommaToken),
                                                                     Argument(
                                                                         TypeOfExpression(

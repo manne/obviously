@@ -1,4 +1,3 @@
-using System;
 using Obviously.SemanticTypes.Generator;
 using Xunit;
 

@@ -10,9 +10,8 @@
 
 The following NuGet packages have to be added to the project
 
-1. [CodeGeneration.Roslyn.Buildtime](https://www.nuget.org/packages/CodeGeneration.Roslyn.BuildTime/) as a package reference
-2. [dotnet-codegen](https://www.nuget.org/packages/dotnet-codegen/) as .NET CLI tool reference
-3. [Obviously.SemanticTypes](https://www.nuget.org/packages/Obviously.SemanticTypes) as a package reference (this package)
+1. [Obviously.SemanticTypes](https://www.nuget.org/packages/Obviously.SemanticTypes)
+2. [CodeGeneration.Roslyn.Tool](https://www.nuget.org/packages/CodeGeneration.Roslyn.Tool/)
 
 <details>
   <summary>The project file should look like this</summary>
@@ -24,12 +23,11 @@ The following NuGet packages have to be added to the project
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="CodeGeneration.Roslyn.BuildTime" Version="0.6.1">
+    <PackageReference Include="Obviously.SemanticTypes" Version="0.0.1-preview.6" />
+    <PackageReference Include="CodeGeneration.Roslyn.Tool" Version="0.7.63">
       <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Obviously.SemanticTypes" Version="0.0.1-preview.4" />
-    <DotNetCliToolReference Include="dotnet-codegen" Version="0.5.13" />
   </ItemGroup>
 </Project>
 ```

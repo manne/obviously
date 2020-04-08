@@ -8,12 +8,11 @@
 
   <ItemGroup>
     <None Include="..\.editorconfig" Link=".editorconfig" />
-    <PackageReference Include="CodeGeneration.Roslyn.Buildtime" Version="0.7.5-alpha">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
     <ProjectReference Include="..\Generator\Generator.csproj" OutputItemType="CodeGenerationRoslynPlugin" PrivateAssets="all" />
-    <DotNetCliToolReference Include="dotnet-codegen" Version="0.7.5-alpha" />
+    <PackageReference Include="CodeGeneration.Roslyn.Tool" Version="0.7.63">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
 </Project>

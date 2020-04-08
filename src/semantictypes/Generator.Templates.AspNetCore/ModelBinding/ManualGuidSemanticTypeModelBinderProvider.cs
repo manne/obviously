@@ -3,6 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Obviously.SemanticTypes.Generator.Templates.AspNetCore.ModelBinding
 {
+    // this class serves as the blueprint for the actual generator implementation
     [SuppressMessage("ReSharper", "RedundantNameQualifier")]
 #pragma warning disable IDE0001
     public sealed class ManualGuidSemanticTypeModelBinderProvider : global::Microsoft.AspNetCore.Mvc.ModelBinding.IModelBinderProvider

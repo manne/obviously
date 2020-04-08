@@ -6,7 +6,7 @@
     <AssemblyName>Obviously.SemanticTypes.Generator</AssemblyName>
     <RootNamespace>Obviously.SemanticTypes.Generator</RootNamespace>
     <LangVersion>8.0</LangVersion>
-    <Version>0.0.1-preview.5</Version>
+    <Version>0.0.1-preview.6</Version>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <Authors>Manuel Pfemeter</Authors>
     <RepositoryUrl>https://github.com/manne/obviously</RepositoryUrl>
@@ -23,6 +23,7 @@
     <Nullable>enable</Nullable>
     <MinClientVersion>4.3.0</MinClientVersion>
     <MSBuildWarningsAsMessages>$(MSBuildWarningsAsMessages);NU5105</MSBuildWarningsAsMessages>
+    <IsPackable>true</IsPackable>
   </PropertyGroup>
 
   <Sdk Name="CodeGeneration.Roslyn.Plugin.Sdk" Version="0.7.63" />

@@ -6,7 +6,7 @@
     <IsPackable>false</IsPackable>
     <AssemblyName>Obviously.SemanticTypes.Generator.Templates.AspNetCore.Tests</AssemblyName>
     <RootNamespace>Obviously.SemanticTypes.Generator.Templates.AspNetCore.Tests</RootNamespace>
-    <!--<Nullable>Enable</Nullable>-->
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>

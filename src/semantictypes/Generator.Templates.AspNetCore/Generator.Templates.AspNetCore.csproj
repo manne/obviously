@@ -4,6 +4,7 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <AssemblyName>Obviously.SemanticTypes.Generator.Templates.AspNetCore</AssemblyName>
     <RootNamespace>Obviously.SemanticTypes.Generator.Templates.AspNetCore</RootNamespace>
+    <IsPackable>false</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>

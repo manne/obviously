@@ -2,11 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-
     <IsPackable>false</IsPackable>
-
     <AssemblyName>Obviously.SemanticTypes.StaticTests</AssemblyName>
-
     <RootNamespace>Obviously.SemanticTypes.StaticTests</RootNamespace>
   </PropertyGroup>
 

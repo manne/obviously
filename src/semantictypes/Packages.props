@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-
+  <PropertyGroup>
+    <CodeGenerationRoslynPackagesVersion>0.7.63</CodeGenerationRoslynPackagesVersion>
+  </PropertyGroup>
   <ItemGroup>
-    <PackageReference Update="CodeGeneration.Roslyn" Version="0.7.63" />
-    <PackageReference Update="CodeGeneration.Roslyn.Attributes" Version="0.7.63" />
-    <PackageReference Update="CodeGeneration.Roslyn.Tool" Version="0.7.63" PrivateAssets="all" />
+    <PackageReference Update="CodeGeneration.Roslyn" Version="$(CodeGenerationRoslynPackagesVersion)" />
+    <PackageReference Update="CodeGeneration.Roslyn.Attributes" Version="$(CodeGenerationRoslynPackagesVersion)" />
+    <PackageReference Update="CodeGeneration.Roslyn.Tool" Version="$(CodeGenerationRoslynPackagesVersion)" PrivateAssets="all" />
     <PackageReference Update="Microsoft.CodeAnalysis.CSharp"  Version="[3.4.0]" />
     <PackageReference Update="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="[3.4.0]" />
     <PackageReference Update="System.Collections.Immutable" Version="1.7.0" />

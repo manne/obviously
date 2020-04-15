@@ -1,18 +1,17 @@
-﻿using CodeGeneration.Roslyn;
-using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using CodeGeneration.Roslyn;
+using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
-using Obviously.SemanticTypes.Generator.Modules;
-
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Obviously.SemanticTypes.Generators.Modules;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
-namespace Obviously.SemanticTypes.Generator
+namespace Obviously.SemanticTypes.Generators
 {
     public sealed partial class SemanticTypeGenerator : IRichCodeGenerator
     {

@@ -1,9 +1,8 @@
 ﻿using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
-namespace Obviously.SemanticTypes.Generator
+namespace Obviously.SemanticTypes.Generators
 {
     internal static class CompilationHelper
     {

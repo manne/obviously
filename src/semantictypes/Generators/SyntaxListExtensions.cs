@@ -3,7 +3,7 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-namespace Obviously.SemanticTypes.Generator
+namespace Obviously.SemanticTypes.Generators
 {
     internal static class SyntaxListExtensions
     {

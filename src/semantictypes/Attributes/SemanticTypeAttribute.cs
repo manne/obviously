@@ -5,7 +5,7 @@ using CodeGeneration.Roslyn;
 namespace Obviously.SemanticTypes
 {
     [AttributeUsage(AttributeTargets.Class, Inherited = false)]
-    [CodeGenerationAttribute("Obviously.SemanticTypes.Generator.SemanticTypeGenerator, Obviously.SemanticTypes.Generator")]
+    [CodeGenerationAttribute("Obviously.SemanticTypes.Generators.SemanticTypeGenerator, Obviously.SemanticTypes.Generators")]
     [Conditional("CodeGeneration")]
     public sealed class SemanticTypeAttribute : Attribute
     {

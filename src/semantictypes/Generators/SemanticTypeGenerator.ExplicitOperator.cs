@@ -1,10 +1,9 @@
-﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
-using System.Collections.Immutable;
+﻿using System.Collections.Immutable;
 using Microsoft.CodeAnalysis.CSharp;
-
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
-namespace Obviously.SemanticTypes.Generator
+namespace Obviously.SemanticTypes.Generators
 {
     public partial class SemanticTypeGenerator
     {

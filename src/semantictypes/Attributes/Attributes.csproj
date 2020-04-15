@@ -6,7 +6,7 @@
     <AssemblyName>Obviously.SemanticTypes.Attributes</AssemblyName>
     <PackageId>Obviously.SemanticTypes.Attributes</PackageId>
     <RootNamespace>Obviously.SemanticTypes</RootNamespace>
-    <Description>Defines `SemanticType` attribute. See project site for more details.</Description>
+    <Description>Defines `[SemanticType]` attribute. See project site for more details.</Description>
     <IsNuGetPackage>true</IsNuGetPackage>
   </PropertyGroup>
 

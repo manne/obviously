@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
-
 using CodeGeneration.Roslyn;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-namespace Obviously.SemanticTypes.Generator.Modules
+namespace Obviously.SemanticTypes.Generators.Modules
 {
     public static partial class AspNetCoreModelBinding
     {

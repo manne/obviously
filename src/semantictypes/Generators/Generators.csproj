@@ -5,9 +5,9 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
-    <AssemblyName>Obviously.SemanticTypes.Generator</AssemblyName>
-    <RootNamespace>Obviously.SemanticTypes.Generator</RootNamespace>
-    <PackageId>Obviously.SemanticTypes.Generator</PackageId>
+    <AssemblyName>Obviously.SemanticTypes.Generators</AssemblyName>
+    <RootNamespace>Obviously.SemanticTypes.Generators</RootNamespace>
+    <PackageId>Obviously.SemanticTypes.Generators</PackageId>
     <Description>A code generator for semantic types.</Description>
     <PackageTags>codegenerator semantic-types</PackageTags>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>

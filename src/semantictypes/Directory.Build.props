@@ -8,6 +8,7 @@
   <PropertyGroup>
     <IsTestProject Condition="'$(IsTestProject)' == ''">false</IsTestProject>
     <IsTestProject Condition="$(MSBuildProjectName.EndsWith('Tests'))">true</IsTestProject>
+    <PackageOutputPath>$(MSBuildThisFileDirectory)packages/$(Configuration)/</PackageOutputPath>
   </PropertyGroup>
 
   <ItemGroup Label="Testing" Condition="'$(IsTestProject)' == 'true'">

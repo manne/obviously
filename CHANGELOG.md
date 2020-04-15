@@ -5,6 +5,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## 0.0.1-preview.7 - 2020-04-15 <a name="0.0.1-preview.7"> </a>
+
+### Changed
+
+* Simplified installation, only install the package `Obviously.SemanticTypes`
+* Nullability enabled
+
 ### Added
 
 * Support for Json.NET. A converter named `JsonNetConverter` is generated as a nested class.

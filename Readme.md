@@ -8,29 +8,7 @@
 
 ### Installation
 
-The following NuGet packages have to be added to the project
-
-1. [Obviously.SemanticTypes](https://www.nuget.org/packages/Obviously.SemanticTypes)
-2. [CodeGeneration.Roslyn.Tool](https://www.nuget.org/packages/CodeGeneration.Roslyn.Tool/)
-
-<details>
-  <summary>The project file should look like this</summary>
-
-```XML
-<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
-  </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="Obviously.SemanticTypes" Version="0.0.1-preview.6" />
-    <PackageReference Include="CodeGeneration.Roslyn.Tool" Version="0.7.63">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-    </PackageReference>
-  </ItemGroup>
-</Project>
-```
+Install this NuGet package [Obviously.SemanticTypes](https://www.nuget.org/packages/Obviously.SemanticTypes) (currently in preview).
 
 </details>
 

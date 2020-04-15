@@ -2,10 +2,10 @@
 using System.Diagnostics;
 using CodeGeneration.Roslyn;
 
-namespace Obviously.SemanticTypes.Generator
+namespace Obviously.SemanticTypes
 {
     [AttributeUsage(AttributeTargets.Class, Inherited = false)]
-    [CodeGenerationAttribute(typeof(SemanticTypeGenerator))]
+    [CodeGenerationAttribute("Obviously.SemanticTypes.Generator.SemanticTypeGenerator, Obviously.SemanticTypes.Generator")]
     [Conditional("CodeGeneration")]
     public sealed class SemanticTypeAttribute : Attribute
     {

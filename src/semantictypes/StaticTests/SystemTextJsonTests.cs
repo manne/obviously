@@ -1,6 +1,5 @@
 ﻿using System.Text.Json;
 using FluentAssertions;
-using Obviously.SemanticTypes.Generator;
 using Xunit;
 
 namespace Obviously.SemanticTypes.StaticTests
@@ -57,7 +56,7 @@ namespace Obviously.SemanticTypes.StaticTests
 
         private class NuGetPackage
         {
-            public SystemTextJsonPackageIdentifier PackageId { get; set; }
+            public SystemTextJsonPackageIdentifier? PackageId { get; set; }
         }
     }
 

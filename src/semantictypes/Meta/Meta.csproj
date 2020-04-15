@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <Sdk Name="CodeGeneration.Roslyn.PluginMetapackage.Sdk" />
+
+  <PropertyGroup>
+    <TargetFramework>netstandard1.0</TargetFramework>
+    <IsNuGetPackage>true</IsNuGetPackage>
+    <PackageId>Obviously.SemanticTypes</PackageId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Attributes\Attributes.csproj" />
+    <NupkgAdditionalDependency Include="Obviously.SemanticTypes.Generators" IncludeAssets="all" />
+  </ItemGroup>
+
+</Project>

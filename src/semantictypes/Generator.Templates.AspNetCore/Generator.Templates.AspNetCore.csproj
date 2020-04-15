@@ -1,5 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
+  <Sdk Name="Microsoft.Build.CentralPackageVersions" />
+
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <AssemblyName>Obviously.SemanticTypes.Generator.Templates.AspNetCore</AssemblyName>
@@ -8,12 +10,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\.editorconfig" Link=".editorconfig" />
-    <ProjectReference Include="..\Generator\Generator.csproj" OutputItemType="CodeGenerationRoslynPlugin" PrivateAssets="all" />
-    <PackageReference Include="CodeGeneration.Roslyn.Tool" Version="0.7.63">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-    </PackageReference>
+    <PackageReference Include="CodeGeneration.Roslyn.Tool" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Attributes\Attributes.csproj" />
+    <ProjectReference Include="..\Generator\Generators.csproj" OutputItemType="CodeGenerationRoslynPlugin" ReferenceOutputAssembly="false" SkipGetTargetFrameworkProperties="true" />
   </ItemGroup>
 
 </Project>

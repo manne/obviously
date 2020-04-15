@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Generator", "Generator\Generator.csproj", "{D267CE94-C333-4717-B964-A7DCA9304261}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Generators", "Generators\Generators.csproj", "{D267CE94-C333-4717-B964-A7DCA9304261}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StaticTests", "StaticTests\StaticTests.csproj", "{0D2BD227-D92C-4F23-8D05-C862B874A59D}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -14,12 +14,20 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 		..\..\CHANGELOG.md = ..\..\CHANGELOG.md
+		Directory.Build.props = Directory.Build.props
+		Directory.Build.targets = Directory.Build.targets
+		global.json = global.json
+		Packages.props = Packages.props
 		..\..\Readme.md = ..\..\Readme.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Generator.Templates.AspNetCore", "Generator.Templates.AspNetCore\Generator.Templates.AspNetCore.csproj", "{1EAA0057-2B19-42FC-A4BC-D18290063F08}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Generator.Templates.AspNetCore.Tests", "Generator.Templates.AspNetCore.Tests\Generator.Templates.AspNetCore.Tests.csproj", "{BC2A09FA-6D89-485B-987C-4D8661ADCCD5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Meta", "Meta\Meta.csproj", "{E0973E9B-C064-4A5E-95E4-B2189C309426}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Attributes", "Attributes\Attributes.csproj", "{9A585685-B62D-4AFB-9055-2AD0F2C68398}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -79,6 +87,30 @@ Global
 		{BC2A09FA-6D89-485B-987C-4D8661ADCCD5}.Release|x64.Build.0 = Release|Any CPU
 		{BC2A09FA-6D89-485B-987C-4D8661ADCCD5}.Release|x86.ActiveCfg = Release|Any CPU
 		{BC2A09FA-6D89-485B-987C-4D8661ADCCD5}.Release|x86.Build.0 = Release|Any CPU
+		{E0973E9B-C064-4A5E-95E4-B2189C309426}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0973E9B-C064-4A5E-95E4-B2189C309426}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0973E9B-C064-4A5E-95E4-B2189C309426}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{E0973E9B-C064-4A5E-95E4-B2189C309426}.Debug|x64.Build.0 = Debug|Any CPU
+		{E0973E9B-C064-4A5E-95E4-B2189C309426}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{E0973E9B-C064-4A5E-95E4-B2189C309426}.Debug|x86.Build.0 = Debug|Any CPU
+		{E0973E9B-C064-4A5E-95E4-B2189C309426}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0973E9B-C064-4A5E-95E4-B2189C309426}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E0973E9B-C064-4A5E-95E4-B2189C309426}.Release|x64.ActiveCfg = Release|Any CPU
+		{E0973E9B-C064-4A5E-95E4-B2189C309426}.Release|x64.Build.0 = Release|Any CPU
+		{E0973E9B-C064-4A5E-95E4-B2189C309426}.Release|x86.ActiveCfg = Release|Any CPU
+		{E0973E9B-C064-4A5E-95E4-B2189C309426}.Release|x86.Build.0 = Release|Any CPU
+		{9A585685-B62D-4AFB-9055-2AD0F2C68398}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A585685-B62D-4AFB-9055-2AD0F2C68398}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A585685-B62D-4AFB-9055-2AD0F2C68398}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{9A585685-B62D-4AFB-9055-2AD0F2C68398}.Debug|x64.Build.0 = Debug|Any CPU
+		{9A585685-B62D-4AFB-9055-2AD0F2C68398}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{9A585685-B62D-4AFB-9055-2AD0F2C68398}.Debug|x86.Build.0 = Debug|Any CPU
+		{9A585685-B62D-4AFB-9055-2AD0F2C68398}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A585685-B62D-4AFB-9055-2AD0F2C68398}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A585685-B62D-4AFB-9055-2AD0F2C68398}.Release|x64.ActiveCfg = Release|Any CPU
+		{9A585685-B62D-4AFB-9055-2AD0F2C68398}.Release|x64.Build.0 = Release|Any CPU
+		{9A585685-B62D-4AFB-9055-2AD0F2C68398}.Release|x86.ActiveCfg = Release|Any CPU
+		{9A585685-B62D-4AFB-9055-2AD0F2C68398}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

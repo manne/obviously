@@ -1,35 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
+  <Sdk Name="Microsoft.Build.CentralPackageVersions" />
+
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-
     <IsPackable>false</IsPackable>
     <AssemblyName>Obviously.SemanticTypes.Generator.Templates.AspNetCore.Tests</AssemblyName>
     <RootNamespace>Obviously.SemanticTypes.Generator.Templates.AspNetCore.Tests</RootNamespace>
-    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\.editorconfig" Link=".editorconfig" />
-    <PackageReference Include="FluentAssertions" Version="5.10.3" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="3.1.3" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
-    <PackageReference Include="xunit.core" Version="2.4.1" />
-    <PackageReference Include="xunit.analyzers" Version="0.10.0" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="coverlet.collector" Version="1.2.1">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" />
     <ProjectReference Include="..\Generator.Templates.AspNetCore\Generator.Templates.AspNetCore.csproj" />
-    <ProjectReference Include="..\Generator\Generator.csproj" OutputItemType="CodeGenerationRoslynPlugin" PrivateAssets="all" />
-    <PackageReference Include="CodeGeneration.Roslyn.Tool" Version="0.7.63">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-    </PackageReference>
   </ItemGroup>
 
 </Project>

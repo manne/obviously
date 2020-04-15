@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Obviously.SemanticTypes.Generator.Templates.AspNetCore.ModelBinding
 {
-    [Route("api/[controller]")]
+    [Route("api/modelbinding")]
     public class ModelBindingController
     {
         [HttpGet("int/{id}")]

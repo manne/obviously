@@ -1,0 +1,37 @@
+﻿<Project>
+  <PropertyGroup Label="Project">
+    <LangVersion>8.0</LangVersion>
+    <Nullable>enable</Nullable>
+    <MSBuildWarningsAsMessages>$(MSBuildWarningsAsMessages);NU5105</MSBuildWarningsAsMessages>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <IsTestProject Condition="'$(IsTestProject)' == ''">false</IsTestProject>
+    <IsTestProject Condition="$(MSBuildProjectName.EndsWith('Tests'))">true</IsTestProject>
+  </PropertyGroup>
+
+  <ItemGroup Label="Testing" Condition="'$(IsTestProject)' == 'true'">
+    <PackageReference Include="FluentAssertions" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="Newtonsoft.Json" />
+    <PackageReference Include="xunit.core" />
+    <PackageReference Include="xunit.analyzers" />
+    <PackageReference Include="xunit.runner.visualstudio">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="coverlet.collector">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.CodeAnalysis.Analyzers">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+</Project>

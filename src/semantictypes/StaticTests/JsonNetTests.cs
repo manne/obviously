@@ -1,7 +1,6 @@
 ﻿using System;
 using FluentAssertions;
 using Newtonsoft.Json;
-using Obviously.SemanticTypes.Generator;
 using Xunit;
 
 namespace Obviously.SemanticTypes.StaticTests
@@ -17,7 +16,7 @@ namespace Obviously.SemanticTypes.StaticTests
                 }";
             var cut = new PackageIdentifier.PackageIdentifierSemanticTypeConverter();
             var actualResult = JsonConvert.DeserializeObject<NuGetPackage>(json, cut);
-            ((string)actualResult.PackageId).Should().Be("Newtonsoft.Json");
+            ((string)actualResult!.PackageId).Should().Be("Newtonsoft.Json");
         }
 
         [Fact]
@@ -38,7 +37,7 @@ namespace Obviously.SemanticTypes.StaticTests
                 }";
             var cut = new PackageIdentifier.JsonNetConverter();
             var actualResult = JsonConvert.DeserializeObject<NuGetPackage>(json, cut);
-            ((string)actualResult.PackageId).Should().Be("Newtonsoft.Json");
+            ((string)actualResult!.PackageId).Should().Be("Newtonsoft.Json");
         }
 
         [Fact]
@@ -52,7 +51,7 @@ namespace Obviously.SemanticTypes.StaticTests
 
         private class NuGetPackage
         {
-            public PackageIdentifier PackageId { get; set; }
+            public PackageIdentifier? PackageId { get; set; }
         }
     }
 

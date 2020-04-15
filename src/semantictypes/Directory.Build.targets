@@ -1,0 +1,15 @@
+﻿<Project>
+
+  <PropertyGroup Label="NuGet Packages" Condition="'$(IsNuGetPackage)' == 'true'">
+    <Version>0.0.1-preview.7</Version>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <Authors>Manuel Pfemeter</Authors>
+    <RepositoryUrl>https://github.com/manne/obviously</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <MinClientVersion>4.3.0</MinClientVersion>
+    <IsPackable>true</IsPackable>
+    <Company />
+  </PropertyGroup>
+
+</Project>

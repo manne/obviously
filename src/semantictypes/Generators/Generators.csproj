@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <Sdk Name="CodeGeneration.Roslyn.Plugin.Sdk" />
+  <Sdk Name="Microsoft.Build.CentralPackageVersions" />
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <AssemblyName>Obviously.SemanticTypes.Generator</AssemblyName>
+    <RootNamespace>Obviously.SemanticTypes.Generator</RootNamespace>
+    <PackageId>Obviously.SemanticTypes.Generator</PackageId>
+    <Description>A code generator for semantic types.</Description>
+    <PackageTags>codegenerator semantic-types</PackageTags>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <IsNuGetPackage>true</IsNuGetPackage>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\..\LICENSE" Pack="true" PackagePath="" />
+    <Compile Include="../Attributes/*.cs" Link="Attributes/%(RecursiveDir)%(Filename)%(Extension)" />
+  </ItemGroup>
+
+  <ItemGroup Label="Nested Partial Files">
+    <Compile Update="SemanticTypeGenerator.*.cs">
+      <DependentUpon>SemanticTypeGenerator.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Modules\AspNetCoreModelBinding.*.cs">
+      <DependentUpon>Modules\AspNetCoreModelBinding.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+</Project>

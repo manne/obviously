@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Sdk Name="Microsoft.Build.CentralPackageVersions" />
+
+  <PropertyGroup>
+    <TargetFrameworks>net40;netstandard1.0</TargetFrameworks>
+    <AssemblyName>Obviously.SemanticTypes.Attributes</AssemblyName>
+    <PackageId>Obviously.SemanticTypes.Attributes</PackageId>
+    <RootNamespace>Obviously.SemanticTypes</RootNamespace>
+    <Description>Defines `SemanticType` attribute. See project site for more details.</Description>
+    <IsNuGetPackage>true</IsNuGetPackage>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CodeGeneration.Roslyn.Attributes" />
+  </ItemGroup>
+
+</Project>

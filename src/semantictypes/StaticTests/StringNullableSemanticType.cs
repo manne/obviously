@@ -1,4 +1,3 @@
-using Obviously.SemanticTypes.Generator;
 using Xunit;
 
 namespace Obviously.SemanticTypes.StaticTests

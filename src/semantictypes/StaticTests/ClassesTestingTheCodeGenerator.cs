@@ -1,6 +1,4 @@
-﻿using Obviously.SemanticTypes.Generator;
-
-namespace Obviously.SemanticTypes.StaticTests
+﻿namespace Obviously.SemanticTypes.StaticTests
 {
 #pragma warning disable CA1812 // Avoid uninstantiated internal classes
     [SemanticType(typeof(int))]

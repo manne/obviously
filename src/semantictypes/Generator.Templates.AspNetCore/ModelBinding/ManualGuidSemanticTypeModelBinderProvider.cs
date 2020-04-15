@@ -8,7 +8,7 @@ namespace Obviously.SemanticTypes.Generator.Templates.AspNetCore.ModelBinding
 #pragma warning disable IDE0001
     public sealed class ManualGuidSemanticTypeModelBinderProvider : global::Microsoft.AspNetCore.Mvc.ModelBinding.IModelBinderProvider
     {
-        public global::Microsoft.AspNetCore.Mvc.ModelBinding.IModelBinder GetBinder(global::Microsoft.AspNetCore.Mvc.ModelBinding.ModelBinderProviderContext context)
+        public global::Microsoft.AspNetCore.Mvc.ModelBinding.IModelBinder? GetBinder(global::Microsoft.AspNetCore.Mvc.ModelBinding.ModelBinderProviderContext context)
         {
             if (context is null) throw new global::System.ArgumentNullException(nameof(context));
             var metadataForType = context.MetadataProvider.GetMetadataForType(typeof(Guid));

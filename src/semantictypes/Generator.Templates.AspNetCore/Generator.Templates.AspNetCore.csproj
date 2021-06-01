@@ -15,7 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Attributes\Attributes.csproj" />
-    <ProjectReference Include="..\Generator\Generators.csproj" OutputItemType="CodeGenerationRoslynPlugin" ReferenceOutputAssembly="false" SkipGetTargetFrameworkProperties="true" />
+    <ProjectReference Include="..\Generators\Generators.csproj" OutputItemType="CodeGenerationRoslynPlugin" ReferenceOutputAssembly="false" SkipGetTargetFrameworkProperties="true" />
   </ItemGroup>
 
 </Project>
